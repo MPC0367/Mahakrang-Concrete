@@ -1,0 +1,97 @@
+/* ==========================================================================
+   มหาแกร่งคอนกรีต — design tokens
+   Palette is brand-verified: #EC1D25 sampled from the company brochure.
+   ========================================================================== */
+
+:root {
+  /* ---- colour ---- */
+  --red:        #EC1D25;
+  --red-deep:   #B4141B;
+  --red-wash:   #FBE9E9;
+
+  --ink:        #121214;
+  --ink-2:      #1C1D20;
+  --ink-3:      #26282C;
+  --graphite:   #3A3B3E;
+  --steel:      #6E7075;
+  --stone:      #A8A6A1;
+  --concrete:   #D6D3CD;
+  --concrete-2: #E9E6E1;
+  --paper:      #F5F3F0;
+  --white:      #FFFFFF;
+
+  /* semantic */
+  --bg:          var(--paper);
+  --fg:          var(--graphite);
+  --fg-strong:   var(--ink);
+  --fg-muted:    var(--steel);
+  --rule:        var(--concrete);
+  --panel:       var(--white);
+  --accent:      var(--red);
+
+  /* ---- type ---- */
+  --ff-display: "Archivo", "Anuphan", "Helvetica Neue", Arial, sans-serif;
+  --ff-body:    "Anuphan", "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --ff-mono:    "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --fs-hero: clamp(2.75rem, 1.35rem + 6.2vw, 6.5rem);
+  --fs-h1:   clamp(2.125rem, 1.25rem + 3.9vw, 4.25rem);
+  --fs-h2:   clamp(1.6875rem, 1.25rem + 1.9vw, 2.875rem);
+  --fs-h3:   clamp(1.3125rem, 1.13rem + 0.8vw, 1.875rem);
+  --fs-h4:   clamp(1.0625rem, 1.0rem + 0.3vw, 1.25rem);
+  --fs-lead: clamp(1.0625rem, 0.99rem + 0.35vw, 1.3125rem);
+  --fs-body: clamp(1rem, 0.98rem + 0.1vw, 1.0625rem);
+  --fs-sm:   clamp(0.875rem, 0.86rem + 0.08vw, 0.9375rem);
+  --fs-xs:   0.8125rem;
+  --fs-mono: clamp(0.6875rem, 0.66rem + 0.11vw, 0.78125rem);
+
+  /* Thai needs air. These are floors, never go under them. */
+  --lh-display: 1.28;
+  --lh-heading: 1.32;
+  --lh-body:    1.75;
+  --lh-tight:   1.45;
+
+  --tr-display: -0.022em;
+  --tr-mono:     0.14em;
+
+  /* ---- space ---- */
+  --s-1: 0.25rem;  --s-2: 0.5rem;   --s-3: 0.75rem;  --s-4: 1rem;
+  --s-5: 1.5rem;   --s-6: 2rem;     --s-7: 3rem;     --s-8: 4rem;
+  --s-9: 6rem;     --s-10: 8rem;    --s-11: 11rem;
+
+  --page-x:  clamp(1.25rem, 5vw, 4.5rem);
+  --gutter:  clamp(1rem, 2.2vw, 1.75rem);
+  --maxw:    1400px;
+  --maxw-text: 62ch;
+
+  --section-y:   clamp(4rem, 9vw, 9rem);
+  --section-y-l: clamp(5.5rem, 12vw, 11rem);
+
+  /* ---- motion ---- */
+  --ease:      cubic-bezier(.22,.61,.36,1);
+  --ease-in-out: cubic-bezier(.65,.05,.36,1);
+  --t-fast: 180ms;
+  --t-med:  280ms;
+  --t-slow: 520ms;
+
+  /* ---- chrome ---- */
+  --header-h: 68px;
+  --hairline: 1px solid var(--rule);
+  --focus: 2px solid var(--red);
+}
+
+@media (min-width: 900px) {
+  :root { --header-h: 84px; }
+}
+
+/* Dark sections invert the semantic layer rather than restating colours. */
+.inverse {
+  --bg:        var(--ink);
+  --fg:        #C9C7C3;
+  --fg-strong: var(--white);
+  --fg-muted:  #8A8B8F;
+  --rule:      #33353A;
+  --panel:     var(--ink-2);
+  background: var(--bg);
+  color: var(--fg);
+}

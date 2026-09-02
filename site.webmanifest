@@ -1,0 +1,11 @@
+{
+  "name": "มหาแกร่งคอนกรีต — Mahakrang Concrete",
+  "short_name": "มหาแกร่งคอนกรีต",
+  "description": "คอนกรีตผสมเสร็จ บางบัวทอง นนทบุรี",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F5F3F0",
+  "theme_color": "#EC1D25",
+  "lang": "th",
+  "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
