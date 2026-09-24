@@ -4,7 +4,7 @@
 // (kicker, heading, "no results" block, call panel). This module applies the server's rules in the browser:
 // substring terms, title hits score 3 and text hits 1, every term must match, kind chips only when the results
 // span more than one kind. Loaded only on the static /search page.
-import { $, $$ } from './lib.js?v=e54e45d75f';
+import { $, $$ } from './lib.js?v=f0c471f4dc';
 
 const node = $('script[data-search-static]');
 if (node) run(JSON.parse(node.textContent));

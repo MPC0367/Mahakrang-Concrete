@@ -4,7 +4,7 @@
 //
 // All maths is in calc-engine.js. This file only reads the form, shows results and errors, and remembers the
 // visitor's inputs for this page in sessionStorage. Nothing is sent anywhere: no request is ever made.
-import { $, $$, openDialog, copyText, toast, store, reducedMotion } from './lib.js?v=e54e45d75f';
+import { $, $$, openDialog, copyText, toast, store, reducedMotion, iconHref } from './lib.js?v=f0c471f4dc';
 import * as E from './calc-engine.js?v=63e23ab488';
 
 const fill = (t, o) => String(t ?? '').replace(/\{(\w+)\}/g, (_, k) => (o[k] ?? ''));
@@ -16,7 +16,7 @@ function svgIcon(name) {
   const ns = 'http://www.w3.org/2000/svg';
   const s = document.createElementNS(ns, 'svg');
   s.setAttribute('class', `i i-${name}`); s.setAttribute('aria-hidden', 'true'); s.setAttribute('focusable', 'false');
-  const u = document.createElementNS(ns, 'use'); u.setAttribute('href', `/Mahakrang-Concrete/img/icons.svg#${name}`);
+  const u = document.createElementNS(ns, 'use'); u.setAttribute('href', iconHref(name));
   s.appendChild(u); return s;
 }
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }

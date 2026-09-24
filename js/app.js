@@ -1,6 +1,6 @@
 // Global behaviour on every page: dialogs (menu, search), header state, copy-number,
 // back-to-top and live content updates (SSE with a polling fallback).
-import { $, $$, boot, openDialog, copyText, toast, reducedMotion } from './lib.js?v=e54e45d75f';
+import { $, $$, boot, openDialog, copyText, toast, reducedMotion } from './lib.js?v=f0c471f4dc';
 
 const B = boot();
 

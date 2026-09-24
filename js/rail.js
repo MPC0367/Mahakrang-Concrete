@@ -8,7 +8,7 @@
 // button resets, and an empty state appears when nothing matches. Strength chips and specialty-family chips are
 // different data: a strength chip matches graded mixes by value (ksc), a family chip matches specialty mixes by key.
 // Without JS every row is listed (the server renders them all; `.js .is-extra` only hides extras when JS runs).
-import { $, $$, boot, reducedMotion, store } from './lib.js?v=e54e45d75f';
+import { $, $$, boot, reducedMotion, store } from './lib.js?v=f0c471f4dc';
 import { watchPhrases } from './calc-engine.js?v=63e23ab488';
 
 const B = boot();

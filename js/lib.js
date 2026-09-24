@@ -65,6 +65,26 @@ export function tabbables(root) {
   });
 }
 
+/**
+ * Sprite reference for an icon built in the browser. It copies the prefix of an icon the server already rendered on
+ * this page (<svg class="i i-name"><use href="…#name">), so it keeps whatever that page uses: the sprite's version
+ * key, the static build's base path, or the artifact's inline "#i-" ids.
+ */
+let spritePrefix = null;
+export function iconHref(name) {
+  if (spritePrefix == null) {
+    spritePrefix = '/Mahakrang-Concrete/img/icons.svg#';
+    for (const u of document.querySelectorAll('svg.i > use')) {
+      const own = [...u.parentNode.classList].find((c) => c.startsWith('i-'));
+      const href = u.getAttribute('href') || '';
+      const nm = own ? own.slice(2) : '';
+      // "…icons.svg?v=x#menu" -> "…icons.svg?v=x#";  "#i-menu" -> "#i-"
+      if (nm && href.endsWith(nm) && /#(i-)?$/.test(href.slice(0, -nm.length))) { spritePrefix = href.slice(0, -nm.length); break; }
+    }
+  }
+  return spritePrefix + name;
+}
+
 export async function copyText(text) {
   try { await navigator.clipboard.writeText(text); return true; }
   catch {

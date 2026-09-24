@@ -5,7 +5,7 @@
 // - Batch detail: measurement views highlight their summary cells; share (native, copy-link fallback);
 //   "ดูทั้งหมด" opens the shared media viewer and returns focus to itself.
 // Everything degrades to readable, linked content without JS (see lab.css .no-js rules).
-import { $, $$, boot, copyText, toast, reducedMotion } from './lib.js?v=e54e45d75f';
+import { $, $$, boot, copyText, toast, reducedMotion } from './lib.js?v=f0c471f4dc';
 
 const B = boot();
 const cleanups = [];

@@ -5,7 +5,7 @@
 //      data-caption="..." data-stamp="อัปโหลดภาพ: ..." data-alt="...">thumbnail</a>
 // Without JS the link simply opens the large image. With JS a modal <dialog> shows the item with
 // its caption and ITS OWN upload time, arrows/keyboard/swipe navigation, and focus returns on close.
-import { $$, boot, reducedMotion } from './lib.js?v=e54e45d75f';
+import { $$, boot, reducedMotion, iconHref } from './lib.js?v=f0c471f4dc';
 
 const B = boot();
 const T = B.lang === 'en'
@@ -14,7 +14,7 @@ const T = B.lang === 'en'
 
 let dlg, stage, cap, stampEl, count, items = [], index = 0, opener = null;
 
-function icon(name) { return `<svg class="i" aria-hidden="true"><use href="/Mahakrang-Concrete/img/icons.svg#${name}"></use></svg>`; }
+function icon(name) { return `<svg class="i i-${name}" aria-hidden="true"><use href="${iconHref(name)}"></use></svg>`; }
 
 function build() {
   dlg = document.createElement('dialog');

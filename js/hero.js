@@ -9,7 +9,7 @@
 // focus inside, hidden tab, an open dialog, hero scrolled away, page hidden) pause it without
 // changing that state. An explicit pause is never undone automatically. Reduced motion or an
 // editor-disabled autoplay starts with rotation off; the controls still work.
-import { $, $$, announce, reducedMotion } from './lib.js?v=e54e45d75f';
+import { $, $$, announce, reducedMotion } from './lib.js?v=f0c471f4dc';
 
 const root = $('[data-hm-carousel]');
 if (root) setup(root);
