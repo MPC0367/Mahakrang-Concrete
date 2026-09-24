@@ -3379,6 +3379,11 @@ html:has(.pg-toc) { scroll-padding-top: calc(var(--hdr-h) + 84px); }
 .pg-loc__pt { position: absolute; left: 50%; top: 50%; width: 18px; height: 18px; transform: translate(-50%, -50%); border-radius: 50%; background: var(--red); box-shadow: 0 0 0 5px #fff, 0 4px 14px rgba(0,0,0,.25); }
 .pg-loc__pt--approx { background: #fff; border: 4px solid var(--red); box-shadow: 0 2px 10px rgba(0,0,0,.18); }
 @media (min-width: 900px) { .pg-loc__art { aspect-ratio: auto; min-height: 380px; } }
+/* Interactive Google map (company listing / confirmed entrance). Same frame as the diagram it replaces; a little
+   taller on phones so the place card and the pin both fit. */
+.pg-loc__map { position: relative; overflow: hidden; min-height: 300px; aspect-ratio: 4 / 3.4; border-radius: var(--r-outer); background: var(--panel); box-shadow: inset 0 0 0 1px var(--line); }
+.pg-loc__map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+@media (min-width: 900px) { .pg-loc__map { aspect-ratio: auto; min-height: 420px; } }
 .pg-loc__info { display: grid; align-content: center; justify-items: start; gap: 14px; padding: clamp(4px, 2vw, 24px) 0; }
 .pg-loc__badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 13px 5px 10px; border-radius: var(--r-pill); background: var(--green-wash); color: var(--green); font-size: 13.5px; font-weight: 600; }
 .pg-loc__badge--approx { background: var(--amber-wash); color: var(--amber); border: 1px solid var(--amber-line); }
