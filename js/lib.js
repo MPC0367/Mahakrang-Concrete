@@ -73,7 +73,7 @@ export function tabbables(root) {
 let spritePrefix = null;
 export function iconHref(name) {
   if (spritePrefix == null) {
-    spritePrefix = '/Mahakrang-Concrete/img/icons.svg#';
+    spritePrefix = '/img/icons.svg#';
     for (const u of document.querySelectorAll('svg.i > use')) {
       const own = [...u.parentNode.classList].find((c) => c.startsWith('i-'));
       const href = u.getAttribute('href') || '';
