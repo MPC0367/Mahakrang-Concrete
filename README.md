@@ -14,6 +14,10 @@ Since 9 Nov 2026 the site is served from the domain's root, so every address sta
 `CNAME` file: without it GitHub Pages drops the custom domain.
 
 Content is managed in the v2 admin, which needs the Node server and is not part of this static site.
-This is a review build: pages carry `noindex`, and records marked "ข้อมูลตัวอย่าง" are sample data.
+Search engines may list it since 9 Nov 2026 (the owner's word): content pages carry `index, follow`, an absolute
+canonical and th/en hreflang, `robots.txt` names `sitemap.xml` (58 pages). Kept `noindex`: the redirect pages, 404s,
+search results, the order-by-phone contact page and the three lab batch reports (sample test records). The IndexNow key
+file is the 32-character `.txt` at the root. Records marked "ข้อมูลตัวอย่าง" are still sample data. A rebuild from the
+source must keep all of this.
 
 The previous site is kept at the tag `v1-previous-site`.
