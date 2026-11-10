@@ -3586,3 +3586,12 @@ html:has(.pg-toc) { scroll-padding-top: calc(var(--hdr-h) + 84px); }
     .pg-lgrid--stagger .pg-lcard__more { margin-top: 6px; }
   }
 }
+
+/* ---------------------------------------------------------------- O2 studio credit: the last thing on every page
+   O2 Design Studio's mark (assets/brand/o2-mark.svg in the studio). A name, so it does not change with the language.
+   It takes the legal line's grey and its links' red hover. svg is display:block in the reset above, so the mark
+   needs inline-block to stay on the words' line. */
+.ftr__credit { flex-basis: 100%; }
+.o2-credit { display: inline-flex; align-items: center; min-height: 44px; color: inherit; text-decoration: none; font-size: 11px; line-height: 1; letter-spacing: .2em; text-transform: uppercase; }
+.o2-credit__lockup { white-space: nowrap; }
+.o2-credit__mark { display: inline-block; width: 1.95em; height: 1.6em; margin-right: .5em; vertical-align: -.366em; }

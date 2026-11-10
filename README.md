@@ -20,5 +20,9 @@ search results, the order-by-phone contact page and the three lab batch reports 
 file is the 32-character `.txt` at the root. Records marked "ข้อมูลตัวอย่าง" are still sample data.
 Since 10 Nov 2026 the site is no longer a review build (the owner's word): the "Structural review build" bar is off
 every page; each sample record keeps its own "Sample data" label. A rebuild from the source must keep all of this.
+Since 10 Nov 2026 every page with a footer (70) ends with O2 Design Studio's credit, the O2 mark and DESIGN STUDIO
+linked to o2-designstudio.com, as the last line of `.ftr__legal` (`.ftr__credit`; styles at the end of
+`assets/site.css`, whose `?v=` is the first 10 characters of its SHA-1). The source on the other computer does not
+draw it yet: add it there, or a rebuild drops it.
 
 The previous site is kept at the tag `v1-previous-site`.
