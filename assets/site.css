@@ -1488,21 +1488,19 @@ a.cc-q__a:hover .cc-q__t { color: var(--red-dk); }
 .hm-jump { display: none; }
 
 /* ---------------------------------------------------------------- gateways: photo tiles (R1)
-   One format at every width: the photograph fills its frame and the words sit on it in white. The owner,
-   18 Nov 2026, on phones: "match the format in terms of how the pictures fill the frames the same way it
-   does on the computer". So phones stack the tiles one per row at the desktop tile's 16:10, which crops
-   each photo exactly as the computer does (same shape, same focal point); 768px and up is the 2 x 2 mosaic. */
+   One format at every width: a 2 x 2 grid where each photograph fills its frame and the words sit on it in
+   white. The owner, 18 Nov 2026: the photos fill their frames on the phone as on the computer, all four
+   cards on one phone screen (R2's 2 x 2), and no white band. */
 .hm-gw {
   max-width: 1920px; margin-inline: auto;
   padding: 12px max(12px, env(safe-area-inset-right, 0px)) 28px max(12px, env(safe-area-inset-left, 0px));
 }
 .hm-gw:focus-visible { outline-offset: -2px; border-radius: 4px; }
-.hm-gw__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+.hm-gw__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 .hm-gw__item { display: flex; min-width: 0; }
 
-/* the frame grows past 16:10 only if large text needs the room */
 .hm-tile {
-  position: relative; flex: 1; min-width: 0; display: flex; flex-direction: column; aspect-ratio: 16 / 10;
+  position: relative; flex: 1; min-width: 0; display: flex; flex-direction: column;
   color: #fff; background: #1b1b1d; border-radius: var(--r-tile); isolation: isolate;
   -webkit-tap-highlight-color: transparent;
 }
@@ -1523,20 +1521,19 @@ a.cc-q__a:hover .cc-q__t { color: var(--red-dk); }
     radial-gradient(105% 120% at 0% 0%, rgba(10,10,12,.72) 0%, rgba(10,10,12,.52) 34%, rgba(10,10,12,.18) 62%, rgba(10,10,12,0) 84%),
     radial-gradient(62% 52% at 0% 100%, rgba(10,10,12,.56) 0%, rgba(10,10,12,.3) 50%, rgba(10,10,12,0) 100%);
 }
-.hm-tile__text { position: relative; z-index: 1; display: grid; align-content: start; gap: 0; max-width: 80%; padding: 18px 18px 0; }
-.hm-tile__num { font-size: 13px; font-weight: 500; line-height: 1.5; color: rgba(255,255,255,.92); font-variant-numeric: tabular-nums; }
+.hm-tile__text { position: relative; z-index: 1; display: grid; align-content: start; gap: 0; padding: 12px 12px 0; }
+.hm-tile__num { font-size: 12px; font-weight: 500; line-height: 1.5; color: rgba(255,255,255,.92); font-variant-numeric: tabular-nums; }
 /* R1: bold (not black) white titles, regular-weight description */
-.hm-tile__title { margin-top: 2px; font-family: var(--f-display); font-weight: 700; font-size: clamp(27px, 7.2vw, 34px); line-height: 1.14; color: #fff; text-wrap: balance; }
+.hm-tile__title { margin-top: 2px; font-family: var(--f-display); font-weight: 700; font-size: clamp(21px, 1rem + 1.8vw, 25px); line-height: 1.18; color: #fff; text-wrap: balance; }
 .hm-tbr { display: inline; }          /* the editor's title break ("ไลฟ์สไตล์" / "คนแกร่ง"), as on the computer */
-.hm-tile__body { margin-top: 6px; font-size: 15px; font-weight: 400; line-height: 1.45; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.35); }
+.hm-tile__body { margin-top: 3px; font-size: 13.5px; font-weight: 400; line-height: 1.45; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.4); }
 .hm-tile__tag { display: none; }
 .hm-tile__more {
   position: relative; z-index: 1; margin-top: auto; align-self: flex-start;
-  display: flex; align-items: center; gap: 12px; padding: 12px 18px 16px;
-  font-size: 14px; font-weight: 500; color: #fff;
+  display: flex; align-items: center; color: #fff; font-weight: 500;
 }
 .hm-tile__arrow {
-  width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%;
+  width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%;
   background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,.92);
   transition: background var(--t-med) var(--ease), color var(--t-med) var(--ease), transform var(--t-med) var(--ease);
 }
@@ -1567,6 +1564,26 @@ a.cc-q__a:hover .cc-q__t { color: var(--red-dk); }
   /* hero copy: lines that set tighter run together on phones (see bodyCopy); still no one-word widow.
      The gateway tiles keep the editor's lines on phones, as the desktop mosaic does. */
   .hm-slide__body.hm-flow-sm .hm-bl { display: inline; }
+
+  /* gateway tiles: the 2 x 2 fits one phone screen with the hero hidden (both rows end at ~656px at 390).
+     The words sit on the photo over a shade on their own edge only; the plant and crew photos keep their
+     subjects low, so their words go at the top; the team and lifestyle photos carry the มหาแกร่ง sign and
+     banner at the top, so theirs go along the bottom (CAPTION_BOTTOM in home.ts). The link is the arrow alone. */
+  .hm-tile { min-height: clamp(220px, 66vw, 300px); }
+  /* short screens (iPhone SE, 375 x 667): both rows still fit under the header (72px + 28px of gaps) */
+  @supports (height: 100svh) { .hm-tile { min-height: clamp(220px, min(66vw, (100svh - 100px) / 2), 300px); } }
+  .hm-tile__media::after { background: linear-gradient(180deg, rgba(10,10,12,.78) 0%, rgba(10,10,12,.6) 30%, rgba(10,10,12,.22) 52%, rgba(10,10,12,0) 68%); }
+  .hm-tile__more { position: absolute; right: 0; bottom: 0; padding: 0 10px 10px 0; }
+  .hm-tile__more-t { display: none; }
+  /* a solid button: an outline vanishes over a white roof or a bright forecourt */
+  .hm-tile__arrow { background: #fff; color: var(--ink); border: 0; box-shadow: 0 2px 10px rgba(16,16,16,.28); }
+  .hm-tile--capbottom { justify-content: flex-end; }
+  .hm-tile--capbottom .hm-tile__text { padding-bottom: 50px; }
+  .hm-tile--capbottom .hm-tile__media::after { background: linear-gradient(0deg, rgba(10,10,12,.82) 0%, rgba(10,10,12,.64) 30%, rgba(10,10,12,.24) 52%, rgba(10,10,12,0) 66%); }
+}
+/* narrow reflow / large text: one tile per row */
+@media (max-width: 339px), (max-width: 21.2em) {
+  .hm-gw__grid { grid-template-columns: minmax(0, 1fr); }
 }
 @media (min-width: 420px) and (max-width: 767px) {
   .hm-slide { --hm-copy-w: 56%; }
@@ -1678,8 +1695,8 @@ a.cc-q__a:hover .cc-q__t { color: var(--red-dk); }
   }
   .hm-gw__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(6px, .6vw, 10px); }
   /* R1's tile is ~1.6:1; the height follows the width so the mosaic keeps its proportions */
-  .hm-tile { aspect-ratio: auto; min-height: clamp(300px, 30.4vw, 560px); }
-  .hm-tile__text { padding: clamp(28px, 3.6vw, 64px) clamp(24px, 2.8vw, 52px) 0; }
+  .hm-tile { min-height: clamp(300px, 30.4vw, 560px); }
+  .hm-tile__text { padding: clamp(28px, 3.6vw, 64px) clamp(24px, 2.8vw, 52px) 0; max-width: 80%; }
   .hm-tile__num { font-size: clamp(13px, 1vw, 16px); }
   .hm-tile__title { margin-top: clamp(4px, .5vw, 8px); font-size: clamp(38px, 5.1vw, 84px); text-wrap: nowrap; }
   .hm-tile__body { margin-top: clamp(6px, .7vw, 12px); font-size: clamp(16px, 1.45vw, 24px); }
