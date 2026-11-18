@@ -1488,8 +1488,9 @@ a.cc-q__a:hover .cc-q__t { color: var(--red-dk); }
 .hm-jump { display: none; }
 
 /* ---------------------------------------------------------------- gateways: R2 cards on phones
-   R2's card is nearly square (181 x 191 at 390): a white text band, then the photo, which rises
-   up behind the last line of copy through a white fade rather than starting at a hard edge. */
+   R2's card: a white text band, then the photo across the bottom. Since the company supplied its own
+   card photos (2026-11-18, with a phone mockup) the photo starts on a clean edge below the copy:
+   their photos carry signage and banners, and a white fade over them read as ghosted lettering. */
 .hm-gw {
   max-width: 1920px; margin-inline: auto; --hm-card-r: 8px;
   padding: 12px max(12px, env(safe-area-inset-right, 0px)) 28px max(12px, env(safe-area-inset-left, 0px));
@@ -1513,14 +1514,13 @@ a.cc-q__a:hover .cc-q__t { color: var(--red-dk); }
 .hm-tbr { display: none; }            /* the editor's title break only where the title cannot fit (see tileTitle) */
 .hm-tile__body { margin-top: 2px; font-size: 14px; line-height: 1.45; color: var(--grey); }
 .hm-tile__media {
-  position: relative; flex: 1 0 auto; height: clamp(92px, 27vw, 128px); margin: -22px -1px -1px;
+  position: relative; flex: 1 0 auto; height: clamp(104px, 31vw, 150px); margin: 10px -1px -1px;
   overflow: hidden; border-radius: 0 0 var(--hm-card-r) var(--hm-card-r); background-color: var(--panel);
 }
 .hm-tile__media picture { position: absolute; inset: 0; }
 .hm-tile__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) var(--fy, 50%); transition: transform 900ms cubic-bezier(.16,.72,.2,1); }
-/* the top ~22px sit behind the last line of copy and stay near-white (grey copy keeps >= 4.5:1);
-   eased below that so a dark photo top never leaves a muddy grey band */
-.hm-tile__media::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,.96) 10%, rgba(255,255,255,.86) 18%, rgba(255,255,255,.62) 26%, rgba(255,255,255,.34) 34%, rgba(255,255,255,.13) 41%, rgba(255,255,255,0) 48%); }
+/* phones: no veil, the photo shows as shot (the desktop mosaic sets its own readability grade) */
+.hm-tile__media::after { content: ""; position: absolute; inset: 0; pointer-events: none; }
 .hm-tile__tag { display: none; }
 .hm-tile__more { position: absolute; right: 8px; bottom: 8px; z-index: 1; }
 .hm-tile__more-t { display: none; }
@@ -1559,15 +1559,10 @@ a.cc-q__a:hover .cc-q__t { color: var(--red-dk); }
      editor's desktop lines run together and balance (never "Building / a future / stronger / ...") */
   .hm-slide__title--latin { font-size: clamp(24px, 6.6cqw, 30px); line-height: 1.1; }
   .hm-slide__title--latin .hm-line { display: inline; }
+  /* the two cards of a row are the same height and their photos end on one line; each photo starts
+     right under its own copy and grows into the room a shorter text leaves (no white gap above it,
+     and the square team photo shows the sign as well as the people, as in the company's mockup) */
   .hm-tile__media { order: 2; }
-  /* the two cards of a row share one text band (subgrid), so their photos start on the same line
-     as well as ending on it, whatever the copy length */
-  @supports (grid-template-rows: subgrid) {
-    .hm-gw__item { display: grid; grid-row: span 2; grid-template-rows: subgrid; row-gap: 0; }
-    .hm-tile { display: grid; grid-row: span 2; grid-template-rows: subgrid; row-gap: 0; }
-    .hm-tile__text { grid-row: 1; }
-    .hm-tile__media { grid-row: 2; }
-  }
   /* lines that set tighter run together on phones (see bodyCopy); still no one-word widow */
   .hm-flow-sm .hm-bl { display: inline; }
   .hm-tile__body.hm-flow-sm { text-wrap: pretty; }
@@ -1745,6 +1740,9 @@ a.cc-q__a:hover .cc-q__t { color: var(--red-dk); }
     display: block; position: absolute; right: clamp(24px, 2.8vw, 52px); z-index: 1;
     padding-bottom: 10px; font-size: clamp(11.5px, .85vw, 13.5px); font-weight: 600; line-height: 1.55; color: #fff;
     text-shadow: 0 1px 2px rgba(0,0,0,.35);
+    /* the editor sets the lines (each newline is a break); never re-wrap them, so a place name such as
+       "FROM BANG BUA THONG" stays on one line in Safari too (WebKit sized the box narrower than Chromium) */
+    white-space: nowrap;
   }
   /* the tagline corner gets its own shade inside the clipped photo layer */
   .hm-tile--tagtop { --hm-tag-shade: radial-gradient(38% 50% at 100% 0%, rgba(10,10,12,.86), rgba(10,10,12,.62) 50%, rgba(10,10,12,0)); }
