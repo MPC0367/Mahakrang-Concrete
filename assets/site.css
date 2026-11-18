@@ -1487,12 +1487,12 @@ a.cc-q__a:hover .cc-q__t { color: var(--red-dk); }
 /* ---------------------------------------------------------------- jump to the gateways (page level, R1 lower-left) */
 .hm-jump { display: none; }
 
-/* ---------------------------------------------------------------- gateways: photo tiles (R1)
-   One format at every width: a 2 x 2 grid where each photograph fills its frame and the words sit on it in
-   white. The owner, 18 Nov 2026: the photos fill their frames on the phone as on the computer, all four
-   cards on one phone screen (R2's 2 x 2), and no white band. */
+/* ---------------------------------------------------------------- gateways: R2 cards on phones
+   R2's card: a white text band, then the photo across the bottom. Since the company supplied its own
+   card photos (2026-11-18, with a phone mockup) the photo starts on a clean edge below the copy:
+   their photos carry signage and banners, and a white fade over them read as ghosted lettering. */
 .hm-gw {
-  max-width: 1920px; margin-inline: auto;
+  max-width: 1920px; margin-inline: auto; --hm-card-r: 8px;
   padding: 12px max(12px, env(safe-area-inset-right, 0px)) 28px max(12px, env(safe-area-inset-left, 0px));
 }
 .hm-gw:focus-visible { outline-offset: -2px; border-radius: 4px; }
@@ -1501,49 +1501,47 @@ a.cc-q__a:hover .cc-q__t { color: var(--red-dk); }
 
 .hm-tile {
   position: relative; flex: 1; min-width: 0; display: flex; flex-direction: column;
-  color: #fff; background: #1b1b1d; border-radius: var(--r-tile); isolation: isolate;
+  background: #fff; color: var(--ink); border: 1px solid var(--line); border-radius: var(--hm-card-r);
+  box-shadow: 0 1px 2px rgba(16,16,16,.04), 0 8px 18px -16px rgba(16,16,16,.28);
+  transition: box-shadow var(--t-med) var(--ease), border-color var(--t-med) var(--ease);
   -webkit-tap-highlight-color: transparent;
 }
-.hm-tile:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: var(--r-tile); }
-.hm-tile__media { position: absolute; inset: 0; z-index: -1; overflow: hidden; border-radius: inherit; background-color: var(--panel); }
+.hm-tile:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; border-radius: var(--hm-card-r); }
+.hm-tile__text { position: relative; z-index: 1; display: grid; align-content: start; gap: 1px; padding: 11px 12px 4px; }
+.hm-tile__num { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; line-height: 1.5; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.hm-tile__num::after { content: ""; width: 22px; height: 1px; background: currentColor; opacity: .45; }
+.hm-tile__title { font-family: var(--f-display); font-weight: 600; font-size: clamp(21px, 1rem + 1.8vw, 25px); line-height: 1.18; color: var(--ink); text-wrap: balance; }
+.hm-tbr { display: none; }            /* the editor's title break only where the title cannot fit (see tileTitle) */
+.hm-tile__body { margin-top: 2px; font-size: 14px; line-height: 1.45; color: var(--grey); }
+.hm-tile__media {
+  position: relative; flex: 1 0 auto; height: clamp(104px, 31vw, 150px); margin: 10px -1px -1px;
+  overflow: hidden; border-radius: 0 0 var(--hm-card-r) var(--hm-card-r); background-color: var(--panel);
+}
 .hm-tile__media picture { position: absolute; inset: 0; }
 .hm-tile__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) var(--fy, 50%); transition: transform 900ms cubic-bezier(.16,.72,.2,1); }
-/* dark, localized readability grade: heavy where the words sit (left column + top-left corner),
-   the photograph left vivid on the right. Tuned so white copy stays >= 4.5:1 (titles >= 3:1)
-   even over the brightest pixels of a white truck - measured, not guessed. No full-frame veil and
-   no full-width bottom band: the shade lives only where words sit (copy column, lower-left link,
-   and from 1100px the tagline corner) so the rest of each photograph stays vivid. */
-.hm-tile__media::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background:
-    var(--hm-tag-shade, linear-gradient(transparent, transparent)),
-    linear-gradient(90deg, rgba(10,10,12,.6) 0%, rgba(10,10,12,.54) 36%, rgba(10,10,12,.26) 56%, rgba(10,10,12,0) 74%),
-    radial-gradient(105% 120% at 0% 0%, rgba(10,10,12,.72) 0%, rgba(10,10,12,.52) 34%, rgba(10,10,12,.18) 62%, rgba(10,10,12,0) 84%),
-    radial-gradient(62% 52% at 0% 100%, rgba(10,10,12,.56) 0%, rgba(10,10,12,.3) 50%, rgba(10,10,12,0) 100%);
-}
-.hm-tile__text { position: relative; z-index: 1; display: grid; align-content: start; gap: 0; padding: 12px 12px 0; }
-.hm-tile__num { font-size: 12px; font-weight: 500; line-height: 1.5; color: rgba(255,255,255,.92); font-variant-numeric: tabular-nums; }
-/* R1: bold (not black) white titles, regular-weight description */
-.hm-tile__title { margin-top: 2px; font-family: var(--f-display); font-weight: 700; font-size: clamp(21px, 1rem + 1.8vw, 25px); line-height: 1.18; color: #fff; text-wrap: balance; }
-.hm-tbr { display: inline; }          /* the editor's title break ("ไลฟ์สไตล์" / "คนแกร่ง"), as on the computer */
-.hm-tile__body { margin-top: 3px; font-size: 13.5px; font-weight: 400; line-height: 1.45; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.4); }
+/* phones: no veil, the photo shows as shot (the desktop mosaic sets its own readability grade) */
+.hm-tile__media::after { content: ""; position: absolute; inset: 0; pointer-events: none; }
 .hm-tile__tag { display: none; }
-.hm-tile__more {
-  position: relative; z-index: 1; margin-top: auto; align-self: flex-start;
-  display: flex; align-items: center; color: #fff; font-weight: 500;
-}
+.hm-tile__more { position: absolute; right: 8px; bottom: 8px; z-index: 1; }
+.hm-tile__more-t { display: none; }
 .hm-tile__arrow {
-  width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%;
-  background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,.92);
+  width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%;
+  background: #fff; color: var(--ink); box-shadow: 0 2px 10px rgba(16,16,16,.2);
   transition: background var(--t-med) var(--ease), color var(--t-med) var(--ease), transform var(--t-med) var(--ease);
 }
 .hm-tile__arrow .i { width: 17px; height: 17px; }
 @media (hover: hover) {
+  .hm-tile:hover { border-color: #d6d6da; box-shadow: 0 1px 2px rgba(16,16,16,.05), 0 16px 30px -18px rgba(16,16,16,.4); }
   .hm-tile:hover .hm-tile__img { transform: scale(1.05); }
-  .hm-tile:hover .hm-tile__arrow { background: #fff; color: var(--ink); transform: translateX(3px); }
+  .hm-tile:hover .hm-tile__arrow { background: var(--red); color: #fff; }
 }
 .hm-tile:active .hm-tile__arrow { transform: scale(.94); }
-.hm-tile--noimg { background: var(--ink-2); }
+
+/* narrow reflow / large text: one column (the approved phone layout stays 2 x 2) */
+@media (max-width: 339px), (max-width: 21.2em) {
+  .hm-gw__grid { grid-template-columns: 1fr; }
+  .hm-tile__media { height: 150px; }
+}
 
 /* ==========================================================================
    phones: R2 hero tuning
@@ -1561,29 +1559,13 @@ a.cc-q__a:hover .cc-q__t { color: var(--red-dk); }
      editor's desktop lines run together and balance (never "Building / a future / stronger / ...") */
   .hm-slide__title--latin { font-size: clamp(24px, 6.6cqw, 30px); line-height: 1.1; }
   .hm-slide__title--latin .hm-line { display: inline; }
-  /* hero copy: lines that set tighter run together on phones (see bodyCopy); still no one-word widow.
-     The gateway tiles keep the editor's lines on phones, as the desktop mosaic does. */
-  .hm-slide__body.hm-flow-sm .hm-bl { display: inline; }
-
-  /* gateway tiles: the 2 x 2 fits one phone screen with the hero hidden (both rows end at ~656px at 390).
-     The words sit on the photo over a shade on their own edge only; the plant and crew photos keep their
-     subjects low, so their words go at the top; the team and lifestyle photos carry the มหาแกร่ง sign and
-     banner at the top, so theirs go along the bottom (CAPTION_BOTTOM in home.ts). The link is the arrow alone. */
-  .hm-tile { min-height: clamp(220px, 66vw, 300px); }
-  /* short screens (iPhone SE, 375 x 667): both rows still fit under the header (72px + 28px of gaps) */
-  @supports (height: 100svh) { .hm-tile { min-height: clamp(220px, min(66vw, (100svh - 100px) / 2), 300px); } }
-  .hm-tile__media::after { background: linear-gradient(180deg, rgba(10,10,12,.78) 0%, rgba(10,10,12,.6) 30%, rgba(10,10,12,.22) 52%, rgba(10,10,12,0) 68%); }
-  .hm-tile__more { position: absolute; right: 0; bottom: 0; padding: 0 10px 10px 0; }
-  .hm-tile__more-t { display: none; }
-  /* a solid button: an outline vanishes over a white roof or a bright forecourt */
-  .hm-tile__arrow { background: #fff; color: var(--ink); border: 0; box-shadow: 0 2px 10px rgba(16,16,16,.28); }
-  .hm-tile--capbottom { justify-content: flex-end; }
-  .hm-tile--capbottom .hm-tile__text { padding-bottom: 50px; }
-  .hm-tile--capbottom .hm-tile__media::after { background: linear-gradient(0deg, rgba(10,10,12,.82) 0%, rgba(10,10,12,.64) 30%, rgba(10,10,12,.24) 52%, rgba(10,10,12,0) 66%); }
-}
-/* narrow reflow / large text: one tile per row */
-@media (max-width: 339px), (max-width: 21.2em) {
-  .hm-gw__grid { grid-template-columns: minmax(0, 1fr); }
+  /* the two cards of a row are the same height and their photos end on one line; each photo starts
+     right under its own copy and grows into the room a shorter text leaves (no white gap above it,
+     and the square team photo shows the sign as well as the people, as in the company's mockup) */
+  .hm-tile__media { order: 2; }
+  /* lines that set tighter run together on phones (see bodyCopy); still no one-word widow */
+  .hm-flow-sm .hm-bl { display: inline; }
+  .hm-tile__body.hm-flow-sm { text-wrap: pretty; }
 }
 @media (min-width: 420px) and (max-width: 767px) {
   .hm-slide { --hm-copy-w: 56%; }
@@ -1688,20 +1670,50 @@ a.cc-q__a:hover .cc-q__t { color: var(--red-dk); }
   .hm-jump:hover .hm-jump__arrow .i, .hm-jump:focus-visible .hm-jump__arrow .i { transform: rotate(90deg); }
   .hm-jump:hover::before, .hm-jump:focus-visible::before { width: 44px; background: var(--red); }
 
-  /* ---- gateways: the 2 x 2 photo mosaic (R1); the tile itself is set up for every width above */
+  /* ---- gateways: full-bleed 2 x 2 photo mosaic (R1) */
   .hm-gw {
     padding: clamp(6px, .7vw, 12px) max(clamp(8px, 1vw, 16px), env(safe-area-inset-right, 0px))
              clamp(8px, 1vw, 16px) max(clamp(8px, 1vw, 16px), env(safe-area-inset-left, 0px));
   }
-  .hm-gw__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(6px, .6vw, 10px); }
+  .hm-gw__grid { gap: clamp(6px, .6vw, 10px); }
   /* R1's tile is ~1.6:1; the height follows the width so the mosaic keeps its proportions */
-  .hm-tile { min-height: clamp(300px, 30.4vw, 560px); }
-  .hm-tile__text { padding: clamp(28px, 3.6vw, 64px) clamp(24px, 2.8vw, 52px) 0; max-width: 80%; }
-  .hm-tile__num { font-size: clamp(13px, 1vw, 16px); }
-  .hm-tile__title { margin-top: clamp(4px, .5vw, 8px); font-size: clamp(38px, 5.1vw, 84px); text-wrap: nowrap; }
-  .hm-tile__body { margin-top: clamp(6px, .7vw, 12px); font-size: clamp(16px, 1.45vw, 24px); }
-  .hm-tile__more { gap: 14px; padding: 16px clamp(24px, 2.8vw, 52px) clamp(22px, 3vw, 52px); font-size: clamp(15px, 1.1vw, 18px); }
-  .hm-tile__arrow { width: clamp(36px, 2.9vw, 48px); height: clamp(36px, 2.9vw, 48px); }
+  .hm-tile {
+    min-height: clamp(300px, 30.4vw, 560px); color: #fff; background: #1b1b1d;
+    border: 0; border-radius: var(--r-tile); box-shadow: none; isolation: isolate;
+  }
+  .hm-tile:focus-visible { outline-offset: 3px; border-radius: var(--r-tile); }
+  .hm-tile__media { position: absolute; inset: 0; z-index: -1; height: auto; margin: 0; border-radius: inherit; }
+  /* dark, localized readability grade: heavy where the words sit (left column + top-left corner),
+     the photograph left vivid on the right. Tuned so white copy stays >= 4.5:1 (titles >= 3:1)
+     even over the brightest pixels of a white truck - measured, not guessed. */
+  /* no full-frame veil and no full-width bottom band: the shade lives only where words sit
+     (copy column, lower-left link, tagline corner) so the rest of each photograph stays vivid */
+  .hm-tile__media::after {
+    background:
+      var(--hm-tag-shade, linear-gradient(transparent, transparent)),
+      linear-gradient(90deg, rgba(10,10,12,.6) 0%, rgba(10,10,12,.54) 36%, rgba(10,10,12,.26) 56%, rgba(10,10,12,0) 74%),
+      radial-gradient(105% 120% at 0% 0%, rgba(10,10,12,.72) 0%, rgba(10,10,12,.52) 34%, rgba(10,10,12,.18) 62%, rgba(10,10,12,0) 84%),
+      radial-gradient(62% 52% at 0% 100%, rgba(10,10,12,.56) 0%, rgba(10,10,12,.3) 50%, rgba(10,10,12,0) 100%);
+  }
+  .hm-tbr { display: inline; }
+  .hm-tile__text { padding: clamp(28px, 3.6vw, 64px) clamp(24px, 2.8vw, 52px) 0; gap: 0; max-width: 80%; }
+  .hm-tile__num { font-size: clamp(13px, 1vw, 16px); color: rgba(255,255,255,.92); }
+  .hm-tile__num::after { display: none; }
+  /* R1: bold (not black) white titles, regular-weight description */
+  .hm-tile__title { margin-top: clamp(4px, .5vw, 8px); font-weight: 700; font-size: clamp(38px, 5.1vw, 84px); line-height: 1.14; color: #fff; text-wrap: nowrap; }
+  .hm-tile__body { margin-top: clamp(6px, .7vw, 12px); font-size: clamp(16px, 1.45vw, 24px); font-weight: 400; line-height: 1.45; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.35); }
+  .hm-tile__more {
+    position: static; margin-top: auto; align-self: flex-start;
+    display: flex; align-items: center; gap: 14px; padding: 16px clamp(24px, 2.8vw, 52px) clamp(22px, 3vw, 52px);
+    font-size: clamp(15px, 1.1vw, 18px); font-weight: 500; color: #fff;
+  }
+  .hm-tile__more-t { display: inline; }
+  .hm-tile__arrow { width: clamp(36px, 2.9vw, 48px); height: clamp(36px, 2.9vw, 48px); background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,.92); box-shadow: none; }
+  @media (hover: hover) {
+    .hm-tile:hover { box-shadow: none; }
+    .hm-tile:hover .hm-tile__arrow { background: #fff; color: var(--ink); transform: translateX(3px); }
+  }
+  .hm-tile--noimg { background: var(--ink-2); }
 }
 
 @media (min-width: 1100px) {
