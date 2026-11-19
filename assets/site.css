@@ -3556,6 +3556,74 @@ html:has(.pg-toc) { scroll-padding-top: calc(var(--hdr-h) + 84px); }
   }
 }
 
+
+/* ---------------------------------------------------------------- home on phones: the owner's layout (19 Nov 2026)
+   From the owner's picture of the home page: 01 as a large card, a row of three words (quality, standard,
+   service) under it, 02 and 03 side by side with their words at the foot of the photo, 04 wide with a white
+   fade from the left and dark words; the see-more link is an outlined box with an arrow. Phones only: 768px
+   and up keeps the 2 x 2 mosaic, where the row of words is not shown. The row is the list's last item in the
+   page and is placed second by order, so the four cards keep their numbers and their reading order. */
+.hm-gw__values { display: none; }
+@media (max-width: 767px) {
+  .hm-gw__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .hm-gw__item:nth-child(1), .hm-gw__item:nth-child(4), .hm-gw__values { grid-column: 1 / -1; }
+  .hm-gw__item:nth-child(1) { order: 1; }
+  .hm-gw__values { order: 2; display: block; }
+  .hm-gw__item:nth-child(2), .hm-gw__item:nth-child(3) { order: 3; }
+  .hm-gw__item:nth-child(4) { order: 4; }
+
+  /* the see-more link: an outlined box, the word and an arrow */
+  .hm-tile__more { margin: 14px 18px 18px; padding: 8px 14px; gap: 10px; border: 1.5px solid currentColor; border-radius: 2px; font-size: 14px; line-height: 1.3; }
+  .hm-tile__arrow, .hm-tile:hover .hm-tile__arrow { width: auto; height: auto; border: 0; border-radius: 0; background: none; color: inherit; }
+  .hm-tile__arrow .i { width: 16px; height: 16px; }
+
+  /* 01: the large card; its words sit on a shade from the left, measured at 4.5:1 or more over the bright sky */
+  .hm-gw__item:nth-child(1) .hm-tile { aspect-ratio: 10 / 9; }
+  .hm-gw__item:nth-child(1) .hm-tile__media::after {
+    background: linear-gradient(90deg, rgba(10,10,12,.82) 0%, rgba(10,10,12,.74) 46%, rgba(10,10,12,.36) 68%, rgba(10,10,12,0) 86%);
+  }
+  .hm-gw__item:nth-child(1) .hm-tile__text { padding: 22px 20px 0; }
+  .hm-gw__item:nth-child(1) .hm-tile__title { font-size: clamp(34px, 10.4vw, 46px); }
+  .hm-gw__item:nth-child(1) .hm-tile__more { margin: 14px 20px 20px; }
+
+  /* 02 and 03: side by side, the words at the foot of the photo. The shade rises from the bottom and starts
+     a little above the words, however many lines they take, so the number keeps 4.5:1 over the white truck
+     and the white letters of the sign; the photo above it stays clear */
+  .hm-gw__item:nth-child(2) .hm-tile, .hm-gw__item:nth-child(3) .hm-tile { aspect-ratio: 3 / 4.4; justify-content: flex-end; overflow: hidden; }
+  .hm-gw__item:nth-child(2) .hm-tile__media::after, .hm-gw__item:nth-child(3) .hm-tile__media::after { background: none; }
+  .hm-gw__item:nth-child(2) .hm-tile__text, .hm-gw__item:nth-child(3) .hm-tile__text { max-width: none; padding: 0 14px; }
+  .hm-gw__item:nth-child(2) .hm-tile__text::before, .hm-gw__item:nth-child(3) .hm-tile__text::before {
+    content: ""; position: absolute; z-index: -1; left: 0; right: 0; top: -64px; height: 1200px; pointer-events: none;
+    background: linear-gradient(180deg, rgba(10,10,12,0) 0, rgba(10,10,12,.5) 40px, rgba(10,10,12,.7) 64px, rgba(10,10,12,.86) 140px);
+  }
+  .hm-gw__item:nth-child(2) .hm-tile__title, .hm-gw__item:nth-child(3) .hm-tile__title { font-size: clamp(20px, 6.2vw, 27px); line-height: 1.12; }
+  .hm-gw__item:nth-child(2) .hm-tile__body, .hm-gw__item:nth-child(3) .hm-tile__body { margin-top: 4px; font-size: 13px; line-height: 1.4; }
+  .hm-gw__item:nth-child(2) .hm-tile__more, .hm-gw__item:nth-child(3) .hm-tile__more { margin: 12px 14px 14px; padding: 7px 11px; gap: 8px; font-size: 13px; }
+
+  /* 04: wide, a white fade from the left and dark words */
+  .hm-gw__item:nth-child(4) .hm-tile { aspect-ratio: 4 / 3; color: var(--ink); }
+  .hm-gw__item:nth-child(4) .hm-tile__media::after {
+    background: linear-gradient(90deg, #fff 0%, rgba(255,255,255,.96) 30%, rgba(255,255,255,.82) 45%, rgba(255,255,255,.42) 60%, rgba(255,255,255,0) 74%);
+  }
+  .hm-gw__item:nth-child(4) .hm-tile__text { max-width: 60%; padding: 22px 18px 0; }
+  .hm-gw__item:nth-child(4) .hm-tile__num, .hm-gw__item:nth-child(4) .hm-tile__title,
+  .hm-gw__item:nth-child(4) .hm-tile__body, .hm-gw__item:nth-child(4) .hm-tile__more { color: var(--ink); text-shadow: none; }
+  .hm-gw__item:nth-child(4) .hm-tile__body { font-size: 14px; }
+
+  /* the three words between the cards */
+  .hm-values { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 16px 0; }
+  .hm-value { display: flex; align-items: center; justify-content: center; gap: 8px; min-width: 0; padding: 2px 6px; }
+  .hm-value + .hm-value { border-left: 1px solid #c9c9cd; }
+  .hm-value__i { flex: none; width: 26px; height: 26px; color: var(--ink); }
+  .hm-value__t { display: grid; min-width: 0; }
+  .hm-value__en { font-size: 11px; font-weight: 600; line-height: 1.35; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); }
+  .hm-value__th { font-size: 12.5px; line-height: 1.4; color: var(--grey); }
+}
+/* narrow phones: each word under its icon */
+@media (max-width: 389px) {
+  .hm-value { flex-direction: column; gap: 6px; text-align: center; }
+}
+
 /* ---------------------------------------------------------------- O2 studio credit: the last thing on every page
    O2 Design Studio's mark (assets/brand/o2-mark.svg in the studio). A name, so it does not change with the language.
    It takes the legal line's grey and its links' red hover. svg is display:block in the reset above, so the mark
