@@ -3561,7 +3561,7 @@ html:has(.pg-toc) { scroll-padding-top: calc(var(--hdr-h) + 84px); }
    From the owner's picture of the home page: 01 as a large card, a row of three words (quality, standard,
    service) under it, 02 and 03 side by side with their words at the foot of the photo, 04 wide with a white
    fade from the left and dark words; the see-more link is an outlined box with an arrow. Phones only: 768px
-   and up keeps the 2 x 2 mosaic, where the row of words is not shown. The row is the list's last item in the
+   and up keeps the 2 x 2 mosaic, with the row of words under it (block below). The row is the list's last item in the
    page and is placed second by order, so the four cards keep their numbers and their reading order. */
 .hm-gw__values { display: none; }
 @media (max-width: 767px) {
@@ -3621,6 +3621,21 @@ html:has(.pg-toc) { scroll-padding-top: calc(var(--hdr-h) + 84px); }
 /* narrow phones: each word under its icon */
 @media (max-width: 389px) {
   .hm-value { flex-direction: column; gap: 6px; text-align: center; }
+}
+
+/* ---------------------------------------------------------------- home on the computer: the three words under the cards (19 Nov 2026)
+   The owner: "add this to the bottom of the screen but keep the current live layout as is". From 768px the 2 x 2
+   mosaic stays exactly as it was, and the Quality / Standard / Service row (the gateway list's last item, which
+   phones show after card 01) sits under the four cards, with room above and below. */
+@media (min-width: 768px) {
+  .hm-gw__values { display: block; grid-column: 1 / -1; }
+  .hm-values { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 1120px; margin-inline: auto; padding: clamp(28px, 3.4vw, 56px) 0 clamp(20px, 2.4vw, 40px); }
+  .hm-value { display: flex; align-items: center; justify-content: center; gap: clamp(12px, 1.2vw, 18px); min-width: 0; padding: 6px clamp(12px, 2vw, 28px); }
+  .hm-value + .hm-value { border-left: 1px solid #c9c9cd; }
+  .hm-value__i { flex: none; width: clamp(30px, 2.5vw, 40px); height: clamp(30px, 2.5vw, 40px); color: var(--ink); }
+  .hm-value__t { display: grid; min-width: 0; }
+  .hm-value__en { font-size: clamp(13px, .95vw, 15px); font-weight: 600; line-height: 1.35; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); }
+  .hm-value__th { font-size: clamp(14px, 1.05vw, 16px); line-height: 1.45; color: var(--grey); }
 }
 
 /* ---------------------------------------------------------------- O2 studio credit: the last thing on every page
