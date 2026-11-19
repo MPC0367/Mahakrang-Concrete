@@ -26,8 +26,8 @@ linked to o2-designstudio.com, as the last line of `.ftr__legal` (`.ftr__credit`
 draw it yet: add it there, or a rebuild drops it.
 Since 19 Nov 2026 (branch `home-phone-mock-2026-11-19`) phones below 768px lay the home page's four cards out as in
 the owner's picture: 01 large, a Quality / Standard / Service row (the gateway list's last item, `.hm-gw__values`,
-hidden from 768px), 02 and 03 side by side with their words at the foot of the photo, 04 wide with a white fade and
-dark words, outlined see-more links. Styles: the "home on phones" block in `assets/site.css`; the row's markup is in
+hidden from 768px), 02 and 03 side by side with their words at the foot of the photo, 04 wide with white words on the
+photo (no white fade since 19 Nov), outlined see-more links. Styles: the "home on phones" block in `assets/site.css`; the row's markup is in
 `index.html` and `en/index.html`. Made here by hand, not in mahakrang-v2: add it there, or a rebuild drops it.
 
 The previous site is kept at the tag `v1-previous-site`.

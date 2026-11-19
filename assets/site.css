@@ -3600,14 +3600,13 @@ html:has(.pg-toc) { scroll-padding-top: calc(var(--hdr-h) + 84px); }
   .hm-gw__item:nth-child(2) .hm-tile__body, .hm-gw__item:nth-child(3) .hm-tile__body { margin-top: 4px; font-size: 13px; line-height: 1.4; }
   .hm-gw__item:nth-child(2) .hm-tile__more, .hm-gw__item:nth-child(3) .hm-tile__more { margin: 12px 14px 14px; padding: 7px 11px; gap: 8px; font-size: 13px; }
 
-  /* 04: wide, a white fade from the left and dark words */
-  .hm-gw__item:nth-child(4) .hm-tile { aspect-ratio: 4 / 3; color: var(--ink); }
+  /* 04: wide, white words on the photograph (the owner, 19 Nov 2026: no white fade, "just the writing on top of
+     the picture"); a dark shade only behind the words, as light as keeps them at 4.5:1 */
+  .hm-gw__item:nth-child(4) .hm-tile { aspect-ratio: 4 / 3; }
   .hm-gw__item:nth-child(4) .hm-tile__media::after {
-    background: linear-gradient(90deg, #fff 0%, rgba(255,255,255,.96) 30%, rgba(255,255,255,.82) 45%, rgba(255,255,255,.42) 60%, rgba(255,255,255,0) 74%);
+    background: linear-gradient(90deg, rgba(10,10,12,.66) 0%, rgba(10,10,12,.56) 40%, rgba(10,10,12,.2) 62%, rgba(10,10,12,0) 78%);
   }
   .hm-gw__item:nth-child(4) .hm-tile__text { max-width: 60%; padding: 22px 18px 0; }
-  .hm-gw__item:nth-child(4) .hm-tile__num, .hm-gw__item:nth-child(4) .hm-tile__title,
-  .hm-gw__item:nth-child(4) .hm-tile__body, .hm-gw__item:nth-child(4) .hm-tile__more { color: var(--ink); text-shadow: none; }
   .hm-gw__item:nth-child(4) .hm-tile__body { font-size: 14px; }
 
   /* the three words between the cards */
