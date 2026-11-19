@@ -29,5 +29,10 @@ the owner's picture: 01 large, a Quality / Standard / Service row (the gateway l
 from 768px it sits under the unchanged 2 x 2 mosaic since 19 Nov), 02 and 03 side by side with their words at the foot of the photo, 04 wide with white words on the
 photo (no white fade since 19 Nov), outlined see-more links. Styles: the "home on phones" block in `assets/site.css`; the row's markup is in
 `index.html` and `en/index.html`. Made here by hand, not in mahakrang-v2: add it there, or a rebuild drops it.
+Since 20 Nov 2026 (branch `logo-opening-2026-11-20`) the 62 pages with the logo mark open on the logo: a white cover,
+the wordmark drawn as an outline and filled from the bottom, then moved into the header (~2 s; a fresh open or a
+reload only, never on clicks within the site or under reduced motion; a tap or key skips it). The decision and timing
+are an inline script in each page's head (after the site.css link), the look is "the logo opening" in
+`assets/site.css`. Made here by hand, not in mahakrang-v2: add it there, or a rebuild drops it.
 
 The previous site is kept at the tag `v1-previous-site`.

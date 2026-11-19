@@ -3638,6 +3638,35 @@ html:has(.pg-toc) { scroll-padding-top: calc(var(--hdr-h) + 84px); }
   .hm-value__th { font-size: clamp(14px, 1.05vw, 16px); line-height: 1.45; color: var(--grey); }
 }
 
+/* ---------------------------------------------------------------- the logo opening (20 Nov 2026)
+   The owner: "add a loading animation for the logo". On a fresh open or a reload (not on clicks within the site,
+   never under reduced motion) the page waits under a white cover while the wordmark is drawn as an outline (the
+   formwork) and filled from the bottom like a pour, then moves into its place in the header as the cover lifts,
+   about 1.9 s; a tap or a key ends it at once. The small script in each page's head decides and runs it (it clones
+   the header's own logo, nothing redrawn); without it nothing shows, and the cover hides itself after 4 s whatever
+   happens. Pages without the logo mark (the lab's MHK header) do not play it. */
+html.mk-intro-on body::before {
+  content: ""; position: fixed; inset: 0; z-index: 130; background: var(--white);
+  animation: mk-intro-gone 0s linear 4s forwards;
+}
+html.mk-intro-out body::before { opacity: 0; transition: opacity 420ms var(--ease) 160ms; }
+html.mk-intro-fast body::before { transition-duration: 180ms; transition-delay: 0s; }
+html.mk-intro-on .hdr .brand__mark { animation: mk-intro-hold 4s; }
+.mk-intro { position: fixed; inset: 0; z-index: 131; display: grid; place-items: center; pointer-events: none; animation: mk-intro-gone 0s linear 4s forwards; }
+.mk-intro__mark { display: block; width: clamp(200px, 52vw, 500px); height: auto; color: var(--red); overflow: visible; }
+html.mk-intro-move .mk-intro__mark { transform: translate(var(--mk-x, 0px), var(--mk-y, 0px)) scale(var(--mk-s, 1)); transition: transform 560ms cubic-bezier(.65,0,.35,1); }
+html.mk-intro-fast .mk-intro { opacity: 0; transition: opacity 180ms; }
+.mk-intro__line { fill: none; stroke: currentColor; stroke-width: 5; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: mk-intro-draw 760ms cubic-bezier(.65,0,.35,1) 60ms forwards; }
+.mk-intro__fill { fill: currentColor; clip-path: inset(100% 0 0 0); animation: mk-intro-pour 640ms cubic-bezier(.3,.7,.25,1) 560ms forwards; }
+@keyframes mk-intro-draw { to { stroke-dashoffset: 0; } }
+@keyframes mk-intro-pour { to { clip-path: inset(0 0 0 0); } }
+@keyframes mk-intro-hold { from, to { opacity: 0; } }
+@keyframes mk-intro-gone { to { opacity: 0; visibility: hidden; } }
+@media (prefers-reduced-motion: reduce) {
+  html.mk-intro-on body::before, .mk-intro { display: none; }
+  html.mk-intro-on .hdr .brand__mark { animation: none; }
+}
+
 /* ---------------------------------------------------------------- O2 studio credit: the last thing on every page
    O2 Design Studio's mark (assets/brand/o2-mark.svg in the studio). A name, so it does not change with the language.
    It takes the legal line's grey and its links' red hover. svg is display:block in the reset above, so the mark
