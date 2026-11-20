@@ -3677,6 +3677,115 @@ html:has(.pg-toc) { scroll-padding-top: calc(var(--hdr-h) + 84px); }
   }
 }
 
+/* ---------------------------------------------------------------- the Micropile Surface Pro page (20 Nov 2026)
+   The owner passed on Mahakrang's reference picture, photographs and words for /concrete/micropile/ ("it should be in
+   the same mood and tone as the website"). Hand-made here, not in mahakrang-v2. The hero sits on the render's own
+   warm grey (#F0EBE8, measured from the client's picture) so the pile has no visible edge; the title is Kanit 800;
+   then four points from the client's text, the production standard beside the stacked piles, three slanted photos,
+   the client's Customer First film, and the Quality / Standard / Service row. The specifications and calculator stay. */
+.mp { --mp-bg: #F0EBE8; padding-top: 0; }
+.mp-hero { background: var(--mp-bg); overflow: hidden; }
+.mp-hero__grid { display: grid; grid-template-areas: "t" "f" "c"; padding-top: clamp(4px, 1vw, 16px); }
+.mp-hero__t { grid-area: t; position: relative; z-index: 1; font-family: var(--f-display); font-weight: 800; text-transform: uppercase;
+  font-size: clamp(40px, 12.4vw, 96px); line-height: .92; letter-spacing: -.012em; color: var(--ink); }
+.mp-hero__l { display: block; }
+.mp-hero__fig { grid-area: f; margin: -12% calc(-1 * var(--gutter)) 0; min-width: 0; }
+.mp-hero__fig picture, .mp-hero__img { display: block; width: 100%; height: auto; }
+.mp-hero__copy { grid-area: c; min-width: 0; margin-top: -2%; padding-bottom: clamp(28px, 4vw, 48px); }
+.mp-hero__kick { display: inline-flex; align-items: center; gap: 8px; font-family: var(--f-display); font-weight: 600; font-size: 14px; letter-spacing: .02em; color: var(--red-dk); }
+.mp-hero__kick .i { width: 18px; height: 18px; }
+.mp-hero__lead { margin-top: 8px; font-family: var(--f-display); font-weight: 700; font-size: var(--fs-h2); line-height: var(--lh-heading); color: var(--ink); max-width: 18em; }
+.mp-hero__body { margin-top: 14px; font-size: var(--fs-body); line-height: 1.75; color: var(--ink-2); max-width: 38em; }
+.mp-hero__acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.mp-hero__acts .btn--ghost { background: transparent; }
+.mp-hero__acts .btn--ghost:hover { background: var(--ink); }
+@media (min-width: 768px) {
+  .mp-hero__fig { margin-top: -10%; margin-inline: 0; }
+}
+@media (min-width: 1100px) {
+  .mp-hero__grid { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); grid-template-areas: "t c" "f c"; column-gap: clamp(32px, 4vw, 72px); padding-top: 12px; }
+  .mp-hero__t { font-size: clamp(76px, 6.9vw, 112px); }
+  .mp-hero__fig { margin: -9% 0 0 -2%; }
+  .mp-hero__copy { margin-top: 0; align-self: start; padding-top: clamp(8px, 1.4vw, 24px); }
+}
+
+/* four points from the client's text */
+.mp-feats { background: var(--mp-bg); padding-bottom: clamp(36px, 5vw, 64px); }
+.mp-feats__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 16px; padding-top: clamp(24px, 3vw, 40px); border-top: 1px solid rgba(16,16,16,.12); }
+.mp-feat { min-width: 0; text-align: center; display: grid; justify-items: center; align-content: start; gap: 6px; padding-inline: 4px; }
+.mp-feat__i { width: 34px; height: 34px; color: var(--red); margin-bottom: 4px; }
+.mp-feat__t { font-family: var(--f-display); font-weight: 600; font-size: clamp(16px, .9rem + .35vw, 20px); line-height: 1.3; color: var(--ink); }
+.mp-feat__b { font-size: 14px; line-height: 1.6; color: var(--grey); max-width: 22em; }
+@media (min-width: 960px) {
+  .mp-feats__list { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; }
+  .mp-feat { padding-inline: clamp(12px, 2vw, 32px); }
+  .mp-feat + .mp-feat { border-left: 1px solid rgba(16,16,16,.14); }
+}
+
+/* the production standard beside the stacked piles */
+.mp-std { display: grid; max-width: var(--maxw); margin-inline: auto; padding-top: clamp(28px, 4vw, 64px); }
+.mp-std__media { min-width: 0; clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%); }
+.mp-std__media picture, .mp-std__media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.mp-std__media img { aspect-ratio: 16 / 9; }
+.mp-std__text { padding: 20px max(var(--gutter), env(safe-area-inset-left, 0px)) 0; min-width: 0; }
+.mp-pill { display: inline-block; padding: 3px 12px; border: 1.5px solid var(--ink); border-radius: var(--r-pill); font-family: var(--f-display); font-weight: 600; font-size: 12px; letter-spacing: .1em; line-height: 1.4; color: var(--ink); }
+.mp-std__t { margin-top: 14px; font-family: var(--f-display); font-weight: 700; font-size: var(--fs-h2); line-height: var(--lh-heading); color: var(--ink); }
+.mp-std__b { margin-top: 12px; font-size: var(--fs-body); line-height: 1.75; color: var(--ink-2); max-width: 36em; }
+.mp-std__more { margin-top: 10px; }
+.mp-std__a { color: var(--red-dk); }
+.mp-std__a:hover { color: var(--red); }
+@media (min-width: 900px) {
+  .mp-std { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); align-items: center; column-gap: clamp(28px, 4vw, 64px); }
+  .mp-std__media { clip-path: polygon(0 0, 100% 0, 84% 100%, 0 100%); }
+  .mp-std__media img { aspect-ratio: auto; min-height: clamp(320px, 30vw, 460px); }
+  .mp-std__text { padding: 0 max(var(--gutter), env(safe-area-inset-right, 0px)) 0 0; }
+}
+
+/* three slanted photographs */
+.mp-strip { padding-top: clamp(28px, 4vw, 56px); }
+.mp-strip__list { --slant: clamp(22px, 4.6vw, 64px); --gap: clamp(6px, .8vw, 12px); display: flex; }
+.mp-strip__it { flex: 1 1 0; min-width: 0; height: clamp(132px, 24vw, 300px); overflow: hidden;
+  clip-path: polygon(var(--slant) 0, 100% 0, calc(100% - var(--slant)) 100%, 0 100%); }
+.mp-strip__it + .mp-strip__it { margin-left: calc(var(--gap) - var(--slant)); }
+.mp-strip__it:first-child { clip-path: polygon(0 0, 100% 0, calc(100% - var(--slant)) 100%, 0 100%); }
+.mp-strip__it:last-child { clip-path: polygon(var(--slant) 0, 100% 0, 100% 100%, 0 100%); }
+.mp-strip__it picture, .mp-strip__it img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.mp-strip__it--pour img { object-position: 40% 60%; }
+.mp-strip__it--raking img { object-position: 45% 50%; }
+.mp-strip__it--team img { object-position: 50% 30%; }
+
+/* the client's Customer First film */
+.mp-film { padding-top: clamp(28px, 4vw, 56px); }
+.mp-film .wrap { max-width: 1240px; }
+.mp-film__frame { position: relative; overflow: hidden; border-radius: var(--r-card); background: #101010; aspect-ratio: 16 / 9; }
+.mp-film__v { display: block; width: 100%; height: 100%; object-fit: cover; background: #101010; }
+.mp-film__badge { position: absolute; left: clamp(10px, 2vw, 24px); top: clamp(10px, 2vw, 24px); display: flex; align-items: center; gap: 10px; padding: 6px 14px 6px 6px; border-radius: 10px;
+  background: rgba(16,16,16,.72); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: #fff; pointer-events: none; transition: opacity 240ms var(--ease); }
+.mp-film.is-playing .mp-film__badge, .mp-film__frame.is-playing .mp-film__badge { opacity: 0; }
+.mp-film__logo { display: grid; place-items: center; width: clamp(40px, 4.4vw, 56px); aspect-ratio: 1; border-radius: 4px; background: var(--red); font-family: var(--f-display); font-weight: 700; font-size: clamp(8.5px, .78vw, 11px); line-height: 1.15; text-align: center; }
+.mp-film__name { display: grid; font-family: var(--f-display); font-weight: 800; font-size: clamp(17px, 1rem + 1vw, 30px); line-height: .95; letter-spacing: .02em; text-transform: uppercase; }
+.mp-film__name small { font-weight: 600; font-size: .45em; letter-spacing: .18em; }
+.mp-film__cap { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin-top: 12px; font-size: 14px; color: var(--grey); }
+.mp-film__kick { font-family: var(--f-display); font-weight: 600; font-size: 12px; letter-spacing: .14em; color: var(--red-dk); }
+.mp-film__t { font-family: var(--f-display); font-weight: 600; font-size: 16px; color: var(--ink); }
+
+/* the sign-off: MAHAKRANG CONCRETE, QUALITY · STANDARD · SERVICE */
+.mp-sign { padding-top: clamp(36px, 5vw, 72px); text-align: center; }
+.mp-sign__brand { font-family: var(--f-display); font-weight: 700; font-size: clamp(13px, .8rem + .3vw, 16px); letter-spacing: .24em; text-transform: uppercase; color: var(--ink); }
+.mp-sign .hm-values { margin-top: 8px; }
+@media (min-width: 768px) { .mp-sign .hm-values { padding-top: 16px; } }
+.mp .cc-pd__cols { padding-top: clamp(32px, 4vw, 64px); }
+
+/* the Micropile card on /concrete/: light, on the render's own grey, as in the client's picture */
+.cc-card--light .cc-card__a { background: #F0EBE8; color: var(--ink); }
+.cc-card--light .cc-card__media { inset: auto 0 19% 0; height: 46%; }
+.cc-card--light .cc-card__img { object-fit: contain; object-position: 50% 50%; }
+.cc-card--light .cc-card__a:hover .cc-card__img { transform: scale(1.04); }
+.cc-card--light .cc-card__foot { grid-template-areas: "ic . go"; align-items: center; }
+.cc-card--light .cc-card__name { color: var(--ink); text-shadow: none; font-weight: 800; text-transform: uppercase; line-height: .98; letter-spacing: -.01em; }
+.cc-card--light .cc-card__tag { color: var(--ink-2); }
+.cc-card--light .cc-card__ic { color: var(--red); }
+
 /* ---------------------------------------------------------------- the logo opening (20 Nov 2026)
    The owner: "add a loading animation for the logo". On a fresh open or a reload (not on clicks within the site,
    never under reduced motion) the page waits under a white cover while the wordmark is drawn as an outline (the

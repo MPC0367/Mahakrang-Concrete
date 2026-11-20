@@ -38,5 +38,12 @@ the wordmark drawn as an outline and filled from the bottom, then moved into the
 reload only, never on clicks within the site or under reduced motion; a tap or key skips it). The decision and timing
 are an inline script in each page's head (after the site.css link), the look is "the logo opening" in
 `assets/site.css`. Made here by hand, not in mahakrang-v2: add it there, or a rebuild drops it.
+Since 20 Nov 2026 (branch `micropile-page-2026-11-20`) `/concrete/micropile/` and its English page follow Mahakrang's
+reference layout with their own words and photographs (sent through the owner, originals in the client's documents
+folder, never here): MICROPILE SURFACE PRO over the pile render on its own warm grey, four points from their text, the
+production standard beside the stacked piles, three slanted photos, their Customer First film (`media/micropile/`,
+H.264 1080p, loads only on play), the Quality / Standard / Service row; the specifications note and calculator stay.
+`/concrete/` and `/en/concrete/` open their use rail on a light Micropile Surface Pro card. Styles: "the Micropile
+Surface Pro page" in `assets/site.css`. Made here by hand, not in mahakrang-v2: add it there, or a rebuild drops it.
 
 The previous site is kept at the tag `v1-previous-site`.
