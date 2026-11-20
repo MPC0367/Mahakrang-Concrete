@@ -3585,7 +3585,8 @@ html:has(.pg-toc) { scroll-padding-top: calc(var(--hdr-h) + 84px); }
     background: linear-gradient(90deg, rgba(10,10,12,.82) 0%, rgba(10,10,12,.74) 46%, rgba(10,10,12,.36) 68%, rgba(10,10,12,0) 86%);
   }
   .hm-gw__item:nth-child(1) .hm-tile__text { padding: 22px 20px 0; }
-  .hm-gw__item:nth-child(1) .hm-tile__title { font-size: clamp(34px, 10.4vw, 46px); }
+  .hm-gw__item:nth-child(1) .hm-tile__title { font-size: clamp(28px, 8.4vw, 38px); }
+  .hm-gw__item:nth-child(1) .hm-tile__body { font-size: 13.5px; }
   .hm-gw__item:nth-child(1) .hm-tile__more { margin: 14px 20px 20px; }
 
   /* 02 and 03: side by side, the words at the foot of the photo. The shade rises from the bottom and starts
@@ -3598,8 +3599,8 @@ html:has(.pg-toc) { scroll-padding-top: calc(var(--hdr-h) + 84px); }
     content: ""; position: absolute; z-index: -1; left: 0; right: 0; top: -64px; height: 1200px; pointer-events: none;
     background: linear-gradient(180deg, rgba(10,10,12,0) 0, rgba(10,10,12,.5) 40px, rgba(10,10,12,.7) 64px, rgba(10,10,12,.86) 140px);
   }
-  .hm-gw__item:nth-child(2) .hm-tile__title, .hm-gw__item:nth-child(3) .hm-tile__title { font-size: clamp(20px, 6.2vw, 27px); line-height: 1.12; }
-  .hm-gw__item:nth-child(2) .hm-tile__body, .hm-gw__item:nth-child(3) .hm-tile__body { margin-top: 4px; font-size: 13px; line-height: 1.4; }
+  .hm-gw__item:nth-child(2) .hm-tile__title, .hm-gw__item:nth-child(3) .hm-tile__title { font-size: clamp(18px, 5.2vw, 23px); line-height: 1.12; }
+  .hm-gw__item:nth-child(2) .hm-tile__body, .hm-gw__item:nth-child(3) .hm-tile__body { margin-top: 4px; font-size: 12px; line-height: 1.4; }
   .hm-gw__item:nth-child(2) .hm-tile__more, .hm-gw__item:nth-child(3) .hm-tile__more { margin: 12px 14px 14px; padding: 7px 11px; gap: 8px; font-size: 13px; }
 
   /* 04: wide, white words on the photograph (the owner, 19 Nov 2026: no white fade, "just the writing on top of
@@ -3609,7 +3610,8 @@ html:has(.pg-toc) { scroll-padding-top: calc(var(--hdr-h) + 84px); }
     background: linear-gradient(90deg, rgba(10,10,12,.66) 0%, rgba(10,10,12,.56) 40%, rgba(10,10,12,.2) 62%, rgba(10,10,12,0) 78%);
   }
   .hm-gw__item:nth-child(4) .hm-tile__text { max-width: 60%; padding: 22px 18px 0; }
-  .hm-gw__item:nth-child(4) .hm-tile__body { font-size: 14px; }
+  .hm-gw__item:nth-child(4) .hm-tile__title { font-size: clamp(23px, 6vw, 28px); }
+  .hm-gw__item:nth-child(4) .hm-tile__body { font-size: 13px; }
 
   /* the three words between the cards */
   .hm-values { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 16px 0; }
@@ -3849,6 +3851,17 @@ html.hm-ed-js .hm-ed__tri[data-rv].is-in::before { transform: scaleX(1); }
   .hm-ed__trio:lang(en) { grid-template-columns: minmax(0, 1fr); row-gap: 14px; }
   .hm-ed__trio:lang(en) .hm-ed__triw { font-size: clamp(22px, 13cqi, 48px); }
 }
+/* 06: the other ways to reach them, from the contact page (in place of a lone diagonal) */
+.hm-ed__ways { margin-top: 8px; }
+.hm-ed__waysk { font-family: var(--f-display); font-weight: 600; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #A9A9AE; }
+.hm-ed__wayl { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px clamp(12px, 2vw, 32px); margin-top: 14px; }
+.hm-ed__way { position: relative; min-width: 0; padding-top: 12px; }
+.hm-ed__way::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: rgba(255,255,255,.2); }
+.hm-ed__wayk { display: block; font-family: var(--f-display); font-weight: 600; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: #A9A9AE; }
+.hm-ed__wayv { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: var(--fs-body); line-height: 1.4; color: #fff; overflow-wrap: anywhere; text-decoration: underline; text-decoration-color: rgba(255,255,255,.3); text-underline-offset: 4px; transition: text-decoration-color 200ms var(--ease), color 200ms var(--ease); }
+.hm-ed__wayv:hover { text-decoration-color: var(--red); }
+.hm-ed__wayv .i { width: 14px; height: 14px; flex: none; opacity: .7; }
+@media (max-width: 420px) { .hm-ed__wayl { grid-template-columns: minmax(0, 1fr); gap: 10px; } }
 .hm-ed__diag { display: none; width: 100%; height: clamp(72px, 9vw, 150px); color: var(--ink); overflow: visible; }
 .hm-ed__diag line { stroke: currentColor; stroke-width: 1; vector-effect: non-scaling-stroke; opacity: .45; }
 .hm-ed__ch--ink .hm-ed__diag { color: #fff; }
@@ -3965,7 +3978,8 @@ html.hm-proc-js .hm-proc__step.is-open .hm-proc__di { transform: none; }
 
   .hm-ed__fig--six { grid-column: 1 / 8; grid-row: 2; }
   .hm-ed__ch--six .hm-ed__copy { grid-column: 9 / -1; grid-row: 2; align-self: end; padding-bottom: 34px; }
-  .hm-ed__ch--six .hm-ed__diag { grid-column: 5 / -1; grid-row: 3; height: clamp(56px, 6vw, 96px); }
+  .hm-ed__ch--six .hm-ed__ways { grid-column: 1 / -1; grid-row: 3; margin-top: clamp(16px, 2.4vw, 40px); }
+  .hm-ed__wayl { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 /* the plant timeline pinned (a computer or a tablet tall enough, with the script): the heading, all six steps and the
@@ -3979,6 +3993,7 @@ html.hm-proc-js .hm-proc__step.is-open .hm-proc__di { transform: none; }
   .hm-proc[data-pin] .hm-proc__list { grid-row: 3; margin-top: clamp(16px, 3.4vh, 36px); }
   .hm-proc[data-pin] .hm-proc__media { grid-row: 1 / -1; position: relative; top: auto; align-self: stretch; height: auto; aspect-ratio: auto; max-height: none; background: transparent; }
   .hm-proc[data-pin] .hm-proc__img { object-fit: contain; }
+  .hm-proc[data-pin] .hm-proc__shot { background: var(--ed-ink, #101010); }
   @supports (height: 100svh) {
     .hm-proc[data-pin] { height: calc(100svh - var(--hdr-h) + 6 * 32svh); }
     .hm-proc[data-pin] .hm-proc__stage { height: calc(100svh - var(--hdr-h)); }
@@ -4065,13 +4080,19 @@ html.mk-intro-out body::before { opacity: 0; transition: opacity 420ms var(--eas
 html.mk-intro-fast body::before { transition-duration: 180ms; transition-delay: 0s; }
 html.mk-intro-on .hdr .brand__mark { animation: mk-intro-hold 4s; }
 .mk-intro { position: fixed; inset: 0; z-index: 131; display: grid; place-items: center; pointer-events: none; animation: mk-intro-gone 0s linear 4s forwards; }
-.mk-intro__mark { display: block; width: clamp(200px, 52vw, 500px); height: auto; color: var(--red); overflow: visible; }
+.mk-intro__mark { display: block; position: relative; width: clamp(200px, 52vw, 500px); color: var(--red); }
+.mk-intro__ol, .mk-intro__fl { display: block; width: 100%; height: auto; overflow: visible; }
+/* the pour: a window that rises from below over a fill that stays put; both are transforms, so it runs on the compositor */
+.mk-intro__pour { position: absolute; inset: 0; overflow: hidden; transform: translateY(100%); }
+.mk-intro__pin { transform: translateY(-100%); }
 html.mk-intro-move .mk-intro__mark { transform: translate(var(--mk-x, 0px), var(--mk-y, 0px)) scale(var(--mk-s, 1)); transition: transform 560ms cubic-bezier(.65,0,.35,1); }
 html.mk-intro-fast .mk-intro { opacity: 0; transition: opacity 180ms; }
-.mk-intro__line { fill: none; stroke: currentColor; stroke-width: 5; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: mk-intro-draw 760ms cubic-bezier(.65,0,.35,1) 60ms forwards; }
-.mk-intro__fill { fill: currentColor; clip-path: inset(100% 0 0 0); animation: mk-intro-pour 640ms cubic-bezier(.3,.7,.25,1) 560ms forwards; }
+.mk-intro__line { fill: none; stroke: currentColor; stroke-width: 5; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.mk-intro.is-go .mk-intro__line { animation: mk-intro-draw 760ms cubic-bezier(.65,0,.35,1) 60ms forwards; }
+.mk-intro__fill { fill: currentColor; }
+.mk-intro.is-go .mk-intro__pour, .mk-intro.is-go .mk-intro__pin { animation: mk-intro-rise 640ms cubic-bezier(.3,.7,.25,1) 560ms forwards; }
 @keyframes mk-intro-draw { to { stroke-dashoffset: 0; } }
-@keyframes mk-intro-pour { to { clip-path: inset(0 0 0 0); } }
+@keyframes mk-intro-rise { to { transform: none; } }
 @keyframes mk-intro-hold { from, to { opacity: 0; } }
 @keyframes mk-intro-gone { to { opacity: 0; visibility: hidden; } }
 @media (prefers-reduced-motion: reduce) {

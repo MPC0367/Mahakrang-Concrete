@@ -27,8 +27,8 @@
 <link rel="preload" href="/fonts/ibm-plex-sans-thai-thai-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 
 <link rel="preload" as="image" href="/media/m_e1dcf1bd07d8636b/w960.webp" imagesrcset="/media/m_e1dcf1bd07d8636b/w480.webp 480w, /media/m_e1dcf1bd07d8636b/w960.webp 960w, /media/m_e1dcf1bd07d8636b/w1600.webp 1600w" imagesizes="(min-width: 1440px) 1360px, 100vw" type="image/webp" fetchpriority="high">
-<link rel="stylesheet" href="/assets/site.css?v=fbaa4a300b">
-<script>/* O2: the logo opening, 20 Nov 2026 (assets/site.css "the logo opening"). A fresh open or a reload only. */
+<link rel="stylesheet" href="/assets/site.css?v=fbc7c93fb2">
+<script>/* O2: the logo opening, 20 Nov 2026 (assets/site.css "the logo opening"). A fresh open or a reload only; the fill rises on the compositor (transforms), so it stays smooth while the page loads. */
 (function(){var d=document.documentElement,t0=Date.now(),done=false;try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var n=performance.getEntriesByType('navigation')[0],k=n&&n.type;if(k==='back_forward')return;if(k!=='reload'&&document.referrer&&new URL(document.referrer).origin===location.origin)return;}catch(e){return}
 d.classList.add('mk-intro-on');
 function end(fast){if(done)return;done=true;d.classList.add('mk-intro-out');if(fast)d.classList.add('mk-intro-fast');setTimeout(function(){var o=document.querySelector('.mk-intro');if(o)o.remove();d.classList.remove('mk-intro-on','mk-intro-out','mk-intro-fast','mk-intro-move');},fast?220:720);}
@@ -36,8 +36,10 @@ function skip(){end(true)}
 addEventListener('pointerdown',skip,{once:true});addEventListener('keydown',skip,{once:true});setTimeout(skip,3500);
 document.addEventListener('DOMContentLoaded',function(){var s=document.querySelector('.hdr .brand__mark'),p=s&&s.querySelector('path');if(!p){skip();return}
 var w=document.createElement('div');w.className='mk-intro';w.setAttribute('aria-hidden','true');var dd=p.getAttribute('d').replace(/"/g,'');
-w.innerHTML='<svg class="mk-intro__mark" viewBox="'+s.getAttribute('viewBox')+'" fill-rule="evenodd" focusable="false"><path class="mk-intro__line" pathLength="1" d="'+dd+'"/><path class="mk-intro__fill" d="'+dd+'"/></svg>';document.body.appendChild(w);
-setTimeout(function(){if(done)return;var m=w.firstChild,r=m.getBoundingClientRect(),q=s.getBoundingClientRect();if(q.width&&r.width){m.style.setProperty('--mk-x',(q.left+q.width/2-r.left-r.width/2)+'px');m.style.setProperty('--mk-y',(q.top+q.height/2-r.top-r.height/2)+'px');m.style.setProperty('--mk-s',q.width/r.width);}d.classList.add('mk-intro-move');end(false);},1320);});})();</script>
+var vb=s.getAttribute('viewBox');function sv(c,x){return '<svg class="'+c+'" viewBox="'+vb+'" fill-rule="evenodd" focusable="false">'+x+'</svg>'}
+w.innerHTML='<div class="mk-intro__mark">'+sv('mk-intro__ol','<path class="mk-intro__line" pathLength="1" d="'+dd+'"/>')+'<div class="mk-intro__pour"><div class="mk-intro__pin">'+sv('mk-intro__fl','<path class="mk-intro__fill" d="'+dd+'"/>')+'</div></div></div>';document.body.appendChild(w);
+/* start two frames later, once the page's own start-up work has passed, so the first strokes are not held back */
+requestAnimationFrame(function(){requestAnimationFrame(function(){if(done)return;w.classList.add('is-go');setTimeout(function(){if(done)return;var m=w.firstChild,r=m.getBoundingClientRect(),q=s.getBoundingClientRect();if(q.width&&r.width){m.style.setProperty('--mk-x',(q.left+q.width/2-r.left-r.width/2)+'px');m.style.setProperty('--mk-y',(q.top+q.height/2-r.top-r.height/2)+'px');m.style.setProperty('--mk-s',q.width/r.width);}d.classList.add('mk-intro-move');end(false);},1320)})})});})();</script>
 <script>document.documentElement.classList.replace('no-js','js');</script>
 
 </head>
