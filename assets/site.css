@@ -3795,7 +3795,7 @@ html:has(.pg-toc) { scroll-padding-top: calc(var(--hdr-h) + 84px); }
    05 the team in a slow row, 06 ink: contact. Nothing above or inside the cards changes. */
 .hm-ed { --ed-paper: #F2E9D8; --ed-stone: #E8E2D6; --ed-ink: #101010; --ed-fade: clamp(72px, 9vw, 160px); color: var(--ink); }
 .hm-ed__ch { position: relative; padding-block: clamp(56px, 8vw, 136px); }
-.hm-ed__ch--paper { background: linear-gradient(180deg, #fff 0, var(--ed-paper) var(--ed-fade), var(--ed-paper) calc(100% - var(--ed-fade)), #fff 100%); padding-block: clamp(88px, 11vw, 184px); }
+.hm-ed__ch--paper { background: linear-gradient(180deg, #fff 0, var(--ed-paper) var(--ed-fade), var(--ed-paper) calc(100% - var(--ed-fade)), #fff 100%); padding-top: clamp(88px, 11vw, 184px); padding-bottom: clamp(64px, 8vw, 128px); }
 .hm-ed__ch--white { background: #fff; }
 .hm-ed__ch--stone { background: linear-gradient(180deg, var(--ed-stone) 0, var(--ed-stone) calc(100% - var(--ed-fade)), #fff 100%); padding-bottom: clamp(88px, 11vw, 184px); }
 .hm-ed__ch--ink { background: var(--ed-ink); color: #fff; }
@@ -3829,13 +3829,32 @@ html:has(.pg-toc) { scroll-padding-top: calc(var(--hdr-h) + 84px); }
 .hm-ed__fig img { border-radius: 2px; background: var(--panel); }
 .hm-ed__cap { margin-top: 10px; font-size: 13px; line-height: 1.5; color: var(--grey); }
 .hm-ed__ch--ink .hm-ed__cap { color: #A9A9AE; }
+/* 01: the manifesto's second line as three words, each on a hairline (in place of a lone diagonal) */
+.hm-ed__trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: clamp(12px, 2vw, 32px); }
+.hm-ed__tri { position: relative; padding-top: 12px; container-type: inline-size; min-width: 0; }
+.hm-ed__tri::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: currentColor; opacity: .25; transform-origin: left center; }
+.hm-ed__trik { display: block; font-family: var(--f-display); font-weight: 600; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--red-dk); }
+.hm-ed__triw { display: block; margin-top: 4px; font-family: var(--f-display); font-weight: 800; font-size: clamp(28px, 4.6vw, 60px); line-height: 1.12; letter-spacing: -.01em; color: var(--ink); white-space: nowrap; }
+/* each word sized to its own column: the longest Thai word is 2.97em wide, the longest English one 5.85em */
+@supports (font-size: 1cqi) {
+  .hm-ed__triw { font-size: clamp(24px, 31cqi, 64px); }
+  .hm-ed__trio:lang(en) .hm-ed__triw { font-size: clamp(22px, 16cqi, 60px); }
+}
+html.hm-ed-js .hm-ed__tri[data-rv] { transition-delay: calc(var(--i, 0) * 110ms); }
+html.hm-ed-js .hm-ed__tri[data-rv]::before { transform: scaleX(0); transition: transform 850ms var(--ease) calc(var(--i, 0) * 110ms + 120ms); }
+html.hm-ed-js .hm-ed__tri[data-rv].is-in::before { transform: scaleX(1); }
+@media (max-width: 559px) {
+  .hm-ed__trio:lang(en) { grid-template-columns: minmax(0, 1fr); row-gap: 14px; }
+  .hm-ed__trio:lang(en) .hm-ed__triw { font-size: clamp(22px, 13cqi, 48px); }
+}
 .hm-ed__diag { display: none; width: 100%; height: clamp(72px, 9vw, 150px); color: var(--ink); overflow: visible; }
 .hm-ed__diag line { stroke: currentColor; stroke-width: 1; vector-effect: non-scaling-stroke; opacity: .45; }
 .hm-ed__ch--ink .hm-ed__diag { color: #fff; }
 .hm-ed__vert { display: none; }
 
 /* 03: the plant, the photo follows the list (on a phone: each line has its own photo) */
-.hm-proc { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: clamp(20px, 2.6vw, 36px); }
+.hm-proc { min-width: 0; }
+.hm-proc__stage { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: clamp(20px, 2.6vw, 36px); }
 /* the timeline: a hairline through the dots, and a red line that grows to the step being read */
 .hm-proc__list { position: relative; list-style: none; --tl: 0px; }
 .hm-proc__list::before, .hm-proc__list::after { content: ""; position: absolute; left: 7px; top: var(--tl-top, 28px); width: 1px; pointer-events: none; }
@@ -3863,7 +3882,7 @@ html.hm-proc-js .hm-proc__step.is-open .hm-proc__di { transform: none; }
 .hm-proc__media { display: none; }
 /* a tablet or a computer: the timeline on the left, the photo beside it; hover, focus or a tap chooses */
 @media (min-width: 768px) {
-  .hm-proc { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); grid-template-rows: auto 1fr; column-gap: clamp(24px, 4vw, 64px); }
+  .hm-proc__stage { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); grid-template-rows: auto 1fr; column-gap: clamp(24px, 4vw, 64px); }
   .hm-proc__list { align-self: start; }
   .hm-proc__copy { grid-column: 1; grid-row: 1; }
   .hm-proc__list { grid-column: 1; grid-row: 2; }
@@ -3918,15 +3937,15 @@ html.hm-proc-js .hm-proc__step.is-open .hm-proc__di { transform: none; }
   .hm-ed__vert { display: block; writing-mode: vertical-rl; justify-self: end; align-self: start; font-family: var(--f-display); font-weight: 600; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--grey); }
 
   .hm-ed__ch--one .hm-ed__title { grid-column: 1 / 9; grid-row: 2; }
-  .hm-ed__ch--one .hm-ed__sub { grid-column: 1 / 8; grid-row: 3; }
-  .hm-ed__fig--one { grid-column: 9 / -1; grid-row: 2 / 5; align-self: start; margin-top: 12px; max-width: none; }
-  .hm-ed__ch--one .hm-ed__diag { grid-column: 1 / 9; grid-row: 4; align-self: end; }
+  .hm-ed__ch--one .hm-ed__trio { grid-column: 1 / 9; grid-row: 3; align-self: end; margin-bottom: 38px; }
+  .hm-ed__fig--one { grid-column: 9 / -1; grid-row: 2 / 4; align-self: start; margin-top: 12px; max-width: none; }
 
   .hm-ed__fig--two { grid-column: 1 / 9; grid-row: 2; }
   .hm-ed__ch--two .hm-ed__copy { grid-column: 9 / 12; grid-row: 2; align-self: end; padding-bottom: 34px; }
   .hm-ed__ch--two .hm-ed__vert { grid-column: 12; grid-row: 2; }
 
-  .hm-proc { grid-column: 1 / -1; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(16px, 2vw, 32px); }
+  .hm-proc { grid-column: 1 / -1; }
+  .hm-proc__stage { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(16px, 2vw, 32px); }
   .hm-proc__copy { grid-column: 1 / 6; grid-row: 1; }
   .hm-proc__list { grid-column: 1 / 6; grid-row: 2; }
   .hm-proc__media { grid-column: 7 / -1; grid-row: 1 / 3; }
@@ -3942,6 +3961,23 @@ html.hm-proc-js .hm-proc__step.is-open .hm-proc__di { transform: none; }
   .hm-ed__fig--six { grid-column: 1 / 8; grid-row: 2; }
   .hm-ed__ch--six .hm-ed__copy { grid-column: 9 / -1; grid-row: 2; align-self: end; padding-bottom: 34px; }
   .hm-ed__ch--six .hm-ed__diag { grid-column: 5 / -1; grid-row: 3; height: clamp(56px, 6vw, 96px); }
+}
+
+/* the plant timeline pinned (a computer or a tablet tall enough, with the script): the heading, all six steps and the
+   whole photograph stay on screen while about a third of a screen of scrolling moves each step; a click on a step scrolls
+   to it, hovering only shows its photo. The photographs are shown whole (contain), not cropped to a square. */
+@media (min-width: 768px) and (min-height: 600px) {
+  .hm-proc[data-pin] { height: calc(100vh - var(--hdr-h) + 6 * 32vh); }
+  .hm-proc[data-pin] .hm-proc__stage { position: sticky; top: var(--hdr-h); height: calc(100vh - var(--hdr-h)); grid-template-rows: minmax(0, 1fr) auto auto minmax(0, 1fr);
+    padding-block: clamp(20px, 4vh, 48px); }
+  .hm-proc[data-pin] .hm-proc__copy { grid-row: 2; }
+  .hm-proc[data-pin] .hm-proc__list { grid-row: 3; margin-top: clamp(16px, 3.4vh, 36px); }
+  .hm-proc[data-pin] .hm-proc__media { grid-row: 1 / -1; position: relative; top: auto; align-self: stretch; height: auto; aspect-ratio: auto; max-height: none; background: transparent; }
+  .hm-proc[data-pin] .hm-proc__img { object-fit: contain; }
+  @supports (height: 100svh) {
+    .hm-proc[data-pin] { height: calc(100svh - var(--hdr-h) + 6 * 32svh); }
+    .hm-proc[data-pin] .hm-proc__stage { height: calc(100svh - var(--hdr-h)); }
+  }
 }
 
 /* the row drifts only for a mouse and when motion is welcome; hover, focus, the button or leaving the screen stop it */
