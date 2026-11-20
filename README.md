@@ -46,11 +46,13 @@ H.264 1080p, loads only on play), the Quality / Standard / Service row; the spec
 `/concrete/` and `/en/concrete/` open their use rail on a light Micropile Surface Pro card. Styles: "the Micropile
 Surface Pro page" in `assets/site.css`. Made here by hand, not in mahakrang-v2: add it there, or a rebuild drops it.
 
-Since 20 Nov 2026 (branch `home-art-2026-11-20`, NOT live until the owner says) the home page tells a story under the
-four cards, which stay first and unchanged: six chapters (`.hm-ed` in `index.html` and `en/index.html`, styles "the home
-page story under the four cards" in `assets/site.css`, a small inline script at the end of the block): 01 a manifesto on
-warm paper, 02 the plant, 03 an ink chapter whose photo follows the list, 04 the lab on stone, 05 the team in a slowly
-drifting row with a pause button (by hand on phones), 06 contact on ink. Every word and photograph is already on the site.
-Made here by hand, not in mahakrang-v2: add it there, or a rebuild drops it.
+Since 20 Nov 2026 (branch `home-art-2026-11-20`) the home page tells a story under the four cards, which stay first:
+six chapters (`.hm-ed` in `index.html` and `en/index.html`, styles "the home page story under the four cards" and the
+"motion" block in `assets/site.css`, a small inline script at the end of the block): 01 a manifesto on warm paper with
+three words (Opportunity / Community / The future), 02 the plant, 03 a timeline of six plant photos (pinned while you
+scroll on a computer or tablet, drop-down photos on phones), 04 the lab on stone, 05 the team in a slowly drifting row
+whose photos open in `js/viewer.js`, 06 contact on ink. Photos pour into their frames and drift, numerals rise; section
+headings stay still; nothing moves under reduced motion. From 768px the cards' words are smaller (title 30-58px). Every
+word and photo is already on the site. Made here by hand, not in mahakrang-v2: add it there, or a rebuild drops it.
 
 The previous site is kept at the tag `v1-previous-site`.
