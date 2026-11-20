@@ -3638,6 +3638,45 @@ html:has(.pg-toc) { scroll-padding-top: calc(var(--hdr-h) + 84px); }
   .hm-value__th { font-size: clamp(14px, 1.05vw, 16px); line-height: 1.45; color: var(--grey); }
 }
 
+/* ---------------------------------------------------------------- the three words: hover (20 Nov 2026)
+   The owner: "make these have a hover effect". Only with a mouse (phones have no hover). The pointer over a word
+   turns its icon Mahakrang red, draws a red rule under it, and moves the icon in its own way: the layers of Quality
+   spread apart, the tick of Standard is drawn again, the headset of Service rings. The words are not links, so the
+   cursor stays an arrow. Transitions, so leaving part-way eases back; under reduced motion only the colour changes
+   and the rule fades in. */
+@media (hover: hover) and (pointer: fine) {
+  .hm-value__i { transition: color 220ms var(--ease); }
+  .hm-value__t { position: relative; }
+  .hm-value__t::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -7px; height: 2px; border-radius: 1px;
+    background: var(--red); opacity: 0; transition: opacity 220ms linear;
+  }
+  .hm-value:hover .hm-value__i { color: var(--red); }
+  .hm-value:hover .hm-value__t::after { opacity: 1; }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .hm-value__t::after { opacity: 1; transform: scaleX(0); transform-origin: left center; transition: transform 320ms var(--ease); }
+  .hm-value:hover .hm-value__t::after { transform: scaleX(1); }
+
+  /* Quality: the three layers spread apart */
+  .hm-value__i path { transition: transform 320ms var(--ease); transform-box: fill-box; }
+  .hm-value:nth-child(1):hover .hm-value__i path:nth-child(1) { transform: translateY(-1.6px); }
+  .hm-value:nth-child(1):hover .hm-value__i path:nth-child(3) { transform: translateY(1.6px); }
+
+  /* Standard: the tick is drawn again (its length is about 11.8 in the icon's 24-unit box) */
+  .hm-value:nth-child(2) .hm-value__i path { stroke-dasharray: 12; stroke-dashoffset: 0; }
+  .hm-value:nth-child(2):hover .hm-value__i path { animation: hm-value-tick 420ms cubic-bezier(.65,0,.35,1) 60ms both; }
+  @keyframes hm-value-tick { from { stroke-dashoffset: 12; } to { stroke-dashoffset: 0; } }
+
+  /* Service: the headset rings, a short swing that settles where it began */
+  .hm-value:nth-child(3) .hm-value__i { transform-origin: 50% 45%; }
+  .hm-value:nth-child(3):hover .hm-value__i { animation: hm-value-ring 560ms var(--ease); }
+  @keyframes hm-value-ring {
+    0% { transform: rotate(0); } 20% { transform: rotate(-12deg); } 45% { transform: rotate(9deg); }
+    70% { transform: rotate(-4deg); } 100% { transform: rotate(0); }
+  }
+}
+
 /* ---------------------------------------------------------------- the logo opening (20 Nov 2026)
    The owner: "add a loading animation for the logo". On a fresh open or a reload (not on clicks within the site,
    never under reduced motion) the page waits under a white cover while the wordmark is drawn as an outline (the
