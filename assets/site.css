@@ -3998,6 +3998,53 @@ html.hm-ed-js .hm-ed [data-rv].is-in { opacity: 1; transform: none; }
 html.hm-ed-js .hm-ed__head .hm-ed__rule { transform: scaleX(0); transition: transform 850ms var(--ease) 140ms; }
 html.hm-ed-js .hm-ed__head.is-in .hm-ed__rule { transform: scaleX(1); }
 
+/* motion (20 Nov 2026, the owner: "if u scroll the pictures have form animations or if u click on headings theres small
+   animations"). Photographs pour into their frames from the bottom, like concrete into formwork, settle, then drift a little
+   with the scroll; the big numerals rise out of their baseline; headings form letter by letter; a heading or one of the
+   three words ripples (red) when the pointer comes over it or it is tapped. All of it only with the script and when motion
+   is welcome (html.hm-ed-js); without them every word and picture is simply there. */
+@keyframes hm-pour { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes hm-settle { from { scale: 1.24; } to { scale: 1.08; } }
+@keyframes hm-settle-s { from { scale: 1.12; } to { scale: 1; } }
+@keyframes hm-num { from { transform: translateY(72%); clip-path: inset(-20% -8% 72% -8%); } to { transform: none; clip-path: inset(-20% -8% -8% -8%); } }
+@keyframes hm-wave { 0% { transform: none; } 38% { transform: translateY(-.2em); color: var(--red); } 100% { transform: none; } }
+
+html.hm-ed-js .hm-ed__fig[data-rv] { opacity: 1; transform: none; }
+html.hm-ed-js .hm-ed__fig > picture { display: block; overflow: hidden; border-radius: 2px; clip-path: inset(100% 0 0 0); }
+html.hm-ed-js .hm-ed__fig > picture img { scale: 1.08; translate: 0 var(--py, 0px); }
+html.hm-ed-js .hm-ed__fig.is-in > picture { animation: hm-pour 1150ms cubic-bezier(.65,0,.35,1) 60ms both; }
+html.hm-ed-js .hm-ed__fig.is-in > picture img { animation: hm-settle 1600ms var(--ease) 60ms both; }
+html.hm-ed-js .hm-ed__fig .hm-ed__cap { opacity: 0; transition: opacity 600ms var(--ease) 800ms; }
+html.hm-ed-js .hm-ed__fig.is-in .hm-ed__cap { opacity: 1; }
+
+html.hm-ed-js .hm-ed__head .hm-ed__num { clip-path: inset(-20% -8% 100% -8%); }
+html.hm-ed-js .hm-ed__head.is-in .hm-ed__num { animation: hm-num 1100ms cubic-bezier(.22,.61,.36,1) 80ms both; }
+
+html.hm-ed-js .hm-people .hm-people__ph { clip-path: inset(100% 0 0 0); }
+html.hm-ed-js .hm-people.is-in .hm-people__ph { animation: hm-pour 1000ms cubic-bezier(.65,0,.35,1) calc(var(--k, 0) * 110ms + 120ms) both; }
+
+.hm-w { display: inline-block; white-space: nowrap; }
+.hm-ch { display: inline-block; }
+html.hm-ed-js .hm-split .hm-ch { transition: opacity 600ms var(--ease), transform 760ms var(--ease); transition-delay: calc(var(--c, 0) * 18ms); }
+html.hm-ed-js [data-rv]:not(.is-in) .hm-split .hm-ch, html.hm-ed-js .hm-split[data-rv]:not(.is-in) .hm-ch { opacity: 0; transform: translateY(.5em); }
+.hm-ed__title.is-wave .hm-ch, .hm-ed__tri.is-wave .hm-ch { animation: hm-wave 540ms cubic-bezier(.34,1.3,.64,1) calc(var(--c, 0) * 26ms) both; }
+.hm-ed__tri::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--red); transform: scaleX(0); transform-origin: left center; transition: transform 460ms var(--ease); }
+.hm-ed__tri.is-wave::after { transform: scaleX(1); }
+.hm-ed__trik { transition: transform 320ms var(--ease); }
+.hm-ed__tri.is-wave .hm-ed__trik { transform: translateX(6px); }
+@media (hover: hover) and (pointer: fine) {
+  .hm-ed__tri:hover::after { transform: scaleX(1); }
+  .hm-ed__tri:hover .hm-ed__trik { transform: translateX(6px); }
+}
+
+/* the plant photographs pour in over the one before, on a tablet or a computer */
+@media (min-width: 768px) {
+  html.hm-ed-js .hm-proc__shot { transition: none; transform: none; }
+  html.hm-ed-js .hm-proc__shot.is-prev { opacity: 1; z-index: 1; }
+  html.hm-ed-js .hm-proc__shot.is-active { z-index: 2; animation: hm-pour 820ms cubic-bezier(.65,0,.35,1) both; }
+  html.hm-ed-js .hm-proc__shot.is-active .hm-proc__img { animation: hm-settle-s 1200ms var(--ease) both; }
+}
+
 /* ---------------------------------------------------------------- the logo opening (20 Nov 2026)
    The owner: "add a loading animation for the logo". On a fresh open or a reload (not on clicks within the site,
    never under reduced motion) the page waits under a white cover while the wordmark is drawn as an outline (the

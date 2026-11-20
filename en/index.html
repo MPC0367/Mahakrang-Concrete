@@ -25,7 +25,7 @@
 <link rel="icon" href="/img/brand/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/kanit-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/ibm-plex-sans-thai-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/site.css?v=7dae2ba0bc">
+<link rel="stylesheet" href="/assets/site.css?v=9fab6aece6">
 <script>/* O2: the logo opening, 20 Nov 2026 (assets/site.css "the logo opening"). A fresh open or a reload only. */
 (function(){var d=document.documentElement,t0=Date.now(),done=false;try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var n=performance.getEntriesByType('navigation')[0],k=n&&n.type;if(k==='back_forward')return;if(k!=='reload'&&document.referrer&&new URL(document.referrer).origin===location.origin)return;}catch(e){return}
 d.classList.add('mk-intro-on');
@@ -191,18 +191,34 @@ setTimeout(function(){if(done)return;var m=w.firstChild,r=m.getBoundingClientRec
     </div>
   </section>
 </div>
-<script>/* O2: the home page story under the four cards (20 Nov 2026): reveals, the plant timeline, the team row */
+<script>/* O2: the home page story under the four cards (20 Nov 2026): reveals, forming letters and photographs, the plant timeline, the team row */
 (function(){var d=document,r=d.querySelector('.hm-ed');if(!r)return;var io='IntersectionObserver' in window,rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
-if(!rm){var pend=[].slice.call(r.querySelectorAll('[data-rv]')),tick=0;d.documentElement.classList.add('hm-ed-js');
+if(!rm){/* headings split into words, and Thai words into letters (grapheme clusters, so marks stay on their letter; Latin words stay whole to keep their kerning); screen readers get the plain text */
+var SG=window.Intl&&Intl.Segmenter,lang=d.documentElement.getAttribute('lang')||'th';
+function segs(t,g){if(SG)return Array.from(new Intl.Segmenter(lang,{granularity:g}).segment(t)).map(function(x){return x.segment});return g=='word'?t.split(/(\s+)/):Array.from(t)}
+function split(el){var c=0,txt=el.textContent,v=d.createElement('span');v.className='hm-split__v';v.setAttribute('aria-hidden','true');
+(function walk(a,b){[].slice.call(a.childNodes).forEach(function(n){if(n.nodeType==3){segs(n.nodeValue,'word').forEach(function(w){if(!w)return;if(/^\s+$/.test(w)){b.appendChild(d.createTextNode(w));return}var ws=d.createElement('span');ws.className='hm-w';(/[\u0E00-\u0E7F]/.test(w)?segs(w,'grapheme'):[w]).forEach(function(ch){var s=d.createElement('span');s.className='hm-ch';s.style.setProperty('--c',Math.min(c++,28));s.textContent=ch;ws.appendChild(s)});b.appendChild(ws)})}else if(n.nodeType==1){var k=n.cloneNode(false);b.appendChild(k);walk(n,k)}})})(el,v);
+var h=d.createElement('span');h.className='vh';h.textContent=txt;el.textContent='';el.appendChild(h);el.appendChild(v);el.classList.add('hm-split')}
+[].forEach.call(r.querySelectorAll('.hm-ed__title, .hm-ed__triw'),split);
+var rail=r.querySelector('[data-rail-auto]');if(rail){rail.setAttribute('data-rv','');[].forEach.call(rail.querySelectorAll('.hm-people__item'),function(it,i){it.style.setProperty('--k',i%6)})}
+var pend=[].slice.call(r.querySelectorAll('[data-rv]')),tick=0;d.documentElement.classList.add('hm-ed-js');
 function check(){tick=0;var h=innerHeight*0.9;pend=pend.filter(function(el){if(el.getBoundingClientRect().top<h){el.classList.add('is-in');return false}return true});if(!pend.length)removeEventListener('scroll',on)}
-function on(){if(!tick)tick=requestAnimationFrame(check)}addEventListener('scroll',on,{passive:true});addEventListener('resize',on);check()}
+function on(){if(!tick)tick=requestAnimationFrame(check)}addEventListener('scroll',on,{passive:true});addEventListener('resize',on);check();
+/* photographs drift a little inside their frames as the page scrolls */
+var figs=[].slice.call(r.querySelectorAll('.hm-ed__fig > picture')),pr=0;
+function par(){pr=0;var vh=innerHeight;figs.forEach(function(p){var b=p.getBoundingClientRect();if(b.bottom<-80||b.top>vh+80)return;var k=(b.top+b.height/2-vh/2)/(vh/2+b.height/2);p.style.setProperty('--py',(-k*b.height*.035).toFixed(1)+'px')})}
+addEventListener('scroll',function(){if(!pr)pr=requestAnimationFrame(par)},{passive:true});addEventListener('resize',par);par();
+/* a heading or one of the three words ripples when the pointer comes over it or it is tapped */
+var fine=matchMedia('(hover: hover) and (pointer: fine)');
+function wave(el){if(el.classList.contains('is-wave'))return;el.classList.add('is-wave');var n=Math.min(el.querySelectorAll('.hm-ch').length,28);setTimeout(function(){el.classList.remove('is-wave')},580+n*26)}
+[].forEach.call(r.querySelectorAll('.hm-ed__title, .hm-ed__tri'),function(el){el.addEventListener('mouseenter',function(){if(fine.matches)wave(el)});el.addEventListener('click',function(){wave(el)})})}
 /* the plant timeline: hover, focus or a tap shows a step's photo; scrolling lights the step in the middle of the screen,
    and on a phone its photo drops open below it and stays (nothing above the reader ever closes, so the page never jumps) */
 var list=r.querySelector('.hm-proc__list');if(list){d.documentElement.classList.add('hm-proc-js');
 var st=[].slice.call(list.querySelectorAll('[data-step]')),sh=r.querySelectorAll('[data-shot]'),wide=matchMedia('(min-width: 768px)'),cur=0,hov=false,raf=0;
 function mid(e,L){var b=e.getBoundingClientRect();return b.top+b.height/2-L}
 function line(){var L=list.getBoundingClientRect().top,t=mid(st[0].querySelector('.hm-proc__dot'),L);list.style.setProperty('--tl-top',t+'px');list.style.setProperty('--tl-end',(list.offsetHeight-mid(st[st.length-1].querySelector('.hm-proc__dot'),L))+'px');list.style.setProperty('--tl',(mid(st[cur].querySelector('.hm-proc__dot'),L)-t)+'px')}
-function act(i){cur=i;st.forEach(function(s,k){s.classList.toggle('is-active',k==i);s.classList.toggle('is-past',k<i);s.firstChild.setAttribute('aria-pressed',k==i?'true':'false')});sh.forEach(function(s,k){s.classList.toggle('is-active',k==i)});line()}
+function act(i){cur=i;st.forEach(function(s,k){s.classList.toggle('is-active',k==i);s.classList.toggle('is-past',k<i);s.firstChild.setAttribute('aria-pressed',k==i?'true':'false')});var pv=r.querySelector('[data-shot].is-active');sh.forEach(function(s,k){s.classList.remove('is-prev');s.classList.toggle('is-active',k==i)});if(pv&&pv!==sh[i])pv.classList.add('is-prev');line()}
 st.forEach(function(s,k){var b=s.firstChild;s.addEventListener('mouseenter',function(){if(wide.matches)act(k)});b.addEventListener('focus',function(){act(k)});
 b.addEventListener('click',function(){if(pinned()){go(k);return}if(wide.matches){act(k);return}var o=s.classList.contains('is-open')&&cur==k;act(k);s.classList.toggle('is-open',!o)})});
 list.addEventListener('mouseenter',function(){hov=true});list.addEventListener('mouseleave',function(){hov=false});
