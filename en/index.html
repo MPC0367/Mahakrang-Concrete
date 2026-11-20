@@ -25,7 +25,7 @@
 <link rel="icon" href="/img/brand/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/kanit-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/ibm-plex-sans-thai-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/site.css?v=9fab6aece6">
+<link rel="stylesheet" href="/assets/site.css?v=2e32eee2aa">
 <script>/* O2: the logo opening, 20 Nov 2026 (assets/site.css "the logo opening"). A fresh open or a reload only. */
 (function(){var d=document.documentElement,t0=Date.now(),done=false;try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var n=performance.getEntriesByType('navigation')[0],k=n&&n.type;if(k==='back_forward')return;if(k!=='reload'&&document.referrer&&new URL(document.referrer).origin===location.origin)return;}catch(e){return}
 d.classList.add('mk-intro-on');
@@ -199,7 +199,7 @@ function segs(t,g){if(SG)return Array.from(new Intl.Segmenter(lang,{granularity:
 function split(el){var c=0,txt=el.textContent,v=d.createElement('span');v.className='hm-split__v';v.setAttribute('aria-hidden','true');
 (function walk(a,b){[].slice.call(a.childNodes).forEach(function(n){if(n.nodeType==3){segs(n.nodeValue,'word').forEach(function(w){if(!w)return;if(/^\s+$/.test(w)){b.appendChild(d.createTextNode(w));return}var ws=d.createElement('span');ws.className='hm-w';(/[\u0E00-\u0E7F]/.test(w)?segs(w,'grapheme'):[w]).forEach(function(ch){var s=d.createElement('span');s.className='hm-ch';s.style.setProperty('--c',Math.min(c++,28));s.textContent=ch;ws.appendChild(s)});b.appendChild(ws)})}else if(n.nodeType==1){var k=n.cloneNode(false);b.appendChild(k);walk(n,k)}})})(el,v);
 var h=d.createElement('span');h.className='vh';h.textContent=txt;el.textContent='';el.appendChild(h);el.appendChild(v);el.classList.add('hm-split')}
-[].forEach.call(r.querySelectorAll('.hm-ed__title, .hm-ed__triw'),split);
+[].forEach.call(r.querySelectorAll('.hm-ed__triw'),split);
 var rail=r.querySelector('[data-rail-auto]');if(rail){rail.setAttribute('data-rv','');[].forEach.call(rail.querySelectorAll('.hm-people__item'),function(it,i){it.style.setProperty('--k',i%6)})}
 var pend=[].slice.call(r.querySelectorAll('[data-rv]')),tick=0;d.documentElement.classList.add('hm-ed-js');
 function check(){tick=0;var h=innerHeight*0.9;pend=pend.filter(function(el){if(el.getBoundingClientRect().top<h){el.classList.add('is-in');return false}return true});if(!pend.length)removeEventListener('scroll',on)}
@@ -208,10 +208,10 @@ function on(){if(!tick)tick=requestAnimationFrame(check)}addEventListener('scrol
 var figs=[].slice.call(r.querySelectorAll('.hm-ed__fig > picture')),pr=0;
 function par(){pr=0;var vh=innerHeight;figs.forEach(function(p){var b=p.getBoundingClientRect();if(b.bottom<-80||b.top>vh+80)return;var k=(b.top+b.height/2-vh/2)/(vh/2+b.height/2);p.style.setProperty('--py',(-k*b.height*.035).toFixed(1)+'px')})}
 addEventListener('scroll',function(){if(!pr)pr=requestAnimationFrame(par)},{passive:true});addEventListener('resize',par);par();
-/* a heading or one of the three words ripples when the pointer comes over it or it is tapped */
+/* one of the three words ripples when the pointer comes over it or it is tapped (section headings stay still: the owner) */
 var fine=matchMedia('(hover: hover) and (pointer: fine)');
 function wave(el){if(el.classList.contains('is-wave'))return;el.classList.add('is-wave');var n=Math.min(el.querySelectorAll('.hm-ch').length,28);setTimeout(function(){el.classList.remove('is-wave')},580+n*26)}
-[].forEach.call(r.querySelectorAll('.hm-ed__title, .hm-ed__tri'),function(el){el.addEventListener('mouseenter',function(){if(fine.matches)wave(el)});el.addEventListener('click',function(){wave(el)})})}
+[].forEach.call(r.querySelectorAll('.hm-ed__tri'),function(el){el.addEventListener('mouseenter',function(){if(fine.matches)wave(el)});el.addEventListener('click',function(){wave(el)})})}
 /* the plant timeline: hover, focus or a tap shows a step's photo; scrolling lights the step in the middle of the screen,
    and on a phone its photo drops open below it and stays (nothing above the reader ever closes, so the page never jumps) */
 var list=r.querySelector('.hm-proc__list');if(list){d.documentElement.classList.add('hm-proc-js');
