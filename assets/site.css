@@ -1679,12 +1679,14 @@ a.cc-q__a:hover .cc-q__t { color: var(--red-dk); }
   .hm-gw__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(6px, .6vw, 10px); }
   /* R1's tile is ~1.6:1; the height follows the width so the mosaic keeps its proportions */
   .hm-tile { aspect-ratio: auto; min-height: clamp(300px, 30.4vw, 560px); }
-  .hm-tile__text { padding: clamp(28px, 3.6vw, 64px) clamp(24px, 2.8vw, 52px) 0; }
-  .hm-tile__num { font-size: clamp(13px, 1vw, 16px); }
-  .hm-tile__title { margin-top: clamp(4px, .5vw, 8px); font-size: clamp(38px, 5.1vw, 84px); text-wrap: nowrap; }
-  .hm-tile__body { margin-top: clamp(6px, .7vw, 12px); font-size: clamp(16px, 1.45vw, 24px); }
-  .hm-tile__more { gap: 14px; padding: 16px clamp(24px, 2.8vw, 52px) clamp(22px, 3vw, 52px); font-size: clamp(15px, 1.1vw, 18px); }
-  .hm-tile__arrow { width: clamp(36px, 2.9vw, 48px); height: clamp(36px, 2.9vw, 48px); }
+  /* smaller words, so they cover less of each photograph (the owner, 20 Nov 2026: "make these words smaller and cover
+     less of the picture"; were title 38-84px, body 16-24px); the shade stays as measured, so the words keep their contrast */
+  .hm-tile__text { padding: clamp(22px, 2.6vw, 44px) clamp(20px, 2.2vw, 40px) 0; }
+  .hm-tile__num { font-size: clamp(12px, .9vw, 15px); }
+  .hm-tile__title { margin-top: clamp(2px, .4vw, 6px); font-size: clamp(30px, 3.4vw, 58px); text-wrap: nowrap; }
+  .hm-tile__body { margin-top: clamp(4px, .5vw, 8px); font-size: clamp(14px, 1.05vw, 18px); }
+  .hm-tile__more { gap: 12px; padding: 14px clamp(20px, 2.2vw, 40px) clamp(18px, 2.2vw, 40px); font-size: clamp(14px, 1vw, 16px); }
+  .hm-tile__arrow { width: clamp(32px, 2.4vw, 42px); height: clamp(32px, 2.4vw, 42px); }
 }
 
 @media (min-width: 1100px) {
@@ -3910,6 +3912,9 @@ html.hm-proc-js .hm-proc__step.is-open .hm-proc__di { transform: none; }
 .hm-people__fig { margin: 0; }
 .hm-people__ph { display: block; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 2px; background: var(--panel); }
 .hm-people__ph picture, .hm-people__img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* the team photos open in the site's own viewer */
+.hm-people__ph { cursor: zoom-in; }
+.hm-people__ph:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 .hm-people__cap { margin-top: 10px; font-size: 13px; line-height: 1.5; color: var(--grey); max-width: 30ch; }
 .hm-people__btn { display: none; align-items: center; gap: 8px; min-height: 44px; padding: 0; border: 0; background: none; font: inherit; font-weight: 600; color: var(--ink); cursor: pointer; }
 .hm-people__btn .i { width: 18px; height: 18px; }
@@ -4007,7 +4012,7 @@ html.hm-ed-js .hm-ed__head.is-in .hm-ed__rule { transform: scaleX(1); }
 @keyframes hm-settle { from { scale: 1.24; } to { scale: 1.08; } }
 @keyframes hm-settle-s { from { scale: 1.12; } to { scale: 1; } }
 @keyframes hm-num { from { transform: translateY(72%); clip-path: inset(-20% -8% 72% -8%); } to { transform: none; clip-path: inset(-20% -8% -8% -8%); } }
-@keyframes hm-wave { 0% { transform: none; } 38% { transform: translateY(-.2em); color: var(--red); } 100% { transform: none; } }
+@keyframes hm-wave { 0% { transform: none; } 40% { transform: translateY(-.06em); } 100% { transform: none; } }
 
 html.hm-ed-js .hm-ed__fig[data-rv] { opacity: 1; transform: none; }
 html.hm-ed-js .hm-ed__fig > picture { display: block; overflow: hidden; border-radius: 2px; clip-path: inset(100% 0 0 0); }
@@ -4025,16 +4030,16 @@ html.hm-ed-js .hm-people.is-in .hm-people__ph { animation: hm-pour 1000ms cubic-
 
 .hm-w { display: inline-block; white-space: nowrap; }
 .hm-ch { display: inline-block; }
-html.hm-ed-js .hm-split .hm-ch { transition: opacity 600ms var(--ease), transform 760ms var(--ease); transition-delay: calc(var(--c, 0) * 18ms); }
-html.hm-ed-js [data-rv]:not(.is-in) .hm-split .hm-ch, html.hm-ed-js .hm-split[data-rv]:not(.is-in) .hm-ch { opacity: 0; transform: translateY(.5em); }
-.hm-ed__tri.is-wave .hm-ch { animation: hm-wave 540ms cubic-bezier(.34,1.3,.64,1) calc(var(--c, 0) * 26ms) both; }
-.hm-ed__tri::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--red); transform: scaleX(0); transform-origin: left center; transition: transform 460ms var(--ease); }
+html.hm-ed-js .hm-split .hm-ch { transition: opacity 520ms var(--ease), transform 640ms var(--ease); transition-delay: calc(var(--c, 0) * 12ms); }
+html.hm-ed-js [data-rv]:not(.is-in) .hm-split .hm-ch, html.hm-ed-js .hm-split[data-rv]:not(.is-in) .hm-ch { opacity: 0; transform: translateY(.16em); }
+.hm-ed__tri.is-wave .hm-ch { animation: hm-wave 420ms var(--ease) calc(var(--c, 0) * 14ms) both; }
+.hm-ed__tri::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--red); transform: scaleX(0); transform-origin: left center; transition: transform 560ms var(--ease); }
 .hm-ed__tri.is-wave::after { transform: scaleX(1); }
 .hm-ed__trik { transition: transform 320ms var(--ease); }
-.hm-ed__tri.is-wave .hm-ed__trik { transform: translateX(6px); }
+.hm-ed__tri.is-wave .hm-ed__trik { transform: translateX(3px); }
 @media (hover: hover) and (pointer: fine) {
   .hm-ed__tri:hover::after { transform: scaleX(1); }
-  .hm-ed__tri:hover .hm-ed__trik { transform: translateX(6px); }
+  .hm-ed__tri:hover .hm-ed__trik { transform: translateX(3px); }
 }
 
 /* the plant photographs pour in over the one before, on a tablet or a computer */
