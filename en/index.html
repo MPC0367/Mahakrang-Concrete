@@ -25,7 +25,7 @@
 <link rel="icon" href="/img/brand/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/kanit-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/ibm-plex-sans-thai-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/site.css?v=810527f17c">
+<link rel="stylesheet" href="/assets/site.css?v=1f77b724cf">
 <script>/* O2: the logo opening, 20 Nov 2026 (assets/site.css "the logo opening"). A fresh open or a reload only; the fill rises on the compositor (transforms), so it stays smooth while the page loads. */
 (function(){var d=document.documentElement,t0=Date.now(),done=false;try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var n=performance.getEntriesByType('navigation')[0],k=n&&n.type;if(k==='back_forward')return;if(k!=='reload'&&document.referrer&&new URL(document.referrer).origin===location.origin)return;}catch(e){return}
 d.classList.add('mk-intro-on');
@@ -38,7 +38,7 @@ var vb=s.getAttribute('viewBox');function sv(c,x){return '<svg class="'+c+'" vie
 w.innerHTML='<div class="mk-intro__mark">'+sv('mk-intro__ol','<path class="mk-intro__line" pathLength="1" d="'+dd+'"/>')+'<div class="mk-intro__pour"><div class="mk-intro__pin">'+sv('mk-intro__fl','<path class="mk-intro__fill" d="'+dd+'"/>')+'</div></div></div>';document.body.appendChild(w);
 /* start two frames later, once the page's own start-up work has passed, so the first strokes are not held back */
 requestAnimationFrame(function(){requestAnimationFrame(function(){if(done)return;w.classList.add('is-go');setTimeout(function(){if(done)return;var m=w.firstChild,r=m.getBoundingClientRect(),q=s.getBoundingClientRect();if(q.width&&r.width){m.style.setProperty('--mk-x',(q.left+q.width/2-r.left-r.width/2)+'px');m.style.setProperty('--mk-y',(q.top+q.height/2-r.top-r.height/2)+'px');m.style.setProperty('--mk-s',q.width/r.width);}d.classList.add('mk-intro-move');end(false);},1320)})})});})();</script>
-<script>document.documentElement.classList.replace('no-js','js');</script>
+<script>document.documentElement.classList.replace('no-js','js');</script><script>/* O2: the four cards' numerals rise (assets/site.css "the four cards on the computer"); only when motion is welcome; if the cards' script has not run within 4 s nothing waits hidden */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('gw-js');setTimeout(function(){var d=document.documentElement;if(!d.classList.contains('gw-run'))d.classList.remove('gw-js')},4000)}}catch(e){}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"Mahakrang Concrete","alternateName":"มหาแกร่ง คอนกรีต","telephone":"+66819979994","email":"mahakrang.concrete@gmail.com","address":{"@type":"PostalAddress","streetAddress":"33/1 Moo 9, Lahan, Bang Bua Thong, Nonthaburi 11110","addressCountry":"TH"},"sameAs":["https://www.facebook.com/profile.php?id=61558866913559","https://www.youtube.com/channel/UCbOIADb2KLdtyrRdYdbXJAw"]}</script>
 </head>
 <body id="top" class="home">
@@ -109,7 +109,14 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){if(done)return
           <span class="hm-tile__more" aria-hidden="true"><span class="hm-tile__more-t">See more</span><span class="hm-tile__arrow"><svg class="i i-arrow-right" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#arrow-right"></use></svg></span></span>
         </a>
       </li><li class="hm-gw__values"><ul class="hm-values"><li class="hm-value"><svg class="hm-value__i" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 7.5 12 12l9-4.5L12 3Z"/><path d="m3 12 9 4.5 9-4.5"/><path d="m3 16.5 9 4.5 9-4.5"/></svg><span class="hm-value__t"><span class="hm-value__en">Quality</span></span></li><li class="hm-value"><svg class="hm-value__i" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12.2 2.8 2.8 5.4-5.6"/></svg><span class="hm-value__t"><span class="hm-value__en">Standard</span></span></li><li class="hm-value"><svg class="hm-value__i" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><path d="M4 14a2 2 0 0 1 2-2h1v6H6a2 2 0 0 1-2-2v-2Z"/><path d="M20 14a2 2 0 0 0-2-2h-1v6h1a2 2 0 0 0 2-2v-2Z"/><path d="M18 18v.5a2.5 2.5 0 0 1-2.5 2.5H13"/></svg><span class="hm-value__t"><span class="hm-value__en">Service</span></span></li></ul></li></ul>
-  </section>
+  </section><script>/* O2: each card's numeral rises out of its photograph once it is on screen, after the logo opening lifts (22 Nov 2026; assets/site.css "the four cards on the computer") */
+(function(){var d=document,H=d.documentElement,g=d.getElementById('hm-gateways');if(!g||!H.classList.contains('gw-js'))return;H.classList.add('gw-run');
+var pend=[].slice.call(g.querySelectorAll('.hm-gw__item')),go=false,tick=0;
+function check(){tick=0;if(!go)return;var vh=innerHeight*.9;pend=pend.filter(function(el){if(el.getBoundingClientRect().top>=vh)return true;el.classList.add('is-in');return false});if(!pend.length){removeEventListener('scroll',on);removeEventListener('resize',on)}}
+function on(){if(!tick)tick=requestAnimationFrame(check)}addEventListener('scroll',on,{passive:true});addEventListener('resize',on);
+function start(){if(go)return;go=true;check()}
+function lifted(){return !H.classList.contains('mk-intro-on')||H.classList.contains('mk-intro-out')}
+if(lifted())requestAnimationFrame(function(){requestAnimationFrame(start)});else{var mo=new MutationObserver(function(){if(lifted()){mo.disconnect();start()}});mo.observe(H,{attributes:true,attributeFilter:['class']});setTimeout(start,3700)}})();</script>
 <div class="hm-ed" id="hm-story" aria-label="The Mahakrang story">
 
   <section class="hm-ed__ch hm-ed__ch--paper hm-ed__ch--one" aria-labelledby="hm-ed-1">

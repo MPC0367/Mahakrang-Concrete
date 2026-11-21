@@ -3681,6 +3681,87 @@ html:has(.pg-toc) { scroll-padding-top: calc(var(--hdr-h) + 84px); }
   }
 }
 
+/* ---------------------------------------------------------------- the four cards on the computer: a broken grid (22 Nov 2026)
+   The owner, of the 2 x 2 cards: "is there a more interesting way to sort these headers, i feel like its too stiff
+   compared to the breath of fresh air that the indie storytelling gives below". From 768px the cards borrow the story's
+   moves: the page's own margins (in line with the header and the story), a pinwheel of two large and two smaller
+   photographs whose tops step (01 high and 02 low, then 03 low and 04 high; each row ends on one line), each card's number as the story's
+   huge numeral standing on its photograph's top edge (left on 01 and 03, right on 02 and 04, as the story's chapters
+   alternate), and the English line beside it as the story's label with the red square (03's stays handwritten). The
+   photographs lose the corner shade those lines needed. The words on the photographs, the links and phones are unchanged.
+   The numerals rise out of their photographs' edge once, as the story's do (html.gw-js: a line in the home pages' head
+   sets it only when motion is welcome; the script after the cards adds is-in). */
+@media (min-width: 768px) {
+  .hm-gw {
+    --gw-gap: clamp(12px, 1.7vw, 28px);
+    --gw-num: clamp(60px, 7vw, 112px);
+    --gw-lift: clamp(8px, .8vw, 14px);
+    --gw-head: calc(var(--gw-num) * .74 + var(--gw-lift));
+    max-width: 1440px;
+    padding: clamp(28px, 3.6vw, 64px) max(var(--gutter), env(safe-area-inset-right, 0px)) clamp(8px, 1vw, 16px) max(var(--gutter), env(safe-area-inset-left, 0px));
+  }
+  .hm-gw__grid { container-type: inline-size; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gw-gap); row-gap: clamp(28px, 3.4vw, 60px); }
+  /* photo heights follow the grid's width (cqw), so the pinwheel keeps its shape from 768 to 1440 */
+  .hm-gw__item:nth-child(1) { grid-column: 1 / 8; grid-row: 1; align-self: start; --gw-ph: 40cqw; }
+  .hm-gw__item:nth-child(2) { grid-column: 8 / 13; grid-row: 1; align-self: end; --gw-ph: 31cqw; }
+  .hm-gw__item:nth-child(3) { grid-column: 1 / 6; grid-row: 2; align-self: end; --gw-ph: 28cqw; }
+  .hm-gw__item:nth-child(4) { grid-column: 6 / 13; grid-row: 2; align-self: end; --gw-ph: 38cqw; }
+
+  /* the card: a white strip for its numeral and label, then the photograph with the words on it */
+  .hm-gw .hm-tile { min-height: calc(var(--gw-head) + var(--gw-ph)); padding-top: var(--gw-head); background: none; --hm-tag-shade: linear-gradient(transparent, transparent); }
+  .hm-gw .hm-tile__media { top: var(--gw-head); border-radius: var(--r-tile); }
+  .hm-gw .hm-tile__text { position: static; }
+  .hm-gw__item:nth-child(2) .hm-tile__title, .hm-gw__item:nth-child(3) .hm-tile__title { font-size: clamp(26px, 2.9vw, 48px); }
+
+  /* the numeral: the story's, a size smaller; behind the photograph, so it rises out of its edge */
+  .hm-gw .hm-tile__num {
+    position: absolute; z-index: -2; left: 0; bottom: calc(100% - var(--gw-head) + var(--gw-lift) * .5); margin-left: -.04em;
+    font-family: var(--f-display); font-weight: 800; font-size: var(--gw-num); line-height: .78; letter-spacing: -.045em; color: var(--ink);
+    transition: color 220ms var(--ease);
+  }
+  .hm-gw__item:nth-child(even) .hm-tile__num { left: auto; right: 0; margin: 0 -.04em 0 0; }
+
+  /* the English line: the story's label, the red square before it, on the other side of the strip from the numeral */
+  .hm-gw .hm-tile__tag {
+    display: block; position: absolute; z-index: 0; top: auto; left: auto; right: 0; bottom: calc(100% - var(--gw-head) + var(--gw-lift) + 2px);
+    max-width: 62%; padding: 0; transform: none;
+    font-family: var(--f-display); font-weight: 600; font-size: clamp(10.5px, .82vw, 12px); line-height: 1.5; color: var(--ink);
+    text-align: right; text-shadow: none; white-space: nowrap;
+  }
+  .hm-gw .hm-tile__tag.hm-latin { letter-spacing: .16em; }
+  .hm-gw .hm-tile__tag::after { content: none; }
+  .hm-gw .hm-tile__tag::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 10px; vertical-align: 1px; background: var(--red); }
+  .hm-gw__item:nth-child(even) .hm-tile__tag { right: auto; left: 0; text-align: left; }
+  /* 03 keeps its note in handwriting, tilted, with a red stroke under it */
+  .hm-gw .hm-tile--lifestyle .hm-tile__tag {
+    font-family: var(--f-hand); font-weight: 400; font-size: clamp(13px, 1.1vw, 18px); line-height: 1.22;
+    transform: rotate(-5deg); transform-origin: 100% 100%;
+  }
+  .hm-gw .hm-tile--lifestyle .hm-tile__tag.hm-latin { letter-spacing: .03em; }
+  .hm-gw .hm-tile--lifestyle .hm-tile__tag::before { content: none; }
+  .hm-gw .hm-tile--lifestyle .hm-tile__tag::after { content: ""; position: absolute; right: 10%; bottom: -7px; left: auto; width: 36px; height: 2px; border-radius: 2px; background: var(--red); transform: rotate(-3deg); }
+}
+/* tablets: the photographs a little taller, so the smaller cards keep room for their words; below 900px the strip
+   keeps only the numeral */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hm-gw__item:nth-child(1) { --gw-ph: 44cqw; }
+  .hm-gw__item:nth-child(2) { --gw-ph: 36cqw; }
+  .hm-gw__item:nth-child(3) { --gw-ph: 34cqw; }
+  .hm-gw__item:nth-child(4) { --gw-ph: 42cqw; }
+}
+@media (min-width: 768px) and (max-width: 899px) {
+  .hm-gw .hm-tile__tag { display: none; }
+}
+@media (min-width: 768px) and (hover: hover) {
+  .hm-gw .hm-tile:hover .hm-tile__num { color: var(--red); }
+}
+@media (min-width: 768px) {
+  .hm-gw .hm-tile:focus-visible .hm-tile__num { color: var(--red); }
+  html.gw-js .hm-gw .hm-tile__num { clip-path: inset(-20% -8% 100% -8%); }
+  html.gw-js .hm-gw__item.is-in .hm-tile__num { animation: hm-num 1100ms cubic-bezier(.22,.61,.36,1) var(--gw-d, 80ms) both; }
+  .hm-gw__item:nth-child(even) { --gw-d: 220ms; }
+}
+
 /* ---------------------------------------------------------------- the Micropile Surface Pro page (20 Nov 2026)
    The owner passed on Mahakrang's reference picture, photographs and words for /concrete/micropile/ ("it should be in
    the same mood and tone as the website"). Hand-made here, not in mahakrang-v2. The hero sits on the render's own

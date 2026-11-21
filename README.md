@@ -51,6 +51,13 @@ the line under the kicker forms letter by letter; lower down the stacked piles, 
 the photos drift with the scroll, the rest rises in; section headings and the calculator stay still. Styles "the
 Micropile page forms" in `assets/site.css`; a one-line script in each page's head (sets `mp-js` only when motion is
 welcome) and one at the end of `<main>`. Nothing moves under reduced motion or without scripts.
+Since 22 Nov 2026 (branch `cards-broken-grid-2026-11-22`) from 768px the four cards are laid out like the story under
+them: the page's own margins, two large and two smaller photographs whose tops step (01 high, 02 low, 03 low, 04 high),
+each card's number as a huge numeral standing on its photo (it rises out of the photo's edge once, after the logo
+opening), and the English line beside it as a label with the red square (03's stays handwritten); the words on the
+photos and phones are unchanged. Styles "the four cards on the computer: a broken grid" in `assets/site.css`; a
+one-line script in the home pages' head (sets `gw-js` only when motion is welcome) and one after the cards. Made here
+by hand, not in mahakrang-v2: add it there, or a rebuild drops it.
 
 Since 20 Nov 2026 (branch `home-art-2026-11-20`) the home page tells a story under the four cards, which stay first:
 six chapters (`.hm-ed` in `index.html` and `en/index.html`, styles "the home page story under the four cards" and the
