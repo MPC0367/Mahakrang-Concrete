@@ -3780,6 +3780,57 @@ html:has(.pg-toc) { scroll-padding-top: calc(var(--hdr-h) + 84px); }
 @media (min-width: 768px) { .mp-sign .hm-values { padding-top: 16px; } }
 .mp .cc-pd__cols { padding-top: clamp(32px, 4vw, 64px); }
 
+/* ---------------------------------------------------------------- the Micropile page forms (21 Nov 2026)
+   The owner, on this page's hero: "create the forming effects for this page too" (the home page's motion block above).
+   As the logo opening lifts, the pile pours into its frame from the bottom and settles, MICROPILE SURFACE PRO rises out
+   of its baseline word by word (whole words keep Kanit's kerning), and the line under the red kicker forms letter by
+   letter (Thai per letter cluster, Latin per word). Further down the stacked piles, the three photographs and the film
+   pour in, the photographs then drift a little with the scroll, the four points' rule draws, and the rest rises in as
+   it comes into view. Section headings rise with their text and do not form (the owner: "headers like these dont need
+   effects"); the specifications and the calculator stay still. html.mp-js is set in the page's head only when motion
+   is welcome, so nothing shows before it forms; the page's script at the end of main runs it (and the head takes the
+   class back after 4 s if that script never ran). Without them everything is simply there. */
+.mp-hero__kick { --d: 260ms; } .mp-hero__lead { --d: 340ms; } .mp-hero__body { --d: 520ms; } .mp-hero__acts { --d: 620ms; }
+.mp-std__t { --d: 80ms; } .mp-std__b { --d: 160ms; } .mp-std__more { --d: 240ms; } .mp-film__cap { --d: 320ms; }
+.mp-feat:nth-child(2), .mp-strip__it:nth-child(2), .mp-sign__values .hm-value:nth-child(2) { --k: 1; }
+.mp-feat:nth-child(3), .mp-strip__it:nth-child(3), .mp-sign__values .hm-value:nth-child(3) { --k: 2; }
+.mp-feat:nth-child(4) { --k: 3; }
+
+html.mp-js :is(.mp-hero__kick, .mp-hero__body, .mp-hero__acts, .mp-pill, .mp-std__t, .mp-std__b, .mp-std__more, .mp-film__cap, .mp-sign__brand, .mp-feat, .mp-sign__values .hm-value) {
+  opacity: 0; transform: translateY(14px); transition: opacity 720ms var(--ease), transform 720ms var(--ease); transition-delay: var(--d, 0ms); }
+html.mp-js :is(.mp-hero__kick, .mp-hero__body, .mp-hero__acts, .mp-pill, .mp-std__t, .mp-std__b, .mp-std__more, .mp-film__cap, .mp-sign__brand).is-in,
+html.mp-js .mp-feats__list.is-in .mp-feat, html.mp-js .mp-sign__values.is-in .hm-value { opacity: 1; transform: none; }
+html.mp-js .mp-feat { transition-delay: calc(var(--k, 0) * 100ms + 160ms); }
+html.mp-js .mp-sign__values .hm-value { transition-delay: calc(var(--k, 0) * 110ms + 100ms); }
+
+/* the title: each word waits in a window under its baseline, then rises */
+.mp-w, .mp-w__i { display: inline-block; }
+html.mp-js .mp-hero__t:not(.mp-split), html.mp-js .mp-hero__lead:not(.hm-split) { opacity: 0; }
+html.mp-js .mp-w { clip-path: inset(-.4em -.2em 0 -.2em); }
+html.mp-js .mp-w__i { transform: translateY(104%); }
+html.mp-js .mp-hero__t.is-in .mp-w__i { transform: none; transition: transform 1000ms cubic-bezier(.22,.61,.36,1) calc(var(--k, 0) * 110ms + 120ms); }
+
+/* the line under the kicker forms */
+html.mp-js .mp-hero__lead .hm-ch { transition: opacity 520ms var(--ease), transform 640ms var(--ease); transition-delay: calc(var(--d, 0ms) + var(--c, 0) * 12ms); }
+html.mp-js .mp-hero__lead:not(.is-in) .hm-ch { opacity: 0; transform: translateY(.16em); }
+
+/* the pile, the stacked piles, the three photographs and the film pour in from the bottom; the photographs settle */
+html.mp-js :is(.mp-hero__fig, .mp-std__media, .mp-strip__it) > picture, html.mp-js .mp-film__frame { clip-path: inset(100% 0 0 0); }
+html.mp-js .mp-hero__fig.is-in > picture { animation: hm-pour 1150ms cubic-bezier(.65,0,.35,1) 40ms both; }
+html.mp-js .mp-hero__fig.is-in .mp-hero__img { animation: hm-settle-s 1600ms var(--ease) 40ms both; }
+html.mp-js :is(.mp-std__media, .mp-strip__it) > picture img { scale: 1.08; translate: 0 var(--py, 0px); }
+html.mp-js .mp-std__media.is-in > picture { animation: hm-pour 1150ms cubic-bezier(.65,0,.35,1) 60ms both; }
+html.mp-js .mp-std__media.is-in > picture img { animation: hm-settle 1600ms var(--ease) 60ms both; }
+html.mp-js .mp-strip__list.is-in .mp-strip__it > picture { animation: hm-pour 1000ms cubic-bezier(.65,0,.35,1) calc(var(--k, 0) * 110ms + 120ms) both; }
+html.mp-js .mp-strip__list.is-in .mp-strip__it > picture img { animation: hm-settle 1400ms var(--ease) calc(var(--k, 0) * 110ms + 120ms) both; }
+html.mp-js .mp-film__frame.is-in { animation: hm-pour 1150ms cubic-bezier(.65,0,.35,1) 60ms both; }
+
+/* the four points' rule draws from the left */
+html.mp-js .mp-feats__list { position: relative; border-top-color: transparent; }
+html.mp-js .mp-feats__list::before { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: rgba(16,16,16,.12);
+  transform: scaleX(0); transform-origin: left center; transition: transform 850ms var(--ease) 60ms; }
+html.mp-js .mp-feats__list.is-in::before { transform: scaleX(1); }
+
 /* the Micropile card on /concrete/: light, on the render's own grey, as in the client's picture */
 .cc-card--light .cc-card__a { background: #F0EBE8; color: var(--ink); }
 .cc-card--light .cc-card__media { inset: auto 0 19% 0; height: 46%; }

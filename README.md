@@ -45,6 +45,12 @@ production standard beside the stacked piles, three slanted photos, their Custom
 H.264 1080p, loads only on play), the Quality / Standard / Service row; the specifications note and calculator stay.
 `/concrete/` and `/en/concrete/` open their use rail on a light Micropile Surface Pro card. Styles: "the Micropile
 Surface Pro page" in `assets/site.css`. Made here by hand, not in mahakrang-v2: add it there, or a rebuild drops it.
+Since 21 Nov 2026 (branch `micropile-forming-2026-11-21`) both Micropile pages form like the home page's story: as the
+logo opening lifts the pile pours in from the bottom, MICROPILE SURFACE PRO rises out of its baseline word by word and
+the line under the kicker forms letter by letter; lower down the stacked piles, the three photos and the film pour in,
+the photos drift with the scroll, the rest rises in; section headings and the calculator stay still. Styles "the
+Micropile page forms" in `assets/site.css`; a one-line script in each page's head (sets `mp-js` only when motion is
+welcome) and one at the end of `<main>`. Nothing moves under reduced motion or without scripts.
 
 Since 20 Nov 2026 (branch `home-art-2026-11-20`) the home page tells a story under the four cards, which stay first:
 six chapters (`.hm-ed` in `index.html` and `en/index.html`, styles "the home page story under the four cards" and the

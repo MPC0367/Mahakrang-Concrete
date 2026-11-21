@@ -28,7 +28,7 @@
 <link rel="preload" href="/fonts/ibm-plex-sans-thai-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 
 <link rel="preload" as="image" href="/media/m_64e767f7e6e82391/w700.webp" imagesrcset="/media/m_64e767f7e6e82391/w480.webp 480w, /media/m_64e767f7e6e82391/w700.webp 700w" imagesizes="(min-width: 1100px) 56vw, 100vw" type="image/webp" fetchpriority="high">
-<link rel="stylesheet" href="/assets/site.css?v=fbc7c93fb2">
+<link rel="stylesheet" href="/assets/site.css?v=810527f17c">
 <script>/* O2: the logo opening, 20 Nov 2026 (assets/site.css "the logo opening"). A fresh open or a reload only; the fill rises on the compositor (transforms), so it stays smooth while the page loads. */
 (function(){var d=document.documentElement,t0=Date.now(),done=false;try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var n=performance.getEntriesByType('navigation')[0],k=n&&n.type;if(k==='back_forward')return;if(k!=='reload'&&document.referrer&&new URL(document.referrer).origin===location.origin)return;}catch(e){return}
 d.classList.add('mk-intro-on');
@@ -41,7 +41,7 @@ var vb=s.getAttribute('viewBox');function sv(c,x){return '<svg class="'+c+'" vie
 w.innerHTML='<div class="mk-intro__mark">'+sv('mk-intro__ol','<path class="mk-intro__line" pathLength="1" d="'+dd+'"/>')+'<div class="mk-intro__pour"><div class="mk-intro__pin">'+sv('mk-intro__fl','<path class="mk-intro__fill" d="'+dd+'"/>')+'</div></div></div>';document.body.appendChild(w);
 /* start two frames later, once the page's own start-up work has passed, so the first strokes are not held back */
 requestAnimationFrame(function(){requestAnimationFrame(function(){if(done)return;w.classList.add('is-go');setTimeout(function(){if(done)return;var m=w.firstChild,r=m.getBoundingClientRect(),q=s.getBoundingClientRect();if(q.width&&r.width){m.style.setProperty('--mk-x',(q.left+q.width/2-r.left-r.width/2)+'px');m.style.setProperty('--mk-y',(q.top+q.height/2-r.top-r.height/2)+'px');m.style.setProperty('--mk-s',q.width/r.width);}d.classList.add('mk-intro-move');end(false);},1320)})})});})();</script>
-<script>document.documentElement.classList.replace('no-js','js');</script>
+<script>document.documentElement.classList.replace('no-js','js');</script><script>/* O2: the Micropile page forms (assets/site.css "the Micropile page forms"); only when motion is welcome; if the page's script has not run within 4 s nothing waits hidden */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('mp-js');setTimeout(function(){var d=document.documentElement;if(!d.classList.contains('mp-run'))d.classList.remove('mp-js')},4000)}}catch(e){}</script>
 
 </head>
 <body id="top" class="page-product">
@@ -448,7 +448,28 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){if(done)return
     <p class="cc-pd__back"><a class="tlink" href="/en/concrete/"><svg class="i i-arrow-left" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#arrow-left"></use></svg><span>All concrete</span></a></p>
   </div>
 </div><script>/* O2: the Customer First badge steps aside while the film plays (20 Nov 2026) */
-(function(){var f=document.querySelector('[data-mp-film]');if(!f)return;var v=f.querySelector('video');function s(){f.classList.toggle('is-playing',!v.paused&&!v.ended)}v.addEventListener('play',s);v.addEventListener('pause',s);v.addEventListener('ended',s);})();</script></main>
+(function(){var f=document.querySelector('[data-mp-film]');if(!f)return;var v=f.querySelector('video');function s(){f.classList.toggle('is-playing',!v.paused&&!v.ended)}v.addEventListener('play',s);v.addEventListener('pause',s);v.addEventListener('ended',s);})();</script><script>/* O2: the Micropile page forms like the home page (21 Nov 2026, the owner: "create the forming effects for this page too"; assets/site.css "the Micropile page forms").
+   Starts as the logo opening lifts; the title's words and the hero line are split for the motion (the line keeps a plain copy for screen readers) */
+(function(){var d=document,H=d.documentElement,r=d.querySelector('.mp');if(!r||!H.classList.contains('mp-js'))return;H.classList.add('mp-run');
+var lang=H.getAttribute('lang')||'th',SG=window.Intl&&Intl.Segmenter;
+function segs(t,g){if(SG)return Array.from(new Intl.Segmenter(lang,{granularity:g}).segment(t)).map(function(x){return x.segment});return g=='word'?t.split(/(\s+)/):Array.from(t)}
+function split(el){var c=0,txt=el.textContent,v=d.createElement('span');v.className='hm-split__v';v.setAttribute('aria-hidden','true');
+(function walk(a,b){[].slice.call(a.childNodes).forEach(function(n){if(n.nodeType==3){segs(n.nodeValue,'word').forEach(function(w){if(!w)return;if(/^\s+$/.test(w)){b.appendChild(d.createTextNode(w));return}var ws=d.createElement('span');ws.className='hm-w';(/[฀-๿]/.test(w)?segs(w,'grapheme'):[w]).forEach(function(ch){var s=d.createElement('span');s.className='hm-ch';s.style.setProperty('--c',Math.min(c++,28));s.textContent=ch;ws.appendChild(s)});b.appendChild(ws)})}else if(n.nodeType==1){var k=n.cloneNode(false);b.appendChild(k);walk(n,k)}})})(el,v);
+var h=d.createElement('span');h.className='vh';h.textContent=txt;el.textContent='';el.appendChild(h);el.appendChild(v);el.classList.add('hm-split')}
+var t=r.querySelector('.mp-hero__t');if(t){var k=0;[].forEach.call(t.querySelectorAll('.mp-hero__l'),function(l){var ws=l.textContent.trim().split(/\s+/);l.textContent='';ws.forEach(function(w,i){if(i)l.appendChild(d.createTextNode(' '));var o=d.createElement('span'),n=d.createElement('span');o.className='mp-w';n.className='mp-w__i';n.style.setProperty('--k',k++);n.textContent=w;o.appendChild(n);l.appendChild(o)})});t.classList.add('mp-split')}
+var ld=r.querySelector('.mp-hero__lead');if(ld)split(ld);
+/* each part forms once it is on screen, and a photograph once it has loaded (a masked photograph is invisible to the browser's lazy loading, so it is asked for as it comes near) */
+var pend=[].slice.call(r.querySelectorAll('.mp-hero__t,.mp-hero__fig,.mp-hero__kick,.mp-hero__lead,.mp-hero__body,.mp-hero__acts,.mp-feats__list,.mp-std__media,.mp-pill,.mp-std__t,.mp-std__b,.mp-std__more,.mp-strip__list,.mp-film__frame,.mp-film__cap,.mp-sign__brand,.mp-sign__values')),go=false,tick=0;
+function wake(el){[].forEach.call(el.querySelectorAll('img[loading="lazy"]'),function(i){i.loading='eager'})}
+function check(){tick=0;if(!go)return;var vh=innerHeight;pend=pend.filter(function(el){var top=el.getBoundingClientRect().top;if(top>=vh*.9){if(top<vh*2.5)wake(el);return true}var im=el.querySelector('img');if(im&&!im.complete){wake(el);if(!im.__mp){im.__mp=1;im.addEventListener('load',on);im.addEventListener('error',on)}return true}el.classList.add('is-in');return false});if(!pend.length)removeEventListener('scroll',on)}
+function on(){if(!tick)tick=requestAnimationFrame(check)}addEventListener('scroll',on,{passive:true});addEventListener('resize',on);
+function start(){if(go)return;go=true;check()}
+function lifted(){return !H.classList.contains('mk-intro-on')||H.classList.contains('mk-intro-out')}
+if(lifted())requestAnimationFrame(function(){requestAnimationFrame(start)});else{var mo=new MutationObserver(function(){if(lifted()){mo.disconnect();start()}});mo.observe(H,{attributes:true,attributeFilter:['class']});setTimeout(start,3700)}
+/* the photographs drift a little inside their frames as the page scrolls */
+var figs=[].slice.call(r.querySelectorAll('.mp-std__media > picture, .mp-strip__it > picture')),pr=0;
+function par(){pr=0;var vh=innerHeight;figs.forEach(function(p){var b=p.getBoundingClientRect();if(b.bottom<-80||b.top>vh+80)return;var q=(b.top+b.height/2-vh/2)/(vh/2+b.height/2);p.style.setProperty('--py',(-q*b.height*.035).toFixed(1)+'px')})}
+addEventListener('scroll',function(){if(!pr)pr=requestAnimationFrame(par)},{passive:true});addEventListener('resize',par);par()})();</script></main>
 <footer class="ftr">
     <div class="ftr__in">
       <div class="ftr__brand">
