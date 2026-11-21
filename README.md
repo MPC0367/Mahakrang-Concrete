@@ -56,8 +56,19 @@ them: the page's own margins, two large and two smaller photographs whose tops s
 each card's number as a huge numeral standing on its photo (it rises out of the photo's edge once, after the logo
 opening), and the English line beside it as a label with the red square (03's stays handwritten); the words on the
 photos and phones are unchanged. Styles "the four cards on the computer: a broken grid" in `assets/site.css`; a
-one-line script in the home pages' head (sets `gw-js` only when motion is welcome) and one after the cards. Made here
+one-line script in the home pages' head (sets `gw-js` only when motion is welcome) and one after the cards. The
+owner preferred it to the phone-style layout tried the same night (branch `home-phone-layout-2026-11-22`, not used). Made here
 by hand, not in mahakrang-v2: add it there, or a rebuild drops it.
+
+Since 22 Nov 2026 (branch `ga-on-grid-2026-11-22`) Google Analytics runs only after a visitor's yes: `js/consent.js` (on
+every page with a footer, 72) asks once on the live site after the logo opening, Accept and Decline alike; only after
+Accept does it load Google's tag, with Consent Mode v2 (analytics storage alone granted, no advertising, no Google signals),
+cookies for 180 days, and the page's address without its query. Anywhere but mahakrangconcrete.com and www it asks and
+loads nothing. Property "Mahakrang Concrete website" in O2's Google Analytics account (O2 Design Studio, 416310196),
+Measurement ID G-CJ6WM47SN9, data kept 2 months. The cookie policy is `/cookies/` and `/en/cookies/` (noindex, follow);
+the footer's phone line links it and, on the live site, "Cookie settings". Every page's Content-Security-Policy allows
+Google's tag and collection hosts. Styles "the cookie question and the cookie policy" at the end of `assets/site.css`.
+Made here by hand, not in mahakrang-v2: add it there, or a rebuild drops it.
 
 Since 20 Nov 2026 (branch `home-art-2026-11-20`) the home page tells a story under the four cards, which stay first:
 six chapters (`.hm-ed` in `index.html` and `en/index.html`, styles "the home page story under the four cards" and the

@@ -4240,3 +4240,51 @@ html.mk-intro-fast .mk-intro { opacity: 0; transition: opacity 180ms; }
 .o2-credit { display: inline-flex; align-items: center; min-height: 44px; color: inherit; text-decoration: none; font-size: 11px; line-height: 1; letter-spacing: .2em; text-transform: uppercase; }
 .o2-credit__lockup { white-space: nowrap; }
 .o2-credit__mark { display: inline-block; width: 1.95em; height: 1.6em; margin-right: .5em; vertical-align: -.366em; }
+
+/* ---------------------------------------------------------------- the cookie question and the cookie policy (22 Nov 2026)
+   The owner: "do google analytics for mahakrang too cookie tracking". js/consent.js asks once, only on the live site,
+   after the logo opening: a card at the foot of the screen, apart from the page's own controls, whose two answers look
+   and weigh the same (the site's ghost buttons); the page works whichever is chosen, or neither. Ported from O2's own
+   site (live since 16 Nov 2026). The footer's line links the policy (/cookies/, /en/cookies/) on every page and, on the
+   live site, a "Cookie settings" button that reopens the choice. */
+.mk-cookie {
+  position: fixed; z-index: 96; left: max(16px, env(safe-area-inset-left, 0px)); bottom: calc(16px + env(safe-area-inset-bottom));
+  width: min(420px, calc(100vw - 32px)); padding: 18px 18px 16px; border: 1px solid var(--line); border-radius: 12px;
+  background: #fff; color: var(--ink); box-shadow: 0 18px 50px -20px rgba(16,16,16,.45);
+  animation: mk-cookie-in 520ms var(--ease) both;
+}
+.mk-cookie:focus { outline: none; }
+.mk-cookie:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.mk-cookie__h { margin: 0 0 6px; font-family: var(--f-display); font-size: 17px; font-weight: 600; line-height: 1.35; }
+.mk-cookie[data-mode="settings"] .mk-cookie__h { padding-right: 40px; }
+.mk-cookie__p { margin: 0 0 14px; font-size: 14.5px; line-height: 1.55; color: var(--ink-2, #3a3a3a); }
+.mk-cookie__p a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.mk-cookie__p a:hover { color: var(--red); }
+.mk-cookie__status { margin: -4px 0 14px; font-size: 14.5px; line-height: 1.45; font-weight: 600; }
+.mk-cookie__acts { display: flex; gap: 8px; }
+.mk-cookie__acts .btn { flex: 1 1 0; min-width: 0; min-height: 44px; padding-inline: 14px; }
+.mk-cookie__x {
+  position: absolute; top: 8px; right: 8px; display: grid; place-items: center; width: 44px; height: 44px;
+  padding: 0; border: 0; border-radius: 50%; background: none; color: var(--grey); cursor: pointer;
+}
+.mk-cookie__x:hover { color: var(--ink); background: rgba(16,16,16,.06); }
+/* a slide only, never a fade: the words are legible from the first frame */
+@keyframes mk-cookie-in { from { transform: translateY(12px); } to { transform: none; } }
+@media (max-width: 520px) { .mk-cookie { left: 12px; width: calc(100vw - 24px); bottom: calc(12px + env(safe-area-inset-bottom)); } }
+@media (prefers-reduced-motion: reduce) { .mk-cookie { animation: none; } }
+@media print { .mk-cookie { display: none; } }
+
+.ftr__cookie-btn { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; min-height: 24px; }
+.ftr__cookie-btn:hover { color: var(--red); }
+
+/* the cookie policy page: one readable column */
+.ck__wrap { max-width: 880px; }
+.ck__date { margin-top: 14px; font-size: 14px; color: var(--grey); }
+.ck__open { margin-top: 20px; }
+.ck__s { margin-top: clamp(28px, 3.4vw, 44px); padding-top: clamp(18px, 2vw, 24px); border-top: 1px solid var(--line); }
+.ck__h { font-family: var(--f-display); font-size: clamp(20px, 1.6vw, 24px); font-weight: 600; line-height: 1.35; }
+.ck__s p { margin-top: 10px; max-width: 46rem; font-size: 16px; line-height: 1.75; color: var(--ink-2, #3a3a3a); }
+.ck__s a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.ck__s a:hover { color: var(--red); }
+.ck__s code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92em; padding: 1px 5px; border-radius: 4px; background: #f2f2f3; }
+.ck__links { margin-top: clamp(24px, 3vw, 36px); display: grid; gap: 2px; }
