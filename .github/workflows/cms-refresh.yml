@@ -1,0 +1,59 @@
+# Keeps the website's texts ready for SPINE (22 November 2026). After every push to main that changes a page, this gives
+# every new text its key (data-cms) and, when any words changed, writes a new revision of content/ and cms/registry.json,
+# so SPINE's Website > Texts always shows the words that are really on the website. It changes no word and nothing a
+# visitor sees: only the data-cms attributes, the preview loader line in each page's head, cms/ and content/.
+# Pushes made by GitHub Actions do not start it again. If someone pushes while it runs, it simply runs again after.
+name: Website texts (keys for SPINE)
+
+on:
+  push:
+    branches: [main]
+    paths: ['**.html', 'cms/**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: cms-publish
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          sparse-checkout: |
+            /*
+            !/media/
+            !/img/
+            !/fonts/
+          sparse-checkout-cone-mode: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Key new texts and write a revision if words changed
+        run: node cms/extract.mjs --write && node cms/test.mjs
+
+      - name: Commit, if anything changed
+        id: commit
+        run: |
+          if [ -z "$(git status --porcelain -- '*.html' content cms/registry.json)" ]; then echo "nothing changed"; exit 0; fi
+          git config user.name "Mahakrang website texts (SPINE)"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- '*.html' content cms/registry.json
+          git commit -q -m "Website texts: keys and revision after a change to the pages"
+          if git push -q origin HEAD:main; then echo "pushed=yes" >> "$GITHUB_OUTPUT"; else echo "main moved on: the next run keys it"; fi
+
+      - name: Ask GitHub Pages to publish it
+        if: steps.commit.outputs.pushed == 'yes'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" > /dev/null || echo "Pages will build from the push"

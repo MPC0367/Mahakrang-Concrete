@@ -1,0 +1,114 @@
+# Publishes the website texts SPINE sends (22 November 2026).
+# SPINE (Website > Texts > Publish) adds inbox/queue/<nonce>.json on this branch, cms-inbox, and pushes it. This workflow
+# takes every publication waiting there, oldest first, checks each against the website as it is now, rewrites only the
+# changed texts (cms/build.mjs on main), commits the new revisions to main, asks GitHub Pages to publish them, and moves
+# each publication's answer to inbox/results/<nonce>.json here, which SPINE reads. A run that GitHub drops while another
+# waits loses nothing: its publication stays in the queue for the next run.
+# A push made by this workflow never starts it again. Its source is cms/cms-inbox/ on main: change it there, then copy it
+# onto this branch.
+name: Publish texts from SPINE
+
+on:
+  push:
+    branches: [cms-inbox]
+    paths: ['inbox/queue/**']
+
+permissions:
+  contents: write
+  pages: write
+
+# one at a time, shared with "Website texts" on main, so the two never write main at once
+concurrency:
+  group: cms-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: The publication SPINE sent
+        uses: actions/checkout@v4
+        with:
+          ref: cms-inbox
+          path: inbox-branch
+          fetch-depth: 1
+
+      - name: The website (pages and scripts, not the photographs or films)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: site
+          fetch-depth: 1
+          sparse-checkout: |
+            /*
+            !/media/
+            !/img/
+            !/fonts/
+          sparse-checkout-cone-mode: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Check the changes and rewrite the pages
+        id: build
+        working-directory: site
+        continue-on-error: true
+        run: node cms/build.mjs --queue "$GITHUB_WORKSPACE/inbox-branch/inbox/queue" --results "$RUNNER_TEMP/results"
+
+      # if main moved on meanwhile, the same publication is built again on the newest main (never merged over it)
+      - name: Commit the new revision to the website
+        id: commit
+        if: steps.build.outputs.changed == 'true'
+        working-directory: site
+        run: |
+          git config user.name "Mahakrang website texts (SPINE)"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rev="${{ steps.build.outputs.revision }}"; done=no
+          for i in 1 2 3; do
+            git add -A -- '*.html' content cms/registry.json
+            git commit -q -m "Website texts: revision $rev from SPINE"
+            if git push -q origin HEAD:main; then done=yes; break; fi
+            echo "main moved on (attempt $i): building the publications again on the newest main"
+            git fetch -q --depth 1 origin main && git reset -q --hard origin/main
+            rm -rf "$RUNNER_TEMP/results"
+            out=$(node cms/build.mjs --queue "$GITHUB_WORKSPACE/inbox-branch/inbox/queue" --results "$RUNNER_TEMP/results")
+            if ! echo "$out" | grep -q '"status": "built"'; then echo "on the newest main nothing is left to commit"; done=none; break; fi
+            rev=$(echo "$out" | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{const b=JSON.parse(s).filter(x=>x.status==='built');console.log(b.at(-1)?.revision||'')})")
+          done
+          if [ "$done" = "yes" ]; then
+            echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          elif [ "$done" = "no" ]; then
+            # nothing reached main: the publications stay in the queue and the next run tries again
+            rm -rf "$RUNNER_TEMP/results"; exit 1
+          fi
+
+      - name: Ask GitHub Pages to publish it
+        if: steps.commit.outputs.sha != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" > /dev/null || echo "Pages will build from the push"
+
+      - name: Tell SPINE how it went
+        if: always()
+        working-directory: inbox-branch
+        run: |
+          d="$RUNNER_TEMP/results"
+          [ -d "$d" ] || { echo "no answers: the queue stays for the next run"; exit 0; }
+          mkdir -p inbox/results
+          for f in "$d"/*.json; do
+            [ -e "$f" ] || continue
+            n=$(basename "$f")
+            node -e "const fs=require('fs'),f=process.argv[1],r=JSON.parse(fs.readFileSync(f,'utf8'));r.commit=process.argv[2]||null;r.run=process.argv[3];fs.writeFileSync(f,JSON.stringify(r,null,1)+'\n')" "$f" "${{ steps.commit.outputs.sha }}" "${{ github.run_id }}"
+            cp "$f" "inbox/results/$n"
+            git rm -q --ignore-unmatch "inbox/queue/$n"
+          done
+          # keep the newest 60 answers
+          ls -t inbox/results/*.json 2>/dev/null | tail -n +61 | xargs -r git rm -q --ignore-unmatch
+          git config user.name "Mahakrang website texts (SPINE)"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add inbox/results
+          git commit -q -m "Answers to the publications" || exit 0
+          for i in 1 2 3; do git push -q origin HEAD:cms-inbox && exit 0; git pull -q --rebase origin cms-inbox; done
+          exit 1

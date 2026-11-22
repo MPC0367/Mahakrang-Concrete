@@ -80,3 +80,31 @@ headings stay still; nothing moves under reduced motion. From 768px the cards' w
 word and photo is already on the site. Made here by hand, not in mahakrang-v2: add it there, or a rebuild drops it.
 
 The previous site is kept at the tag `v1-previous-site`.
+
+## Editing the texts from SPINE (since 22 Nov 2026, branch `spine-website-2026-11-22`)
+
+The owner asked for Mahakrang in SPINE "the same setup as for patravana … they can edit their website and all its pages
+on here". Every text on the 72 pages (36 Thai + 36 English) is marked with a key, `data-cms="<key>"` (a photograph's
+description `data-cms-alt`), and the words SPINE shows are read from the pages themselves:
+
+- `cms/registry.json` — every text: key, page tab, section, page address, languages, length limit. `content/manifest.json`
+  points at the newest `content/r<N>.json` (the words per key, `{ th, en }`). Shared texts (header, menu, footer, search,
+  skip link: keys `s.*`) carry one key on every page; search titles and descriptions are `seo.<page>.title|description`.
+  A text found in one language only (the English capitals over a Thai heading, say) has that language alone.
+- `cms/units.mjs` — the rules for reading a text and writing it back: plain words, a new line for `<br>`, icons kept;
+  unchanged texts are never touched; new words keep the phrase spans (`cc-ph`, `nw`, `pg-nobr`) that were there and get
+  new ones (Thai split by the browser's own dictionary). `cms/test.mjs` checks all of it (7 checks).
+- **Publishing:** SPINE adds `inbox/queue/<nonce>.json` to the branch `cms-inbox`; its workflow (`cms-publish.yml`, kept
+  in `cms/cms-inbox/` here) runs `cms/build.mjs --queue`, refuses any change whose words moved on the website since it was
+  typed, rewrites only the changed texts, reads every page back, commits a new revision to `main`, asks Pages to publish
+  and leaves the answer in `inbox/results/<nonce>.json` for SPINE.
+- **After a change by hand:** the workflow "Website texts (keys for SPINE)" (`.github/workflows/cms-refresh.yml`) keys any
+  new text and writes a new revision after every push to `main` that touches a page, so SPINE never shows stale words.
+  It commits to `main` as "Mahakrang website texts (SPINE)": fetch `origin/main` before pushing, as always. Or run
+  `node cms/extract.mjs --write && node cms/test.mjs` before committing.
+- **Preview:** each page's head has one line (`data-spine-loader`) that loads `js/spine-preview.js` only when the page is
+  opened as `?spine-preview=1` inside SPINE; it shows the drafts in that frame only and hides the logo opening and the
+  cookie question there.
+- Not editable here: O2's credit, the "ข้อมูลตัวอย่าง / Sample data" labels, phone numbers and other texts with no letters,
+  links' addresses, and photographs. A rebuild from mahakrang-v2 drops every key and every SPINE edit: carry them into the
+  source first, or run `cms/extract.mjs --write` after the sync (new keys; drafts typed in SPINE on old keys are refused).
