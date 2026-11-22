@@ -105,6 +105,11 @@ description `data-cms-alt`), and the words SPINE shows are read from the pages t
 - **Preview:** each page's head has one line (`data-spine-loader`) that loads `js/spine-preview.js` only when the page is
   opened as `?spine-preview=1` inside SPINE; it shows the drafts in that frame only and hides the logo opening and the
   cookie question there.
+- **Cloudflare Web Analytics** (since 22 Nov 2026): every page's head has a line (`data-cf-loader`) that loads Cloudflare's
+  beacon on mahakrangconcrete.com only (not on localhost, not inside SPINE's preview), and its CSP allows
+  `static.cloudflareinsights.com` (script) and `cloudflareinsights.com` (connect). No cookie. Site "mahakrangconcrete.com" in
+  O2's Cloudflare account (site tag `cd80289686c94ad9af73a49fae3b4dbf`, manual install); `cms/extract.mjs` keeps the line
+  and the CSP on every page. SPINE shows the numbers under Website > Visits.
 - Not editable here: O2's credit, the "ข้อมูลตัวอย่าง / Sample data" labels, phone numbers, e-mail addresses and their
   links, dated `<time>` texts and other texts with no letters, the volume calculator (its words come from its own data),
   words the scripts write at run time, links' addresses, and photographs.

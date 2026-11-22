@@ -135,10 +135,29 @@ export function extract(root = ROOT) {
 
 // SPINE's preview (js/spine-preview.js) loads only when the page is opened as ?spine-preview=1 inside SPINE
 export const LOADER = `<script data-spine-loader>if(/[?&]spine-preview=1(&|$)/.test(location.search))document.write('<script src="/js/spine-preview.js"><\\/script>')</script>`;
+// Cloudflare Web Analytics (22 November 2026, the owner's "linkages to … cloudflare analytics"): a count of every visit
+// with no cookie, read by SPINE's Website > Visits (site "mahakrangconcrete.com" in O2's Cloudflare account, manual
+// install; the token below is the public one Cloudflare gives for the page). Only on the real domain, never inside
+// SPINE's preview, so neither staff previews nor a localhost copy are counted.
+const CF_TOKEN = '6056dfe55a37471da4fe3531751c4c67';
+export const CF_LOADER = `<script data-cf-loader>if(location.hostname==='mahakrangconcrete.com'&&!/[?&]spine-preview=1(&|$)/.test(location.search)){var c=document.createElement('script');c.type='module';c.src='https://static.cloudflareinsights.com/beacon.min.js';c.setAttribute('data-cf-beacon','{"token": "${CF_TOKEN}"}');document.head.appendChild(c)}</script>`;
+// a page's Content-Security-Policy lets the beacon load and send (and nothing more from Cloudflare)
+function withCfCsp(src) {
+  return src.replace(/(<meta http-equiv="Content-Security-Policy" content=")([^"]*)(")/i, (all, a, policy, b) => {
+    const add = (p, dir, host) => {
+      const re = new RegExp(`(^|;\\s*)(${dir})([^;]*)`);
+      if (!re.test(p)) return p;
+      return p.replace(re, (m, lead, d, rest) => (rest.split(/\s+/).includes(host) ? m : `${lead}${d}${rest} ${host}`));
+    };
+    return a + add(add(policy, 'script-src', 'https://static.cloudflareinsights.com'), 'connect-src', 'https://cloudflareinsights.com') + b;
+  });
+}
 function withLoader(src) {
-  if (src.includes('data-spine-loader')) return src;
-  const m = /<meta charset="utf-8">\n?/i.exec(src) ?? /<head[^>]*>\n?/i.exec(src);
-  return m ? src.slice(0, m.index + m[0].length) + LOADER + '\n' + src.slice(m.index + m[0].length) : src;
+  let out = src;
+  const at = (s) => /<meta charset="utf-8">\n?/i.exec(s) ?? /<head[^>]*>\n?/i.exec(s);
+  if (!out.includes('data-spine-loader')) { const m = at(out); if (m) out = out.slice(0, m.index + m[0].length) + LOADER + '\n' + out.slice(m.index + m[0].length); }
+  if (!out.includes('data-cf-loader')) { const m = /<script data-spine-loader>[^\n]*\n/.exec(out) ?? at(out); if (m) out = out.slice(0, m.index + m[0].length) + CF_LOADER + '\n' + out.slice(m.index + m[0].length); }
+  return withCfCsp(out);
 }
 
 function insertMarks(src, list) {

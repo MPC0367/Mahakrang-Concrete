@@ -38,8 +38,13 @@ test('publishing every text unchanged changes no byte of any page', () => {
   for (const p of r.pages) for (const f of [p.th, p.en]) if (f) seo.set(f, { title: `seo.${p.id}.title`, description: `seo.${p.id}.description` });
   for (const f of r.files) assert.equal(applyTo(r.html[f], (k, lang) => r.content[k]?.[lang] || undefined, seo.get(f)).html, r.html[f], f);
 });
-test('every page loads the preview only inside SPINE', () => {
-  for (const f of r.files) assert.ok(r.html[f].includes('data-spine-loader'), f);
+test('every page loads the preview only inside SPINE, and Cloudflare\u2019s counter only on the real domain', () => {
+  for (const f of r.files) {
+    assert.ok(r.html[f].includes('data-spine-loader'), f);
+    assert.ok(r.html[f].includes('data-cf-loader') && r.html[f].includes("location.hostname==='mahakrangconcrete.com'"), f);
+    const csp = /http-equiv="Content-Security-Policy" content="([^"]*)"/i.exec(r.html[f])?.[1];
+    if (csp) assert.ok(/script-src[^;]*https:\/\/static\.cloudflareinsights\.com/.test(csp) && /connect-src[^;]*https:\/\/cloudflareinsights\.com/.test(csp), `${f}: CSP`);
+  }
 });
 test('words that live beside a fact, or that the site\u2019s scripts write, are not offered', () => {
   for (const f of r.files) for (const u of unitsOf(r.html[f]).units) {
