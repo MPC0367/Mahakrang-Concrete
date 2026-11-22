@@ -198,7 +198,10 @@ export function applyTo(html, next, seoKeys = null) {
         if (n.name !== 'a' && n.name !== 'button' && n.name !== 'figure') continue;
         for (const k of ['data-alt', 'aria-label', 'title']) {
           const v = attr(n, k);
-          if (v != null && decode(v).replace(/\s+/g, ' ').trim() === u.words) { const r = attrRange(html, n, k); if (r) edits.push([r[0], r[1], escAttr(w)]); }
+          if (v == null) continue;
+          const d = decode(v).replace(/\s+/g, ' ').trim();
+          // the same words, or words that quote them ("Image 1: <description>")
+          if (d === u.words || (u.words.length >= 4 && d.includes(u.words))) { const r = attrRange(html, n, k); if (r) edits.push([r[0], r[1], escAttr(d === u.words ? w : d.split(u.words).join(w))]); }
         }
         break;
       }

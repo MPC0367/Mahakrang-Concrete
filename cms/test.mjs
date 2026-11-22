@@ -52,9 +52,10 @@ test('words that live beside a fact, or that the site\u2019s scripts write, are 
   }
 });
 test('a new photo description reaches the viewer\u2019s copy of it too', () => {
-  const html = '<!doctype html><html lang="en"><body><main><a href="#" data-alt="Old words" aria-label="Old words"><img data-cms-alt="x.001" alt="Old words" src="a.jpg"></a></main></body></html>';
+  const html = '<!doctype html><html lang="en"><body><main><a href="#" data-alt="Old words" aria-label="Image 1: Old words"><img data-cms-alt="x.001" alt="Old words" src="a.jpg"></a></main></body></html>';
   const out = applyTo(html, (k) => (k === 'x.001' ? 'New & words' : undefined)).html;
   assert.equal((out.match(/New &amp; words/g) ?? []).length, 3);
+  assert.ok(out.includes('aria-label="Image 1: New &amp; words"'));
 });
 test('new Thai words in a text that mixes plain words and phrase spans get a span', () => {
   const html = render('ที่ตั้งโรงงานใหม่', { chunkClass: 'cc-ph', chunks: ['ที่ตั้ง'], loose: true }, 'th');

@@ -108,8 +108,10 @@ description `data-cms-alt`), and the words SPINE shows are read from the pages t
 - Not editable here: O2's credit, the "ข้อมูลตัวอย่าง / Sample data" labels, phone numbers, e-mail addresses and their
   links, dated `<time>` texts and other texts with no letters, the volume calculator (its words come from its own data),
   words the scripts write at run time, links' addresses, and photographs.
-- **Setting it up on GitHub (once, before SPINE's first Publish):** the branch `cms-inbox` must exist with the workflow at
-  its root. From a clone: `git switch --orphan cms-inbox`, `git rm -rq --cached .` and clean the folder, copy the contents
-  of `cms/cms-inbox/` (from `main`) to the root, commit, `git push origin cms-inbox`. SPINE refuses to publish to a branch
-  without the workflow, and says so. A rebuild from mahakrang-v2 drops every key and every SPINE edit: carry them into the
+- **Setting it up on GitHub (once, before SPINE's first Publish; done 22 Nov 2026):** the branch `cms-inbox` must exist
+  with the workflow at its root. In an empty folder: `git init -b cms-inbox`, then
+  `git --git-dir=<a clone>/.git archive main cms/cms-inbox | tar -x --strip-components=2`, `git add -A`, commit,
+  `git remote add origin https://github.com/MPC0367/Mahakrang-Concrete.git`, `git push origin cms-inbox`. After a change to
+  `cms/cms-inbox/` on `main`, copy it onto the branch the same way. SPINE refuses to publish to a branch without the
+  workflow, and says so. A rebuild from mahakrang-v2 drops every key and every SPINE edit: carry them into the
   source first, or run `cms/extract.mjs --write` after the sync (new keys; drafts typed in SPINE on old keys are refused).
