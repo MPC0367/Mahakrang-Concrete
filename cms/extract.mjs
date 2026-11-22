@@ -90,7 +90,8 @@ export function extract(root = ROOT) {
   for (const p of pages) {
     const path_ = pathOf(p.th ?? p.en.slice(3));
     const tab = tabOf(path_);
-    const where = path_;
+    // the page, as SPINE names it beside each text
+    const where = path_ === '/' ? 'Home page' : path_ === '/404.html' ? 'Page not found' : path_;
     // the page each language of a text is on, for SPINE's preview (a shared text shows on the home pages)
     const paths = { ...(p.th ? { th: path_ } : {}), ...(p.en ? { en: '/en' + path_ } : {}) };
     const meta = (u, shared) => shared
