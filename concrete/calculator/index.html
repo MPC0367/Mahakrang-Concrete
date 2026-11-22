@@ -82,51 +82,51 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){if(done)return
     <form class="calc__form" data-calc-form novalidate autocomplete="off" aria-label="คำนวณปริมาณคอนกรีต">
       
       <div class="calc__step">
-        <div class="calc__stephead"><span class="calc__num" aria-hidden="true">1</span><h2 data-cms="concrete-calculator.006" class="calc__steph">เลือกคอนกรีต</h2></div>
-        <label data-cms="concrete-calculator.007" class="calc__label" for="pg-product">คอนกรีตที่สนใจ</label>
+        <div class="calc__stephead"><span class="calc__num" aria-hidden="true">1</span><h2 class="calc__steph">เลือกคอนกรีต</h2></div>
+        <label class="calc__label" for="pg-product">คอนกรีตที่สนใจ</label>
         <div class="calc__selectwrap">
           <select class="calc__select" id="pg-product" data-product-select aria-describedby="pg-intro">
             <option value="">ยังไม่ระบุ — ปริมาตรอย่างเดียว</option>
             <optgroup label="ตามการใช้งาน"><option value="pr_easyconcrete">Easy Concrete — คอนกรีตเทง่าย</option><option value="pr_aquashield">AquaShield — คอนกรีตชายฝั่ง</option><option value="pr_flowmaster">Flow Master — ปั๊มลื่น ไหลตัวดี</option></optgroup><optgroup label="ตามกำลังอัด"><option value="pr_mix180">คอนกรีต 180 · 180 ksc · ลูกบาศก์ · 28 วัน</option><option value="pr_mix210">คอนกรีต 210 · 210 ksc · ลูกบาศก์ · 28 วัน</option><option value="pr_mix240">คอนกรีต 240 · 240 ksc · ลูกบาศก์ · 28 วัน</option><option value="pr_mix280">คอนกรีต 280 · 280 ksc · ลูกบาศก์ · 28 วัน</option><option value="pr_mix320">คอนกรีต 320 · 320 ksc · ลูกบาศก์ · 28 วัน</option></optgroup><optgroup label="สูตรเฉพาะงาน"><option value="pr_fastsetting">Fast Setting — สูตรแข็งตัวเร็ว</option><option value="pr_micropile">Micropile — สำหรับงานเสาเข็มขนาดเล็ก</option></optgroup>
           </select>
-          <span class="calc__selview" aria-hidden="true" data-selview><span data-cms="concrete-calculator.008" class="calc__selname" data-selview-name><span class="cc-ph">ยังไม่ระบุ —</span> <span class="cc-ph">ปริมาตรอย่างเดียว</span></span><span class="calc__selmeta" data-selview-meta hidden></span></span>
+          <span class="calc__selview" aria-hidden="true" data-selview><span class="calc__selname" data-selview-name><span class="cc-ph">ยังไม่ระบุ —</span> <span class="cc-ph">ปริมาตรอย่างเดียว</span></span><span class="calc__selmeta" data-selview-meta hidden></span></span>
           <svg class="i i-chevron-down calc__selchev" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#chevron-down"></use></svg>
         </div>
-        <p class="calc__intro" id="pg-intro" data-intro>คำนวณปริมาตร<span class="cc-ph">จากขนาด</span><span class="cc-ph">ของงาน</span> <span data-cms="concrete-calculator.009" class="cc-ph"><span class="cc-ph">ไม่ได้</span>เลือก<span class="cc-ph">ความหนา</span></span> <span class="cc-ph">เหล็กเสริม</span> <span data-cms="concrete-calculator.010" class="cc-ph"><span class="cc-ph">หรือกำลังอัด</span><span class="cc-ph">แทนวิศวกร</span></span></p>
+        <p class="calc__intro" id="pg-intro" data-intro>คำนวณปริมาตร<span class="cc-ph">จากขนาด</span><span class="cc-ph">ของงาน</span> <span class="cc-ph"><span class="cc-ph">ไม่ได้</span>เลือก<span class="cc-ph">ความหนา</span></span> <span class="cc-ph">เหล็กเสริม</span> <span class="cc-ph"><span class="cc-ph">หรือกำลังอัด</span><span class="cc-ph">แทนวิศวกร</span></span></p>
       </div>
 
       <fieldset class="calc__step calc__shapes">
-        <legend class="calc__stephead"><span class="calc__num" aria-hidden="true">2</span><span data-cms="concrete-calculator.011" class="calc__steph">รูปแบบงาน</span></legend>
+        <legend class="calc__stephead"><span class="calc__num" aria-hidden="true">2</span><span class="calc__steph">รูปแบบงาน</span></legend>
         <div class="calc__tiles" data-tiles>
           <label class="calc__tile" data-tile="slab">
             <input class="calc__radio" type="radio" name="pg-geom" value="slab" checked>
-            <svg class="calc__tileic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 14.5 9 10h13l-6 4.5z"/><path d="M3 14.5v2.5h13l6-4.5V10"/><path d="M16 14.5V17"/></g></svg><span data-cms="concrete-calculator.012" class="calc__tilet"><span class="cc-ph">พื้น /</span> <span class="cc-ph">ทางเดิน</span></span><span data-cms="concrete-calculator.013" class="calc__tileh">ยาว <span class="cc-ph">× กว้าง</span> <span class="cc-ph">× หนา</span></span>
+            <svg class="calc__tileic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 14.5 9 10h13l-6 4.5z"/><path d="M3 14.5v2.5h13l6-4.5V10"/><path d="M16 14.5V17"/></g></svg><span class="calc__tilet"><span class="cc-ph">พื้น /</span> <span class="cc-ph">ทางเดิน</span></span><span class="calc__tileh">ยาว <span class="cc-ph">× กว้าง</span> <span class="cc-ph">× หนา</span></span>
           </label><label class="calc__tile" data-tile="beam">
             <input class="calc__radio" type="radio" name="pg-geom" value="beam">
-            <svg class="calc__tileic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M2.5 11 6 8h15.5L18 11z"/><path d="M2.5 11v5H18l3.5-3V8M18 11v5"/></g></svg><span data-cms="concrete-calculator.014" class="calc__tilet"><span class="cc-ph">คาน /</span> <span class="cc-ph">เสาเหลี่ยม</span></span><span data-cms="concrete-calculator.015" class="calc__tileh">กว้าง <span class="cc-ph">× ลึก</span> <span class="cc-ph">× ยาว</span> <span class="cc-ph">× จำนวน</span></span>
+            <svg class="calc__tileic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M2.5 11 6 8h15.5L18 11z"/><path d="M2.5 11v5H18l3.5-3V8M18 11v5"/></g></svg><span class="calc__tilet"><span class="cc-ph">คาน /</span> <span class="cc-ph">เสาเหลี่ยม</span></span><span class="calc__tileh">กว้าง <span class="cc-ph">× ลึก</span> <span class="cc-ph">× ยาว</span> <span class="cc-ph">× จำนวน</span></span>
           </label><label class="calc__tile" data-tile="footing">
             <input class="calc__radio" type="radio" name="pg-geom" value="footing">
-            <svg class="calc__tileic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M10 9V4h4v5"/><path d="M3.5 13.5 7 10.5h14l-3.5 3z"/><path d="M3.5 13.5V18h14l3.5-3v-4.5M17.5 13.5V18"/></g></svg><span data-cms="concrete-calculator.016" class="calc__tilet">ฐานราก</span><span data-cms="concrete-calculator.017" class="calc__tileh">ยาว <span class="cc-ph">× กว้าง</span> <span class="cc-ph">× ลึก</span> <span class="cc-ph">× จำนวน</span></span>
+            <svg class="calc__tileic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M10 9V4h4v5"/><path d="M3.5 13.5 7 10.5h14l-3.5 3z"/><path d="M3.5 13.5V18h14l3.5-3v-4.5M17.5 13.5V18"/></g></svg><span class="calc__tilet">ฐานราก</span><span class="calc__tileh">ยาว <span class="cc-ph">× กว้าง</span> <span class="cc-ph">× ลึก</span> <span class="cc-ph">× จำนวน</span></span>
           </label><label class="calc__tile" data-tile="round">
             <input class="calc__radio" type="radio" name="pg-geom" value="round">
-            <svg class="calc__tileic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><ellipse cx="12" cy="5.5" rx="5" ry="1.8"/><path d="M7 5.5v13c0 1 2.2 1.8 5 1.8s5-.8 5-1.8v-13"/></g></svg><span data-cms="concrete-calculator.018" class="calc__tilet"><span class="cc-ph">เสากลม /</span> <span class="cc-ph">เสาเข็ม</span></span><span class="calc__tileh">π <span data-cms="concrete-calculator.019" class="cc-ph"><span class="cc-ph">× (ศก./</span><span class="cc-ph">2)²</span></span> <span class="cc-ph">× สูง</span> <span class="cc-ph">× จำนวน</span></span>
+            <svg class="calc__tileic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><ellipse cx="12" cy="5.5" rx="5" ry="1.8"/><path d="M7 5.5v13c0 1 2.2 1.8 5 1.8s5-.8 5-1.8v-13"/></g></svg><span class="calc__tilet"><span class="cc-ph">เสากลม /</span> <span class="cc-ph">เสาเข็ม</span></span><span class="calc__tileh">π <span class="cc-ph"><span class="cc-ph">× (ศก./</span><span class="cc-ph">2)²</span></span> <span class="cc-ph">× สูง</span> <span class="cc-ph">× จำนวน</span></span>
           </label><label class="calc__tile" data-tile="composite">
             <input class="calc__radio" type="radio" name="pg-geom" value="composite">
-            <svg class="calc__tileic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3.5 4.5h10v6h-10z"/><path d="M13.5 4.5h7v15h-7z"/></g></svg><span class="calc__tilet"><span data-cms="concrete-calculator.020" class="cc-ph">หลายส่วน<span class="cc-ph">รวมกัน</span></span></span><span data-cms="concrete-calculator.021" class="calc__tileh"><span class="cc-ph">รวมพื้นหลายส่วน</span></span>
+            <svg class="calc__tileic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3.5 4.5h10v6h-10z"/><path d="M13.5 4.5h7v15h-7z"/></g></svg><span class="calc__tilet"><span class="cc-ph">หลายส่วน<span class="cc-ph">รวมกัน</span></span></span><span class="calc__tileh"><span class="cc-ph">รวมพื้นหลายส่วน</span></span>
           </label>
         </div>
       </fieldset>
 
       <div class="calc__step">
-        <div class="calc__stephead"><span class="calc__num" aria-hidden="true">3</span><h2 data-cms="concrete-calculator.022" class="calc__steph">ขนาดของงาน</h2></div>
+        <div class="calc__stephead"><span class="calc__num" aria-hidden="true">3</span><h2 class="calc__steph">ขนาดของงาน</h2></div>
         <div class="calc__dims">
           <figure class="calc__fig" aria-hidden="true">
             <svg class="calc-fig" viewBox="0 0 340 186" data-fig="slab" focusable="false"><path class="calc-fig__top" d="M96 112L260 112L308 72L144 72Z"/><path class="calc-fig__front" d="M96 112L260 112L260 130L96 130Z"/><path class="calc-fig__side" d="M260 112L308 72L308 90L260 130Z"/><g class="calc-fig__dim" data-dim="length"><path d="M96 150L260 150M96.0 146.0L96.0 154.0M260.0 146.0L260.0 154.0"/><text x="178" y="170" text-anchor="middle" data-dim-label>ยาว</text></g><g class="calc-fig__dim" data-dim="width"><path d="M84 106L132 66M81.4 102.9L86.6 109.1M129.4 62.9L134.6 69.1"/><text x="100" y="80" text-anchor="end" data-dim-label>กว้าง</text></g><g class="calc-fig__dim" data-dim="thickness"><path d="M272 112L272 130M276.0 112.0L268.0 112.0M276.0 130.0L268.0 130.0"/><text x="280" y="126" text-anchor="start" data-dim-label>หนา</text></g></svg><svg class="calc-fig" viewBox="0 0 340 186" data-fig="beam" hidden focusable="false"><path class="calc-fig__top" d="M70 96L270 96L304 68L104 68Z"/><path class="calc-fig__front" d="M70 96L270 96L270 130L70 130Z"/><path class="calc-fig__side" d="M270 96L304 68L304 102L270 130Z"/><g class="calc-fig__dim" data-dim="length"><path d="M70 150L270 150M70.0 146.0L70.0 154.0M270.0 146.0L270.0 154.0"/><text x="170" y="170" text-anchor="middle" data-dim-label>ยาว</text></g><g class="calc-fig__dim" data-dim="depth"><path d="M56 96L56 130M60.0 96.0L52.0 96.0M60.0 130.0L52.0 130.0"/><text x="48" y="117" text-anchor="end" data-dim-label>ลึก</text></g><g class="calc-fig__dim" data-dim="width"><path d="M60 88L94 60M57.5 84.9L62.5 91.1M91.5 56.9L96.5 63.1"/><text x="72" y="64" text-anchor="end" data-dim-label>กว้าง</text></g><text class="calc-fig__count" x="312" y="68" text-anchor="end" data-dim="count"><tspan data-dim-label>× 1</tspan></text></svg><svg class="calc-fig" viewBox="0 0 340 186" data-fig="footing" hidden focusable="false"><path class="calc-fig__stub" d="M160 62v-26h32v26"/><path class="calc-fig__top" d="M110 96L240 96L286 60L156 60Z"/><path class="calc-fig__front" d="M110 96L240 96L240 132L110 132Z"/><path class="calc-fig__side" d="M240 96L286 60L286 96L240 132Z"/><g class="calc-fig__dim" data-dim="length"><path d="M110 152L240 152M110.0 148.0L110.0 156.0M240.0 148.0L240.0 156.0"/><text x="175" y="172" text-anchor="middle" data-dim-label>ยาว</text></g><g class="calc-fig__dim" data-dim="width"><path d="M98 90L144 54M95.5 86.8L100.5 93.2M141.5 50.8L146.5 57.2"/><text x="118" y="66" text-anchor="end" data-dim-label>กว้าง</text></g><g class="calc-fig__dim" data-dim="depth"><path d="M252 96L252 132M256.0 96.0L248.0 96.0M256.0 132.0L248.0 132.0"/><text x="260" y="119" text-anchor="start" data-dim-label>ลึก</text></g><text class="calc-fig__count" x="330" y="40" text-anchor="end" data-dim="count"><tspan data-dim-label>× 1</tspan></text></svg><svg class="calc-fig" viewBox="0 0 340 186" data-fig="round" hidden focusable="false"><path class="calc-fig__front" d="M130 44v106a40 12 0 0 0 80 0V44z"/><ellipse class="calc-fig__top" cx="170" cy="44" rx="40" ry="12"/><g class="calc-fig__dim" data-dim="diameter"><path d="M130 20L210 20M130.0 16.0L130.0 24.0M210.0 16.0L210.0 24.0"/><text x="170" y="13" text-anchor="middle" data-dim-label>ศก.</text></g><g class="calc-fig__dim" data-dim="height"><path d="M228 44L228 150M232.0 44.0L224.0 44.0M232.0 150.0L224.0 150.0"/><text x="236" y="101" text-anchor="start" data-dim-label>สูง</text></g><text class="calc-fig__count" x="116" y="158" text-anchor="end" data-dim="count"><tspan data-dim-label>× 1</tspan></text></svg><svg class="calc-fig" viewBox="0 0 340 186" data-fig="composite" hidden focusable="false"><path class="calc-fig__top" d="M70 36h150v60H70z"/><path class="calc-fig__front" d="M220 36h70v128h-70z"/><text class="calc-fig__secn" x="145" y="72" text-anchor="middle">1</text><text class="calc-fig__secn" x="255" y="106" text-anchor="middle">2</text><text class="calc-fig__plus" x="145" y="122" text-anchor="middle" data-dim="sections">รวมพื้นหลายส่วน</text></svg>
           </figure>
           <div class="calc__sets"><fieldset class="calc__set" data-set="slab">
-    <legend data-cms="concrete-calculator.023" class="vh">ขนาดของงาน — พื้น / ทางเดิน</legend>
+    <legend class="vh">ขนาดของงาน — พื้น / ทางเดิน</legend>
     <div class="calc__grid2"><div class="calc__field" data-field="length">
-    <label data-cms="concrete-calculator.024" class="calc__label" for="pg-slab-length" data-ph="ความยาว"><span class="cc-ph">ความยาว</span></label>
+    <label class="calc__label" for="pg-slab-length" data-ph="ความยาว"><span class="cc-ph">ความยาว</span></label>
     <div class="calc__inp">
       <input class="calc__input" id="pg-slab-length" type="text" data-k="length" inputmode="decimal" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="next" aria-describedby="pg-slab-length-err" aria-invalid="false">
       <span class="calc__unitwrap"><select class="calc__unit" id="pg-slab-length-u" data-u="length" aria-label="หน่วยของความยาว"><option value="m" selected>ม.</option><option value="cm">ซม.</option></select><svg class="i i-chevron-down calc__unitchev" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#chevron-down"></use></svg></span>
@@ -134,7 +134,7 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){if(done)return
     
     <p class="calc__err" id="pg-slab-length-err" data-err></p>
   </div><div class="calc__field" data-field="width">
-    <label data-cms="concrete-calculator.025" class="calc__label" for="pg-slab-width" data-ph="ความกว้าง"><span class="cc-ph">ความกว้าง</span></label>
+    <label class="calc__label" for="pg-slab-width" data-ph="ความกว้าง"><span class="cc-ph">ความกว้าง</span></label>
     <div class="calc__inp">
       <input class="calc__input" id="pg-slab-width" type="text" data-k="width" inputmode="decimal" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="next" aria-describedby="pg-slab-width-err" aria-invalid="false">
       <span class="calc__unitwrap"><select class="calc__unit" id="pg-slab-width-u" data-u="width" aria-label="หน่วยของความกว้าง"><option value="m" selected>ม.</option><option value="cm">ซม.</option></select><svg class="i i-chevron-down calc__unitchev" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#chevron-down"></use></svg></span>
@@ -142,7 +142,7 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){if(done)return
     
     <p class="calc__err" id="pg-slab-width-err" data-err></p>
   </div><div class="calc__field" data-field="thickness">
-    <label data-cms="concrete-calculator.026" class="calc__label" for="pg-slab-thickness" data-ph="ความหนา"><span class="cc-ph">ความหนา</span></label>
+    <label class="calc__label" for="pg-slab-thickness" data-ph="ความหนา"><span class="cc-ph">ความหนา</span></label>
     <div class="calc__inp">
       <input class="calc__input" id="pg-slab-thickness" type="text" data-k="thickness" inputmode="decimal" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="next" aria-describedby="pg-slab-thickness-err" aria-invalid="false">
       <span class="calc__unitwrap"><select class="calc__unit" id="pg-slab-thickness-u" data-u="thickness" aria-label="หน่วยของความหนา"><option value="cm" selected>ซม.</option><option value="mm">มม.</option><option value="m">ม.</option></select><svg class="i i-chevron-down calc__unitchev" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#chevron-down"></use></svg></span>
@@ -151,44 +151,44 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){if(done)return
     <p class="calc__err" id="pg-slab-thickness-err" data-err></p>
   </div></div>
   </fieldset><fieldset class="calc__set" data-set="beam" hidden>
-    <legend data-cms="concrete-calculator.027" class="vh">ขนาดของงาน — คาน / เสาเหลี่ยม</legend>
+    <legend class="vh">ขนาดของงาน — คาน / เสาเหลี่ยม</legend>
     <div class="calc__grid2"><div class="calc__field" data-field="width">
-    <label data-cms="concrete-calculator.028" class="calc__label" for="pg-beam-width" data-ph="ความกว้าง"><span class="cc-ph">ความกว้าง</span></label>
+    <label class="calc__label" for="pg-beam-width" data-ph="ความกว้าง"><span class="cc-ph">ความกว้าง</span></label>
     <div class="calc__inp">
       <input class="calc__input" id="pg-beam-width" type="text" data-k="width" inputmode="decimal" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="next" aria-describedby="pg-beam-width-h pg-beam-width-err" aria-invalid="false">
       <span class="calc__unitwrap"><select class="calc__unit" id="pg-beam-width-u" data-u="width" aria-label="หน่วยของความกว้าง"><option value="m" selected>ม.</option><option value="cm">ซม.</option><option value="mm">มม.</option></select><svg class="i i-chevron-down calc__unitchev" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#chevron-down"></use></svg></span>
     </div>
-    <p class="calc__hint" id="pg-beam-width-h"><span data-cms="concrete-calculator.029" class="cc-ph"><span class="cc-ph">ด้านแคบ</span><span class="cc-ph">ของคาน</span><span class="cc-ph">หรือเสา</span></span></p>
+    <p class="calc__hint" id="pg-beam-width-h"><span class="cc-ph"><span class="cc-ph">ด้านแคบ</span><span class="cc-ph">ของคาน</span><span class="cc-ph">หรือเสา</span></span></p>
     <p class="calc__err" id="pg-beam-width-err" data-err></p>
   </div><div class="calc__field" data-field="depth">
-    <label data-cms="concrete-calculator.030" class="calc__label" for="pg-beam-depth" data-ph="ความลึก"><span class="cc-ph">ความลึก</span></label>
+    <label class="calc__label" for="pg-beam-depth" data-ph="ความลึก"><span class="cc-ph">ความลึก</span></label>
     <div class="calc__inp">
       <input class="calc__input" id="pg-beam-depth" type="text" data-k="depth" inputmode="decimal" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="next" aria-describedby="pg-beam-depth-h pg-beam-depth-err" aria-invalid="false">
       <span class="calc__unitwrap"><select class="calc__unit" id="pg-beam-depth-u" data-u="depth" aria-label="หน่วยของความลึก"><option value="m" selected>ม.</option><option value="cm">ซม.</option><option value="mm">มม.</option></select><svg class="i i-chevron-down calc__unitchev" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#chevron-down"></use></svg></span>
     </div>
-    <p class="calc__hint" id="pg-beam-depth-h"><span data-cms="concrete-calculator.031" class="cc-ph"><span class="cc-ph">ด้านลึก</span><span class="cc-ph">ของหน้าตัด</span></span></p>
+    <p class="calc__hint" id="pg-beam-depth-h"><span class="cc-ph"><span class="cc-ph">ด้านลึก</span><span class="cc-ph">ของหน้าตัด</span></span></p>
     <p class="calc__err" id="pg-beam-depth-err" data-err></p>
   </div><div class="calc__field" data-field="length">
-    <label data-cms="concrete-calculator.032" class="calc__label" for="pg-beam-length" data-ph="ความยาว"><span class="cc-ph">ความยาว</span></label>
+    <label class="calc__label" for="pg-beam-length" data-ph="ความยาว"><span class="cc-ph">ความยาว</span></label>
     <div class="calc__inp">
       <input class="calc__input" id="pg-beam-length" type="text" data-k="length" inputmode="decimal" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="next" aria-describedby="pg-beam-length-h pg-beam-length-err" aria-invalid="false">
       <span class="calc__unitwrap"><select class="calc__unit" id="pg-beam-length-u" data-u="length" aria-label="หน่วยของความยาว"><option value="m" selected>ม.</option><option value="cm">ซม.</option></select><svg class="i i-chevron-down calc__unitchev" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#chevron-down"></use></svg></span>
     </div>
-    <p class="calc__hint" id="pg-beam-length-h"><span data-cms="concrete-calculator.033" class="cc-ph"><span class="cc-ph">ความยาว</span>คาน</span> <span data-cms="concrete-calculator.034" class="cc-ph"><span class="cc-ph">หรือความสูง</span>เสา</span></p>
+    <p class="calc__hint" id="pg-beam-length-h"><span class="cc-ph"><span class="cc-ph">ความยาว</span>คาน</span> <span class="cc-ph"><span class="cc-ph">หรือความสูง</span>เสา</span></p>
     <p class="calc__err" id="pg-beam-length-err" data-err></p>
   </div><div class="calc__field calc__field--count" data-field="count">
-    <label data-cms="concrete-calculator.035" class="calc__label" for="pg-beam-count" data-ph="จำนวน">จำนวน</label>
+    <label class="calc__label" for="pg-beam-count" data-ph="จำนวน">จำนวน</label>
     <div class="calc__inp">
       <input class="calc__input" id="pg-beam-count" type="text" data-k="count" inputmode="numeric" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="next" placeholder="1" value="1" aria-describedby="pg-beam-count-h pg-beam-count-err" aria-invalid="false">
-      <span data-cms="concrete-calculator.036" class="calc__unitfix" aria-hidden="true">ชิ้น</span>
+      <span class="calc__unitfix" aria-hidden="true">ชิ้น</span>
     </div>
-    <p class="calc__hint" id="pg-beam-count-h"><span data-cms="concrete-calculator.037" class="cc-ph">จำนวนชิ้น<span class="cc-ph">ที่ขนาด</span><span class="cc-ph">เท่ากัน</span></span></p>
+    <p class="calc__hint" id="pg-beam-count-h"><span class="cc-ph">จำนวนชิ้น<span class="cc-ph">ที่ขนาด</span><span class="cc-ph">เท่ากัน</span></span></p>
     <p class="calc__err" id="pg-beam-count-err" data-err></p>
   </div></div>
   </fieldset><fieldset class="calc__set" data-set="footing" hidden>
-    <legend data-cms="concrete-calculator.038" class="vh">ขนาดของงาน — ฐานราก</legend>
+    <legend class="vh">ขนาดของงาน — ฐานราก</legend>
     <div class="calc__grid2"><div class="calc__field" data-field="length">
-    <label data-cms="concrete-calculator.039" class="calc__label" for="pg-footing-length" data-ph="ความยาว"><span class="cc-ph">ความยาว</span></label>
+    <label class="calc__label" for="pg-footing-length" data-ph="ความยาว"><span class="cc-ph">ความยาว</span></label>
     <div class="calc__inp">
       <input class="calc__input" id="pg-footing-length" type="text" data-k="length" inputmode="decimal" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="next" aria-describedby="pg-footing-length-err" aria-invalid="false">
       <span class="calc__unitwrap"><select class="calc__unit" id="pg-footing-length-u" data-u="length" aria-label="หน่วยของความยาว"><option value="m" selected>ม.</option><option value="cm">ซม.</option></select><svg class="i i-chevron-down calc__unitchev" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#chevron-down"></use></svg></span>
@@ -196,7 +196,7 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){if(done)return
     
     <p class="calc__err" id="pg-footing-length-err" data-err></p>
   </div><div class="calc__field" data-field="width">
-    <label data-cms="concrete-calculator.040" class="calc__label" for="pg-footing-width" data-ph="ความกว้าง"><span class="cc-ph">ความกว้าง</span></label>
+    <label class="calc__label" for="pg-footing-width" data-ph="ความกว้าง"><span class="cc-ph">ความกว้าง</span></label>
     <div class="calc__inp">
       <input class="calc__input" id="pg-footing-width" type="text" data-k="width" inputmode="decimal" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="next" aria-describedby="pg-footing-width-err" aria-invalid="false">
       <span class="calc__unitwrap"><select class="calc__unit" id="pg-footing-width-u" data-u="width" aria-label="หน่วยของความกว้าง"><option value="m" selected>ม.</option><option value="cm">ซม.</option></select><svg class="i i-chevron-down calc__unitchev" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#chevron-down"></use></svg></span>
@@ -204,7 +204,7 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){if(done)return
     
     <p class="calc__err" id="pg-footing-width-err" data-err></p>
   </div><div class="calc__field" data-field="depth">
-    <label data-cms="concrete-calculator.041" class="calc__label" for="pg-footing-depth" data-ph="ความลึก"><span class="cc-ph">ความลึก</span></label>
+    <label class="calc__label" for="pg-footing-depth" data-ph="ความลึก"><span class="cc-ph">ความลึก</span></label>
     <div class="calc__inp">
       <input class="calc__input" id="pg-footing-depth" type="text" data-k="depth" inputmode="decimal" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="next" aria-describedby="pg-footing-depth-err" aria-invalid="false">
       <span class="calc__unitwrap"><select class="calc__unit" id="pg-footing-depth-u" data-u="depth" aria-label="หน่วยของความลึก"><option value="m" selected>ม.</option><option value="cm">ซม.</option></select><svg class="i i-chevron-down calc__unitchev" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#chevron-down"></use></svg></span>
@@ -212,18 +212,18 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){if(done)return
     
     <p class="calc__err" id="pg-footing-depth-err" data-err></p>
   </div><div class="calc__field calc__field--count" data-field="count">
-    <label data-cms="concrete-calculator.042" class="calc__label" for="pg-footing-count" data-ph="จำนวน">จำนวน</label>
+    <label class="calc__label" for="pg-footing-count" data-ph="จำนวน">จำนวน</label>
     <div class="calc__inp">
       <input class="calc__input" id="pg-footing-count" type="text" data-k="count" inputmode="numeric" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="next" placeholder="1" value="1" aria-describedby="pg-footing-count-h pg-footing-count-err" aria-invalid="false">
-      <span data-cms="concrete-calculator.043" class="calc__unitfix" aria-hidden="true">ชิ้น</span>
+      <span class="calc__unitfix" aria-hidden="true">ชิ้น</span>
     </div>
-    <p class="calc__hint" id="pg-footing-count-h"><span data-cms="concrete-calculator.044" class="cc-ph">จำนวนชิ้น<span class="cc-ph">ที่ขนาด</span><span class="cc-ph">เท่ากัน</span></span></p>
+    <p class="calc__hint" id="pg-footing-count-h"><span class="cc-ph">จำนวนชิ้น<span class="cc-ph">ที่ขนาด</span><span class="cc-ph">เท่ากัน</span></span></p>
     <p class="calc__err" id="pg-footing-count-err" data-err></p>
   </div></div>
   </fieldset><fieldset class="calc__set" data-set="round" hidden>
-    <legend data-cms="concrete-calculator.045" class="vh">ขนาดของงาน — เสากลม / เสาเข็ม</legend>
+    <legend class="vh">ขนาดของงาน — เสากลม / เสาเข็ม</legend>
     <div class="calc__grid2"><div class="calc__field" data-field="diameter">
-    <label data-cms="concrete-calculator.046" class="calc__label" for="pg-round-diameter" data-ph="เส้นผ่านศูนย์กลาง"><span class="cc-ph">เส้นผ่านศูนย์กลาง</span></label>
+    <label class="calc__label" for="pg-round-diameter" data-ph="เส้นผ่านศูนย์กลาง"><span class="cc-ph">เส้นผ่านศูนย์กลาง</span></label>
     <div class="calc__inp">
       <input class="calc__input" id="pg-round-diameter" type="text" data-k="diameter" inputmode="decimal" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="next" aria-describedby="pg-round-diameter-err" aria-invalid="false">
       <span class="calc__unitwrap"><select class="calc__unit" id="pg-round-diameter-u" data-u="diameter" aria-label="หน่วยของเส้นผ่านศูนย์กลาง"><option value="cm" selected>ซม.</option><option value="m">ม.</option><option value="mm">มม.</option></select><svg class="i i-chevron-down calc__unitchev" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#chevron-down"></use></svg></span>
@@ -231,33 +231,33 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){if(done)return
     
     <p class="calc__err" id="pg-round-diameter-err" data-err></p>
   </div><div class="calc__field" data-field="height">
-    <label data-cms="concrete-calculator.047" class="calc__label" for="pg-round-height" data-ph="ความสูง / ความยาว"><span class="cc-ph">ความสูง /</span> <span class="cc-ph">ความยาว</span></label>
+    <label class="calc__label" for="pg-round-height" data-ph="ความสูง / ความยาว"><span class="cc-ph">ความสูง /</span> <span class="cc-ph">ความยาว</span></label>
     <div class="calc__inp">
       <input class="calc__input" id="pg-round-height" type="text" data-k="height" inputmode="decimal" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="next" aria-describedby="pg-round-height-h pg-round-height-err" aria-invalid="false">
       <span class="calc__unitwrap"><select class="calc__unit" id="pg-round-height-u" data-u="height" aria-label="หน่วยของความสูง / ความยาว"><option value="m" selected>ม.</option><option value="cm">ซม.</option></select><svg class="i i-chevron-down calc__unitchev" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#chevron-down"></use></svg></span>
     </div>
-    <p class="calc__hint" id="pg-round-height-h"><span data-cms="concrete-calculator.048" class="cc-ph"><span class="cc-ph">ความสูง</span>เสา</span> <span data-cms="concrete-calculator.049" class="cc-ph"><span class="cc-ph">หรือความยาว</span><span class="cc-ph">เสาเข็ม</span></span></p>
+    <p class="calc__hint" id="pg-round-height-h"><span class="cc-ph"><span class="cc-ph">ความสูง</span>เสา</span> <span class="cc-ph"><span class="cc-ph">หรือความยาว</span><span class="cc-ph">เสาเข็ม</span></span></p>
     <p class="calc__err" id="pg-round-height-err" data-err></p>
   </div><div class="calc__field calc__field--count" data-field="count">
-    <label data-cms="concrete-calculator.050" class="calc__label" for="pg-round-count" data-ph="จำนวน">จำนวน</label>
+    <label class="calc__label" for="pg-round-count" data-ph="จำนวน">จำนวน</label>
     <div class="calc__inp">
       <input class="calc__input" id="pg-round-count" type="text" data-k="count" inputmode="numeric" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="next" placeholder="1" value="1" aria-describedby="pg-round-count-h pg-round-count-err" aria-invalid="false">
-      <span data-cms="concrete-calculator.051" class="calc__unitfix" aria-hidden="true">ชิ้น</span>
+      <span class="calc__unitfix" aria-hidden="true">ชิ้น</span>
     </div>
-    <p class="calc__hint" id="pg-round-count-h"><span data-cms="concrete-calculator.052" class="cc-ph">จำนวนชิ้น<span class="cc-ph">ที่ขนาด</span><span class="cc-ph">เท่ากัน</span></span></p>
+    <p class="calc__hint" id="pg-round-count-h"><span class="cc-ph">จำนวนชิ้น<span class="cc-ph">ที่ขนาด</span><span class="cc-ph">เท่ากัน</span></span></p>
     <p class="calc__err" id="pg-round-count-err" data-err></p>
   </div></div>
   </fieldset><fieldset class="calc__set calc__set--composite" data-set="composite" hidden>
-      <legend data-cms="concrete-calculator.053" class="vh">ขนาดของงาน — หลายส่วนรวมกัน</legend>
+      <legend class="vh">ขนาดของงาน — หลายส่วนรวมกัน</legend>
       <ol class="calc__secs" data-sections><li class="calc__sec" data-sec data-sec-id="1">
     <div class="calc__sechead">
       <span class="calc__secn" data-sec-n>1</span>
-      <label data-cms="concrete-calculator.054" class="vh" for="pg-sec1-name" data-sec-namelabel>ชื่อส่วน (ไม่บังคับ) (ส่วนที่ 1)</label>
+      <label class="vh" for="pg-sec1-name" data-sec-namelabel>ชื่อส่วน (ไม่บังคับ) (ส่วนที่ 1)</label>
       <input class="calc__secname" id="pg-sec1-name" type="text" maxlength="40" autocomplete="off" data-name placeholder="เช่น ลานจอดรถ">
       <button class="calc__secdel" type="button" data-sec-del aria-label="ลบส่วนนี้ (ส่วนที่ 1)"><svg class="i i-close" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#close"></use></svg></button>
     </div>
     <div class="calc__secfields"><div class="calc__field" data-field="length">
-    <label data-cms="concrete-calculator.055" class="calc__label" for="pg-sec1-length" data-ph="ความยาว"><span class="cc-ph">ความยาว</span></label>
+    <label class="calc__label" for="pg-sec1-length" data-ph="ความยาว"><span class="cc-ph">ความยาว</span></label>
     <div class="calc__inp">
       <input class="calc__input" id="pg-sec1-length" type="text" data-k="length" inputmode="decimal" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="next" aria-describedby="pg-sec1-length-err" aria-invalid="false">
       <span class="calc__unitwrap"><select class="calc__unit" id="pg-sec1-length-u" data-u="length" aria-label="หน่วยของความยาว"><option value="m" selected>ม.</option><option value="cm">ซม.</option></select><svg class="i i-chevron-down calc__unitchev" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#chevron-down"></use></svg></span>
@@ -265,7 +265,7 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){if(done)return
     
     <p class="calc__err" id="pg-sec1-length-err" data-err></p>
   </div><div class="calc__field" data-field="width">
-    <label data-cms="concrete-calculator.056" class="calc__label" for="pg-sec1-width" data-ph="ความกว้าง"><span class="cc-ph">ความกว้าง</span></label>
+    <label class="calc__label" for="pg-sec1-width" data-ph="ความกว้าง"><span class="cc-ph">ความกว้าง</span></label>
     <div class="calc__inp">
       <input class="calc__input" id="pg-sec1-width" type="text" data-k="width" inputmode="decimal" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="next" aria-describedby="pg-sec1-width-err" aria-invalid="false">
       <span class="calc__unitwrap"><select class="calc__unit" id="pg-sec1-width-u" data-u="width" aria-label="หน่วยของความกว้าง"><option value="m" selected>ม.</option><option value="cm">ซม.</option></select><svg class="i i-chevron-down calc__unitchev" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#chevron-down"></use></svg></span>
@@ -273,7 +273,7 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){if(done)return
     
     <p class="calc__err" id="pg-sec1-width-err" data-err></p>
   </div><div class="calc__field" data-field="thickness">
-    <label data-cms="concrete-calculator.057" class="calc__label" for="pg-sec1-thickness" data-ph="ความหนา"><span class="cc-ph">ความหนา</span></label>
+    <label class="calc__label" for="pg-sec1-thickness" data-ph="ความหนา"><span class="cc-ph">ความหนา</span></label>
     <div class="calc__inp">
       <input class="calc__input" id="pg-sec1-thickness" type="text" data-k="thickness" inputmode="decimal" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="next" aria-describedby="pg-sec1-thickness-err" aria-invalid="false">
       <span class="calc__unitwrap"><select class="calc__unit" id="pg-sec1-thickness-u" data-u="thickness" aria-label="หน่วยของความหนา"><option value="cm" selected>ซม.</option><option value="mm">มม.</option><option value="m">ม.</option></select><svg class="i i-chevron-down calc__unitchev" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#chevron-down"></use></svg></span>
@@ -317,27 +317,27 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){if(done)return
   </div></div>
     <p class="calc__secvol" data-sec-vol aria-hidden="true"></p>
   </li></template>
-      <button class="calc__add" type="button" data-sec-add><svg class="i i-plus" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#plus"></use></svg><span data-cms="concrete-calculator.058">เพิ่มส่วน</span></button>
+      <button class="calc__add" type="button" data-sec-add><svg class="i i-plus" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#plus"></use></svg><span>เพิ่มส่วน</span></button>
     </fieldset></div>
         </div>
       </div>
 
       <div class="calc__step calc__allow" data-allow>
-        <div class="calc__stephead"><span class="calc__num" aria-hidden="true">4</span><h2 data-cms="concrete-calculator.059" class="calc__steph">ค่าเผื่อ</h2></div>
+        <div class="calc__stephead"><span class="calc__num" aria-hidden="true">4</span><h2 class="calc__steph">ค่าเผื่อ</h2></div>
         <div class="calc__field calc__field--pct" data-allow-user>
-          <label data-cms="concrete-calculator.060" class="calc__label" for="pg-allow">ค่าเผื่อ (%)</label>
+          <label class="calc__label" for="pg-allow">ค่าเผื่อ (%)</label>
           <div class="calc__inp calc__inp--pct">
             <button class="calc__step-btn" type="button" data-allow-step="-1" aria-label="−1%" tabindex="-1"><svg class="i i-minus" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#minus"></use></svg></button>
             <input class="calc__input" id="pg-allow" type="text" inputmode="decimal" autocomplete="off" value="0" data-allow-input aria-describedby="pg-allow-h pg-allow-err" aria-invalid="false" enterkeyhint="done">
             <span class="calc__unitfix" aria-hidden="true">%</span>
             <button class="calc__step-btn" type="button" data-allow-step="1" aria-label="+1%" tabindex="-1"><svg class="i i-plus" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#plus"></use></svg></button>
           </div>
-          <p data-cms="concrete-calculator.061" class="calc__hint" id="pg-allow-h" data-allow-hint><span class="cc-ph">เริ่มต้น</span> 0% ใส่<span class="cc-ph">เพิ่มได้</span><span class="cc-ph">ถ้าพื้น</span><span class="cc-ph">ไม่เรียบ</span><span class="cc-ph">หรือแบบหล่อ</span><span class="cc-ph">อาจโป่ง</span> <span class="cc-ph">(สูงสุด 20%)</span></p>
+          <p class="calc__hint" id="pg-allow-h" data-allow-hint><span class="cc-ph">เริ่มต้น</span> 0% ใส่<span class="cc-ph">เพิ่มได้</span><span class="cc-ph">ถ้าพื้น</span><span class="cc-ph">ไม่เรียบ</span><span class="cc-ph">หรือแบบหล่อ</span><span class="cc-ph">อาจโป่ง</span> <span class="cc-ph">(สูงสุด 20%)</span></p>
           <p class="calc__err" id="pg-allow-err" data-err></p>
         </div>
         <p class="calc__preset" data-allow-preset hidden><span class="cc-ph">ค่าเผื่อ</span><span class="cc-ph">ที่บริษัท</span>กำหนด<span class="cc-ph">สำหรับสูตรนี้</span> <b data-allow-preset-v>0%</b></p>
       </div>
-      <button class="calc__peek" type="button" data-peek tabindex="-1" aria-hidden="true" hidden><span data-cms="concrete-calculator.062" class="calc__peekk">ปริมาตรสุทธิ</span><span class="calc__peekv"><b data-peek-v>—</b> ลบ.ม.</span><svg class="i i-chevron-down" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#chevron-down"></use></svg></button>
+      <button class="calc__peek" type="button" data-peek tabindex="-1" aria-hidden="true" hidden><span class="calc__peekk">ปริมาตรสุทธิ</span><span class="calc__peekv"><b data-peek-v>—</b> ลบ.ม.</span><svg class="i i-chevron-down" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#chevron-down"></use></svg></button>
     </form>
 
     <aside class="calc__side" aria-labelledby="pg-rt">
@@ -345,32 +345,32 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){if(done)return
         <div class="calc__prod" data-prod data-shown="" data-empty>
     <div class="calc__prodimg" data-prod-img><span class="calc__prodph" aria-hidden="true"><svg class="i i-calculator" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#calculator"></use></svg></span></div>
     <div class="calc__prodtxt">
-      <p class="calc__prodname" data-prod-name><span data-cms="concrete-calculator.063" class="cc-ph"><span class="cc-ph">ยังไม่ได้</span>เลือกคอนกรีต</span></p>
-      <p data-cms="concrete-calculator.064" class="calc__prodmeta" data-prod-meta>ปริมาตรคำนวณ<span class="cc-ph">จากขนาดเท่านั้น</span> เลือกคอนกรีต<span class="cc-ph">เพื่อดู</span>ข้อมูล<span class="cc-ph">ของสูตรนั้น</span></p>
+      <p class="calc__prodname" data-prod-name><span class="cc-ph"><span class="cc-ph">ยังไม่ได้</span>เลือกคอนกรีต</span></p>
+      <p class="calc__prodmeta" data-prod-meta>ปริมาตรคำนวณ<span class="cc-ph">จากขนาดเท่านั้น</span> เลือกคอนกรีต<span class="cc-ph">เพื่อดู</span>ข้อมูล<span class="cc-ph">ของสูตรนั้น</span></p>
       <span class="calc__proddemo" data-prod-demo></span>
-      <a data-cms="concrete-calculator.065" class="calc__prodlink" data-prod-link href="/concrete/" hidden>ดูรายละเอียดสินค้า<svg class="i i-arrow-right" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#arrow-right"></use></svg></a>
+      <a class="calc__prodlink" data-prod-link href="/concrete/" hidden>ดูรายละเอียดสินค้า<svg class="i i-arrow-right" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#arrow-right"></use></svg></a>
     </div>
   </div>
         <section class="calc__res" data-result data-state="waiting">
-          <h2 data-cms="concrete-calculator.066" class="calc__rt" id="pg-rt">ผลการคำนวณ</h2>
+          <h2 class="calc__rt" id="pg-rt">ผลการคำนวณ</h2>
           <div class="calc__net">
-            <p data-cms="concrete-calculator.067" class="calc__netk">ปริมาตรสุทธิ</p>
-            <p class="calc__netv"><span class="calc__netn" data-out-net>—</span><span data-cms="concrete-calculator.068" class="calc__netu">ลบ.ม. (คิว)</span></p>
+            <p class="calc__netk">ปริมาตรสุทธิ</p>
+            <p class="calc__netv"><span class="calc__netn" data-out-net>—</span><span class="calc__netu">ลบ.ม. (คิว)</span></p>
           </div>
           <dl class="calc__rows">
-            <div class="calc__row" data-row-allow><dt>ค่าเผื่อ <span data-out-pct>0%</span></dt><dd><span data-out-allow>—</span> <span data-cms="concrete-calculator.069" class="calc__u">ลบ.ม.</span></dd></div>
-            <div class="calc__row calc__row--plan"><dt data-cms="concrete-calculator.070">ปริมาตรสำหรับวางแผน</dt><dd><span data-out-plan>—</span> <span data-cms="concrete-calculator.071" class="calc__u">ลบ.ม.</span></dd></div>
+            <div class="calc__row" data-row-allow><dt>ค่าเผื่อ <span data-out-pct>0%</span></dt><dd><span data-out-allow>—</span> <span class="calc__u">ลบ.ม.</span></dd></div>
+            <div class="calc__row calc__row--plan"><dt>ปริมาตรสำหรับวางแผน</dt><dd><span data-out-plan>—</span> <span class="calc__u">ลบ.ม.</span></dd></div>
           </dl>
-          <p class="calc__status" data-status><span data-cms="concrete-calculator.072">กรอกขนาด<span class="cc-ph">ให้ครบ</span><span class="cc-ph">เพื่อดู</span>ปริมาตร</span></p>
+          <p class="calc__status" data-status><span>กรอกขนาด<span class="cc-ph">ให้ครบ</span><span class="cc-ph">เพื่อดู</span>ปริมาตร</span></p>
           <noscript><p class="calc__status calc__status--ns"><span><span class="cc-ph">เครื่องคำนวณ<span class="cc-ph">ต้องเปิดใช้</span></span> JavaScript — <span class="cc-ph">หรือโทรบอก</span>ขนาดงาน<span class="cc-ph">ให้ทีม</span>ช่วยคำนวณ</span></p></noscript>
           <div class="calc__price" data-price>
-            <p class="calc__pricek"><span data-cms="concrete-calculator.073" class="cc-ph">ติดต่อ<span class="cc-ph">เพื่อประเมิน</span>ราคา</span></p><p data-cms="concrete-calculator.074" class="calc__priceb"><span class="cc-ph">ยังไม่มี</span>ราคา<span class="cc-ph">ที่อนุมัติ</span><span class="cc-ph">ให้เผยแพร่</span><span class="cc-ph">สำหรับรายการนี้</span> <span class="cc-ph">โทรคุย</span><span class="cc-ph">กับทีม</span><span class="cc-ph">เพื่อประเมิน</span>ราคา<span class="cc-ph">ตามสูตร</span><span class="cc-ph">และหน้างานจริง</span></p>
+            <p class="calc__pricek"><span class="cc-ph">ติดต่อ<span class="cc-ph">เพื่อประเมิน</span>ราคา</span></p><p class="calc__priceb"><span class="cc-ph">ยังไม่มี</span>ราคา<span class="cc-ph">ที่อนุมัติ</span><span class="cc-ph">ให้เผยแพร่</span><span class="cc-ph">สำหรับรายการนี้</span> <span class="cc-ph">โทรคุย</span><span class="cc-ph">กับทีม</span><span class="cc-ph">เพื่อประเมิน</span>ราคา<span class="cc-ph">ตามสูตร</span><span class="cc-ph">และหน้างานจริง</span></p>
           </div>
-          <p class="calc__note"><svg class="i i-info" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#info"></use></svg><span><span data-cms="concrete-calculator.075" class="cc-ph"><span class="cc-ph">ตัวเลขนี้</span>เป็นการประมาณ</span> <span data-cms="concrete-calculator.076" class="cc-ph"><span class="cc-ph">ต้องยืนยัน</span><span class="cc-ph">กับบริษัท</span><span class="cc-ph">อีกครั้ง</span></span></span></p>
+          <p class="calc__note"><svg class="i i-info" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#info"></use></svg><span><span class="cc-ph"><span class="cc-ph">ตัวเลขนี้</span>เป็นการประมาณ</span> <span class="cc-ph"><span class="cc-ph">ต้องยืนยัน</span><span class="cc-ph">กับบริษัท</span><span class="cc-ph">อีกครั้ง</span></span></span></p>
           <div class="calc__acts">
-            <a class="btn btn--red btn--pill btn--lg btn--block calc__call" href="tel:+66819979994" data-phone><svg class="i i-phone" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#phone"></use></svg><span data-cms="concrete-calculator.077">โทรสอบถามราคา</span><span class="btn__num">081-997-9994</span></a>
-            <button class="btn btn--soft btn--pill btn--block calc__copy" type="button" data-copy-summary disabled aria-describedby="pg-copynote"><svg class="i i-copy" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#copy"></use></svg><span data-cms="concrete-calculator.078">คัดลอกสรุป</span></button>
-            <p class="calc__copynote" id="pg-copynote">สรุป<span class="cc-ph">จะอยู่</span><span class="cc-ph">ในเครื่อง</span><span class="cc-ph">ของคุณเท่านั้น</span> <span data-cms="concrete-calculator.079" class="cc-ph"><span class="cc-ph">ไม่ได้</span><span class="cc-ph">ส่งไป</span><span class="cc-ph">ที่ใด</span></span></p>
+            <a class="btn btn--red btn--pill btn--lg btn--block calc__call" href="tel:+66819979994" data-phone><svg class="i i-phone" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#phone"></use></svg><span>โทรสอบถามราคา</span><span class="btn__num">081-997-9994</span></a>
+            <button class="btn btn--soft btn--pill btn--block calc__copy" type="button" data-copy-summary disabled aria-describedby="pg-copynote"><svg class="i i-copy" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#copy"></use></svg><span>คัดลอกสรุป</span></button>
+            <p class="calc__copynote" id="pg-copynote">สรุป<span class="cc-ph">จะอยู่</span><span class="cc-ph">ในเครื่อง</span><span class="cc-ph">ของคุณเท่านั้น</span> <span class="cc-ph"><span class="cc-ph">ไม่ได้</span><span class="cc-ph">ส่งไป</span><span class="cc-ph">ที่ใด</span></span></p>
           </div>
           <p class="vh" aria-live="polite" aria-atomic="true" data-live></p>
         </section>
@@ -380,12 +380,12 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){if(done)return
 </div>
     <section class="cc-calc__notes" aria-label="ก่อนใช้ตัวเลข"><article class="cc-calc__note">
       <span class="cc-calc__noten" aria-hidden="true">1</span>
-      <h2 class="cc-calc__notet"><span data-cms="concrete-calculator.080" class="cc-ph">นี่<span class="cc-ph">คือเรขาคณิต</span></span> <span data-cms="concrete-calculator.081" class="cc-ph">ไม่ใช่<span class="cc-ph">การออกแบบ</span></span></h2>
-      <p class="cc-calc__noteb">เครื่องคำนวณ<span class="cc-ph">ไม่เลือก</span><span class="cc-ph">ความหนา</span> <span class="cc-ph">เหล็กเสริม</span> <span data-cms="concrete-calculator.082" class="cc-ph"><span class="cc-ph">หรือกำลังอัด</span>แทนคุณ</span> <span class="cc-ph">ค่าเหล่านี้</span>มา<span class="cc-ph">จากแบบ</span><span class="cc-ph">หรือวิศวกร</span><span class="cc-ph">ของงาน</span></p>
+      <h2 class="cc-calc__notet"><span data-cms="concrete-calculator.006" class="cc-ph">นี่<span class="cc-ph">คือเรขาคณิต</span></span> <span data-cms="concrete-calculator.007" class="cc-ph">ไม่ใช่<span class="cc-ph">การออกแบบ</span></span></h2>
+      <p class="cc-calc__noteb">เครื่องคำนวณ<span class="cc-ph">ไม่เลือก</span><span class="cc-ph">ความหนา</span> <span class="cc-ph">เหล็กเสริม</span> <span data-cms="concrete-calculator.008" class="cc-ph"><span class="cc-ph">หรือกำลังอัด</span>แทนคุณ</span> <span class="cc-ph">ค่าเหล่านี้</span>มา<span class="cc-ph">จากแบบ</span><span class="cc-ph">หรือวิศวกร</span><span class="cc-ph">ของงาน</span></p>
     </article><article class="cc-calc__note">
       <span class="cc-calc__noten" aria-hidden="true">2</span>
-      <h2 data-cms="concrete-calculator.083" class="cc-calc__notet"><span class="cc-ph">ค่าเผื่อ</span><span class="cc-ph">เป็นตัวเลือก</span><span class="cc-ph">ของคุณ</span></h2>
-      <p class="cc-calc__noteb"><span data-cms="concrete-calculator.084" class="cc-ph"><span class="cc-ph">ค่าเผื่อ</span><span class="cc-ph">เริ่มต้น</span>เป็น</span> 0% ใส่เพิ่ม<span class="cc-ph">เองได้</span><span class="cc-ph">ถ้าพื้น</span><span class="cc-ph">ไม่เรียบ</span><span class="cc-ph">หรือแบบหล่อ</span><span class="cc-ph">อาจโป่ง</span> ปริมาตรสุทธิแสดง<span class="cc-ph">แยกไว้เสมอ</span></p>
+      <h2 data-cms="concrete-calculator.009" class="cc-calc__notet"><span class="cc-ph">ค่าเผื่อ</span><span class="cc-ph">เป็นตัวเลือก</span><span class="cc-ph">ของคุณ</span></h2>
+      <p class="cc-calc__noteb"><span data-cms="concrete-calculator.010" class="cc-ph"><span class="cc-ph">ค่าเผื่อ</span><span class="cc-ph">เริ่มต้น</span>เป็น</span> 0% ใส่เพิ่ม<span class="cc-ph">เองได้</span><span class="cc-ph">ถ้าพื้น</span><span class="cc-ph">ไม่เรียบ</span><span class="cc-ph">หรือแบบหล่อ</span><span class="cc-ph">อาจโป่ง</span> ปริมาตรสุทธิแสดง<span class="cc-ph">แยกไว้เสมอ</span></p>
     </article></section>
   </div>
 </div></main>
@@ -403,49 +403,49 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){if(done)return
     </div>
     <div class="ftr__legal">
       <p data-cms="s.016">© พ.ศ. 2569 บริษัท มหาแกร่ง คอนกรีต จำกัด</p>
-      <p><a href="tel:+66819979994" data-phone>081-997-9994</a> · <a data-cms="s.017" href="mailto:mahakrang.concrete@gmail.com">mahakrang.concrete@gmail.com</a> · <span class="ftr__cookies"><a data-cms="s.018" href="/cookies/">นโยบายคุกกี้</a><span data-cookie-wrap hidden> · <button data-cms="s.019" type="button" class="ftr__cookie-btn" data-cookie-settings>ตั้งค่าคุกกี้</button></span></span></p>
+      <p><a href="tel:+66819979994" data-phone>081-997-9994</a> · <a href="mailto:mahakrang.concrete@gmail.com">mahakrang.concrete@gmail.com</a> · <span class="ftr__cookies"><a data-cms="s.017" href="/cookies/">นโยบายคุกกี้</a><span data-cookie-wrap hidden> · <button data-cms="s.018" type="button" class="ftr__cookie-btn" data-cookie-settings>ตั้งค่าคุกกี้</button></span></span></p>
       <p class="ftr__credit"><a class="o2-credit" href="https://o2-designstudio.com/" target="_blank" rel="noopener" lang="en" aria-label="Website by O2 Design Studio (opens in a new tab)"><span class="o2-credit__lockup"><svg class="o2-credit__mark" viewBox="0 0 158.1 129.7" aria-hidden="true" focusable="false"><path fill="currentColor" d="M56.99 99.51A50 50 0 0 1 33.88 2.67L38 10.97A40.84 40.84 0 0 0 52.65 90.75ZM42.27 0.6A50 50 0 0 1 66.45 97.22L62.34 88.93A40.84 40.84 0 0 0 46.59 9.31ZM157.94 74.78L148.9 74.77C147.72 72.56 147.05 70.73 145.23 68.89C138.08 61.67 125.49 63.06 119.44 70.92L118.43 72.68C116.33 76.4 116.59 78.85 116.23 82.89C113.81 83.15 109.39 83.26 107.04 82.84C106.96 80.45 106.94 77.98 107.43 75.63C109.72 64.58 119.41 55.88 130.73 55.04C140.97 54.28 151.46 58.93 156.12 68.39C157.1 70.38 158.02 72.54 157.94 74.78ZM148.84 83.59C151.04 83.14 155.75 83.23 158.04 83.51C157.97 85.63 157.24 87.64 156.34 89.53C153.35 95.79 148.24 98.9 142.26 101.9C137.63 104.22 133.19 106.96 128.53 109.23C126.42 110.25 120.74 112.92 119.24 114.34C116.45 116.97 117.29 117.47 116.13 119.2L114.32 121.49C112.04 121.8 109.41 121.77 107.13 121.51C106.19 114 111.68 108.04 117.74 104.62C124.34 100.89 131.24 97.68 137.85 93.97C143.08 91.03 146.6 89.67 148.84 83.59ZM121.53 120.51C124.54 119.99 135.15 120.36 138.93 120.36C142.92 120.36 154.81 119.99 157.91 120.49L157.85 129.51C154.88 129.77 151.82 129.6 148.83 129.59L135.02 129.59C130.67 129.59 119.91 129.95 116.29 129.48C117.52 126.27 119.99 123.58 121.53 120.51Z"/></svg>Design Studio</span></a></p>
     </div>
   </footer>
 <dialog class="drawer" id="drawer" aria-label="เมนู" data-dialog>
     <div class="drawer__panel">
       <div class="drawer__top">
-        <p data-cms="s.020" class="drawer__title">เมนู</p>
+        <p data-cms="s.019" class="drawer__title">เมนู</p>
         <button class="drawer__close" type="button" data-close aria-label="ปิดเมนู"><svg class="i i-close" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#close"></use></svg></button>
       </div>
       <nav aria-label="เมนูหลัก">
         <ol class="drawer__list"><li>
-          <a class="drawer__link" href="/concrete/" aria-current="page"><span class="drawer__n">01</span><span data-cms="s.021">คอนกรีต</span><svg class="i i-arrow-right" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#arrow-right"></use></svg></a>
-          <ul class="drawer__sub"><li><a data-cms="s.022" href="/concrete/lab/">ห้องปฏิบัติการ (MHK LAB)</a></li><li><a data-cms="s.023" href="/concrete/calculator/" aria-current="page">คำนวณปริมาณคอนกรีต</a></li></ul>
+          <a class="drawer__link" href="/concrete/" aria-current="page"><span class="drawer__n">01</span><span data-cms="s.020">คอนกรีต</span><svg class="i i-arrow-right" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#arrow-right"></use></svg></a>
+          <ul class="drawer__sub"><li><a data-cms="s.021" href="/concrete/lab/">ห้องปฏิบัติการ (MHK LAB)</a></li><li><a data-cms="s.022" href="/concrete/calculator/" aria-current="page">คำนวณปริมาณคอนกรีต</a></li></ul>
         </li><li>
-          <a class="drawer__link" href="/construction/"><span class="drawer__n">02</span><span data-cms="s.024">งานรับเหมา</span><svg class="i i-arrow-right" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#arrow-right"></use></svg></a>
+          <a class="drawer__link" href="/construction/"><span class="drawer__n">02</span><span data-cms="s.023">งานรับเหมา</span><svg class="i i-arrow-right" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#arrow-right"></use></svg></a>
           
         </li><li>
-          <a class="drawer__link" href="/stories/"><span class="drawer__n">03</span><span data-cms="s.025">เรื่องราว</span><svg class="i i-arrow-right" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#arrow-right"></use></svg></a>
-          <ul class="drawer__sub"><li><a data-cms="s.026" href="/about/">เกี่ยวกับเรา</a></li></ul>
+          <a class="drawer__link" href="/stories/"><span class="drawer__n">03</span><span data-cms="s.024">เรื่องราว</span><svg class="i i-arrow-right" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#arrow-right"></use></svg></a>
+          <ul class="drawer__sub"><li><a data-cms="s.025" href="/about/">เกี่ยวกับเรา</a></li></ul>
         </li><li>
-          <a class="drawer__link" href="/lifestyle/"><span class="drawer__n">04</span><span data-cms="s.027">ไลฟ์สไตล์</span><svg class="i i-arrow-right" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#arrow-right"></use></svg></a>
+          <a class="drawer__link" href="/lifestyle/"><span class="drawer__n">04</span><span data-cms="s.026">ไลฟ์สไตล์</span><svg class="i i-arrow-right" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#arrow-right"></use></svg></a>
           
         </li><li>
-          <a class="drawer__link" href="/contact/"><span class="drawer__n">05</span><span data-cms="s.028">ติดต่อเรา</span><svg class="i i-arrow-right" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#arrow-right"></use></svg></a>
+          <a class="drawer__link" href="/contact/"><span class="drawer__n">05</span><span data-cms="s.027">ติดต่อเรา</span><svg class="i i-arrow-right" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#arrow-right"></use></svg></a>
           
         </li></ol>
       </nav>
       <div class="drawer__foot">
-        <a class="btn btn--red btn--pill btn--block" href="tel:+66819979994" data-phone><svg class="i i-phone" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#phone"></use></svg><span data-cms="s.029">โทรหาเรา 081-997-9994</span></a>
+        <a class="btn btn--red btn--pill btn--block" href="tel:+66819979994" data-phone><svg class="i i-phone" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#phone"></use></svg><span>โทรหาเรา 081-997-9994</span></a>
         <div class="langsw" role="group" aria-label="ภาษา">
-    <a data-cms="s.030" href="/concrete/calculator/" hreflang="th" lang="th" data-lang-link aria-current="true">ไทย</a>
-    <a data-cms="s.031" href="/en/concrete/calculator/" hreflang="en" lang="en" data-lang-link>English</a>
+    <a data-cms="s.028" href="/concrete/calculator/" hreflang="th" lang="th" data-lang-link aria-current="true">ไทย</a>
+    <a data-cms="s.029" href="/en/concrete/calculator/" hreflang="en" lang="en" data-lang-link>English</a>
   </div>
       </div>
     </div>
   </dialog>
 <dialog class="searchdlg" id="search" aria-label="ค้นหา" data-dialog>
     <form class="searchdlg__form" action="/search/" method="get" role="search">
-      <label data-cms="s.032" class="vh" for="search-q">ค้นหา</label>
+      <label data-cms="s.030" class="vh" for="search-q">ค้นหา</label>
       <svg class="i i-search" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#search"></use></svg>
       <input id="search-q" name="q" type="search" autocomplete="off" enterkeyhint="search" placeholder="ค้นหาสินค้า ผลงาน เรื่องราว…" required minlength="1" maxlength="80">
-      <button data-cms="s.033" class="btn btn--red btn--pill" type="submit">ค้นหา</button>
+      <button data-cms="s.031" class="btn btn--red btn--pill" type="submit">ค้นหา</button>
       <button class="searchdlg__close" type="button" data-close aria-label="ปิด"><svg class="i i-close" aria-hidden="true" focusable="false"><use href="/img/icons.svg?v=895bc6942b#close"></use></svg></button>
     </form>
     <div class="searchdlg__res" data-search-results aria-live="polite"></div>
@@ -467,7 +467,7 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){if(done)return
   <g class="truck__wheel" style="--x:30px"><circle cx="30" cy="61" r="9" fill="#1B1C1F"/><circle cx="30" cy="61" r="3.6" fill="#D5D7DB"/><path class="truck__spoke" d="M30 54.6v12.8M23.6 61h12.8" stroke="#5E6168" stroke-width="1.7"/></g>
   <g class="truck__wheel" style="--x:51px"><circle cx="51" cy="61" r="9" fill="#1B1C1F"/><circle cx="51" cy="61" r="3.6" fill="#D5D7DB"/><path class="truck__spoke" d="M51 54.6v12.8M44.6 61h12.8" stroke="#5E6168" stroke-width="1.7"/></g>
   <g class="truck__wheel" style="--x:104px"><circle cx="104" cy="61" r="9" fill="#1B1C1F"/><circle cx="104" cy="61" r="3.6" fill="#D5D7DB"/><path class="truck__spoke" d="M104 54.6v12.8M97.6 61h12.8" stroke="#5E6168" stroke-width="1.7"/></g>
-</svg><p data-cms="s.034" class="loader__text">กำลังโหลด…</p></div></div>
+</svg><p data-cms="s.032" class="loader__text">กำลังโหลด…</p></div></div>
 <div class="toast" data-toast role="status" aria-live="polite"></div>
 
 <script>window.__MHK__={"static":true,"base":"/","searchIndex":"/search-index.json","lang":"th","epoch":50,"poll":15000,"preview":false,"deps":["site:site","page:calculator","product:*","calcConfig:*"],"strings":{"updated":"มีข้อมูลอัปเดตใหม่","refresh":"แสดงข้อมูลล่าสุด","copied":"คัดลอกแล้ว","linkCopied":"คัดลอกลิงก์แล้ว","close":"ปิด"},"page":null};(function(){var d=document.documentElement,l=document.querySelector('[data-loader]');if(!l)return;var done=false,shown=false,t0=performance.now();

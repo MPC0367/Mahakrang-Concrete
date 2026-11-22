@@ -23,7 +23,15 @@ const textOf = (n) => [...walk(n)].filter((x) => x.text != null && !x.raw).map((
 const isAtom = (n) => n.name && n.name !== 'br' && n.name !== 'wbr' && !isChunk(n) && !textOf(n).trim();
 const isTextish = (n) => n.text != null || n.name === 'br' || n.name === 'wbr' || isChunk(n);
 const blank = (n) => n.text != null && !decode(n.text).trim();
-export const locked = (el) => SKIP.has(el.name) || classes(el).some((c) => LOCKED_CLASS.has(c)) || attr(el, 'data-cms-skip') !== null;
+// words the site's own scripts write at run time (live announcements, the calculator's labels and figures, a title
+// swapped by the rail's filters from its data-t-* words): a change to the page there would be overwritten on screen
+// (the whole calculator: its names and figures come from its own data, data-calc-json)
+const RUNTIME = (el) => attr(el, 'aria-live') !== null || el.attrs?.some(([n]) => /^data-(t-|dim-label$|sec-n$|sec-namelabel$|ph$|fig$|u$|calc$)/.test(n));
+// facts that live in an attribute beside the words (a dated <time>, an e-mail address or phone number shown in its own
+// mailto:/tel: link): changing the words alone would leave them saying one thing and doing another
+const FACT = (el) => el.name === 'time' || (el.name === 'a' && /^(mailto|tel):/i.test(attr(el, 'href') ?? ''));
+export const locked = (el) => SKIP.has(el.name) || classes(el).some((c) => LOCKED_CLASS.has(c)) || attr(el, 'data-cms-skip') !== null || RUNTIME(el) || FACT(el);
+const EMAIL = /[^\s@]+@[^\s@]+\.[a-z]{2,}/i;
 
 /** Whether an element holds words only (with wordless elements at its ends): its span of children, or null. */
 export function wordsSpan(el) {
@@ -90,7 +98,8 @@ export function render(words, style, lang) {
       const known = style.chunks.find((c) => line.startsWith(c, pos));
       if (known) { flush(); out.push(`<span class="${style.chunkClass}">${escText(known)}</span>`); pos += known.length; continue; }
       const seg = si < bounds.length ? line.slice(pos, bounds[si][0] + bounds[si][1].length) : line.slice(pos);
-      if (!seg.trim() || style.loose) plain += seg;
+      // where the text mixes plain words and phrase spans, new Thai words still get a span (Thai has no spaces to break at)
+      if (!seg.trim() || (style.loose && !/[\u0E00-\u0E7F]/.test(seg))) plain += seg;
       else { flush(); out.push(`<span class="${style.chunkClass}">${escText(seg)}</span>`); }
       pos += seg.length;
     }
@@ -139,7 +148,7 @@ export function unitsOf(html) {
       const span = wordsSpan(el);
       if (span) {
         const words = wordsOf(el, span);
-        if (LETTER.test(words)) units.push({ kind: 'text', el, span, words, sig: signature(el), chrome: chromeOf(el), section: chromeOf(el) ?? section, anchor: anchorOf(el), key: attr(el, 'data-cms') });
+        if (LETTER.test(words) && !EMAIL.test(words)) units.push({ kind: 'text', el, span, words, sig: signature(el), chrome: chromeOf(el), section: chromeOf(el) ?? section, anchor: anchorOf(el), key: attr(el, 'data-cms') });
         return;
       }
     }
@@ -184,6 +193,15 @@ export function applyTo(html, next, seoKeys = null) {
     if (u.kind === 'alt') {
       const a = attrRange(html, u.el, 'alt');
       if (a) edits.push([a[0], a[1], escAttr(w)]);
+      // the photo viewer reads the description from its link (data-alt, aria-label): those that said the same follow
+      for (let n = u.el.parent; n && n.name !== 'body'; n = n.parent) {
+        if (n.name !== 'a' && n.name !== 'button' && n.name !== 'figure') continue;
+        for (const k of ['data-alt', 'aria-label', 'title']) {
+          const v = attr(n, k);
+          if (v != null && decode(v).replace(/\s+/g, ' ').trim() === u.words) { const r = attrRange(html, n, k); if (r) edits.push([r[0], r[1], escAttr(w)]); }
+        }
+        break;
+      }
     } else {
       const first = u.el.children[u.span.first], last = u.el.children[u.span.last];
       const lead = first.text != null ? /^[ \t\r\n\f]*/.exec(first.text)[0] : '';

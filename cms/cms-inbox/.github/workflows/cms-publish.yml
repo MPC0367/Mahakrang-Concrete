@@ -17,7 +17,8 @@ permissions:
   contents: write
   pages: write
 
-# one at a time, shared with "Website texts" on main, so the two never write main at once
+# one publish at a time. A run waiting behind another is replaced by a newer one, which takes the whole queue, so no
+# publication is lost. Its own group: a publish must never replace a waiting "Website texts" run (and the other way round)
 concurrency:
   group: cms-publish
   cancel-in-progress: false
@@ -104,8 +105,8 @@ jobs:
             cp "$f" "inbox/results/$n"
             git rm -q --ignore-unmatch "inbox/queue/$n"
           done
-          # keep the newest 60 answers
-          ls -t inbox/results/*.json 2>/dev/null | tail -n +61 | xargs -r git rm -q --ignore-unmatch
+          # keep the newest 500 answers (SPINE reads an answer until its publication is live)
+          ls -t inbox/results/*.json 2>/dev/null | tail -n +501 | xargs -r git rm -q --ignore-unmatch
           git config user.name "Mahakrang website texts (SPINE)"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add inbox/results

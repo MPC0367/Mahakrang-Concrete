@@ -41,6 +41,25 @@ test('publishing every text unchanged changes no byte of any page', () => {
 test('every page loads the preview only inside SPINE', () => {
   for (const f of r.files) assert.ok(r.html[f].includes('data-spine-loader'), f);
 });
+test('words that live beside a fact, or that the site\u2019s scripts write, are not offered', () => {
+  for (const f of r.files) for (const u of unitsOf(r.html[f]).units) {
+    for (let n = u.el; n && n.name !== 'body'; n = n.parent) {
+      assert.ok(!n.attrs?.some(([k]) => k === 'data-calc'), `${f}: ${u.key} is inside the calculator`);
+      assert.ok(n.name !== 'time', `${f}: ${u.key} is a dated <time>`);
+      assert.ok(!(n.name === 'a' && /^(mailto|tel):/i.test(n.attrs.find(([k]) => k === 'href')?.[1] ?? '')), `${f}: ${u.key} is an e-mail or phone link`);
+    }
+    assert.ok(!/[^\s@]+@[^\s@]+\.[a-z]{2,}/i.test(u.words), `${f}: ${u.key} shows an e-mail address`);
+  }
+});
+test('a new photo description reaches the viewer\u2019s copy of it too', () => {
+  const html = '<!doctype html><html lang="en"><body><main><a href="#" data-alt="Old words" aria-label="Old words"><img data-cms-alt="x.001" alt="Old words" src="a.jpg"></a></main></body></html>';
+  const out = applyTo(html, (k) => (k === 'x.001' ? 'New & words' : undefined)).html;
+  assert.equal((out.match(/New &amp; words/g) ?? []).length, 3);
+});
+test('new Thai words in a text that mixes plain words and phrase spans get a span', () => {
+  const html = render('ที่ตั้งโรงงานใหม่', { chunkClass: 'cc-ph', chunks: ['ที่ตั้ง'], loose: true }, 'th');
+  assert.match(html, /^<span class="cc-ph">ที่ตั้ง<\/span><span class="cc-ph">/);
+});
 test('new words read back exactly, phrase spans kept and made for new words', () => {
   const style = { chunkClass: 'cc-ph', chunks: ['คอนกรีต', 'ที่มากกว่า'], loose: false };
   for (const [words, lang] of [['คอนกรีตที่มากกว่าแค่โครงสร้าง', 'th'], ['บรรทัดหนึ่ง\nบรรทัดสอง', 'th'], ['Concrete & more <b>', 'en']]) {

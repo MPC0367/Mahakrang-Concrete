@@ -2,7 +2,8 @@
 # every new text its key (data-cms) and, when any words changed, writes a new revision of content/ and cms/registry.json,
 # so SPINE's Website > Texts always shows the words that are really on the website. It changes no word and nothing a
 # visitor sees: only the data-cms attributes, the preview loader line in each page's head, cms/ and content/.
-# Pushes made by GitHub Actions do not start it again. If someone pushes while it runs, it simply runs again after.
+# Pushes made by GitHub Actions do not start it again. If main moves on while it runs, it keys the newest main and tries
+# again (three times); a run that still cannot push fails loudly, and can be started again by hand.
 name: Website texts (keys for SPINE)
 
 on:
@@ -15,8 +16,10 @@ permissions:
   contents: write
   pages: write
 
+# its own group (a newer run waiting replaces an older one waiting: it keys the newer main, which holds both pushes);
+# never shared with the publish workflow, so neither can replace the other's waiting run
 concurrency:
-  group: cms-publish
+  group: cms-refresh
   cancel-in-progress: false
 
 jobs:
@@ -48,9 +51,17 @@ jobs:
           if [ -z "$(git status --porcelain -- '*.html' content cms/registry.json)" ]; then echo "nothing changed"; exit 0; fi
           git config user.name "Mahakrang website texts (SPINE)"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A -- '*.html' content cms/registry.json
-          git commit -q -m "Website texts: keys and revision after a change to the pages"
-          if git push -q origin HEAD:main; then echo "pushed=yes" >> "$GITHUB_OUTPUT"; else echo "main moved on: the next run keys it"; fi
+          for i in 1 2 3; do
+            git add -A -- '*.html' content cms/registry.json
+            git commit -q -m "Website texts: keys and revision after a change to the pages"
+            if git push -q origin HEAD:main; then echo "pushed=yes" >> "$GITHUB_OUTPUT"; exit 0; fi
+            echo "main moved on (attempt $i): keying the newest main again"
+            git fetch -q --depth 1 origin main && git reset -q --hard origin/main
+            node cms/extract.mjs --write && node cms/test.mjs
+            if [ -z "$(git status --porcelain -- '*.html' content cms/registry.json)" ]; then echo "the newest main is keyed already"; exit 0; fi
+          done
+          echo "::error::could not push after 3 attempts; run this workflow again by hand (Actions > Website texts > Run workflow)"
+          exit 1
 
       - name: Ask GitHub Pages to publish it
         if: steps.commit.outputs.pushed == 'yes'

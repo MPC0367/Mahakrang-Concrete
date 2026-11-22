@@ -174,7 +174,7 @@ export function writeAll(root, r, { publication = null } = {}) {
   const revision = (man.revision || 0) + 1, at = new Date().toISOString();
   const snap = { schema: SCHEMA, revision, publishedAt: at, contentHash: hash, publication, content: r.content, facts: {} };
   writeFileSync(path.join(root, 'content', `r${revision}.json`), JSON.stringify(snap) + '\n');
-  const recent = [...(man.recent ?? []), ...(publication ? [{ revision, nonce: publication.nonce, at, keys: publication.keys }] : [])].slice(-30);
+  const recent = [...(man.recent ?? []), ...(publication ? [{ revision, nonce: publication.nonce, at, keys: publication.keys }] : [])].slice(-500);
   writeFileSync(manPath, JSON.stringify({ schema: SCHEMA, revision, url: `content/r${revision}.json`, publishedAt: at, contentHash: hash, recent }, null, 1) + '\n');
   return { marked, regChanged, revision, newRevision: true };
 }
