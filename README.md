@@ -84,7 +84,7 @@ The previous site is kept at the tag `v1-previous-site`.
 ## Editing the texts from SPINE (since 22 Nov 2026, branch `spine-website-2026-11-22`)
 
 The owner asked for Mahakrang in SPINE "the same setup as for patravana … they can edit their website and all its pages
-on here". Every text on the 72 pages (36 Thai + 36 English) is marked with a key, `data-cms="<key>"` (a photograph's
+on here". Every text on the 72 pages (36 Thai + 36 English; 1,948 texts, 1,568 in both languages) is marked with a key, `data-cms="<key>"` (a photograph's
 description `data-cms-alt`), and the words SPINE shows are read from the pages themselves:
 
 - `cms/registry.json` — every text: key, page tab, section, page address, languages, length limit. `content/manifest.json`
@@ -105,6 +105,11 @@ description `data-cms-alt`), and the words SPINE shows are read from the pages t
 - **Preview:** each page's head has one line (`data-spine-loader`) that loads `js/spine-preview.js` only when the page is
   opened as `?spine-preview=1` inside SPINE; it shows the drafts in that frame only and hides the logo opening and the
   cookie question there.
-- Not editable here: O2's credit, the "ข้อมูลตัวอย่าง / Sample data" labels, phone numbers and other texts with no letters,
-  links' addresses, and photographs. A rebuild from mahakrang-v2 drops every key and every SPINE edit: carry them into the
+- Not editable here: O2's credit, the "ข้อมูลตัวอย่าง / Sample data" labels, phone numbers, e-mail addresses and their
+  links, dated `<time>` texts and other texts with no letters, the volume calculator (its words come from its own data),
+  words the scripts write at run time, links' addresses, and photographs.
+- **Setting it up on GitHub (once, before SPINE's first Publish):** the branch `cms-inbox` must exist with the workflow at
+  its root. From a clone: `git switch --orphan cms-inbox`, `git rm -rq --cached .` and clean the folder, copy the contents
+  of `cms/cms-inbox/` (from `main`) to the root, commit, `git push origin cms-inbox`. SPINE refuses to publish to a branch
+  without the workflow, and says so. A rebuild from mahakrang-v2 drops every key and every SPINE edit: carry them into the
   source first, or run `cms/extract.mjs --write` after the sync (new keys; drafts typed in SPINE on old keys are refused).
