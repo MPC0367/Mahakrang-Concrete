@@ -91,9 +91,11 @@ export function extract(root = ROOT) {
     const path_ = pathOf(p.th ?? p.en.slice(3));
     const tab = tabOf(path_);
     const where = path_;
+    // the page each language of a text is on, for SPINE's preview (a shared text shows on the home pages)
+    const paths = { ...(p.th ? { th: path_ } : {}), ...(p.en ? { en: '/en' + path_ } : {}) };
     const meta = (u, shared) => shared
-      ? { tab: 'Shared', section: u.section, type: u.kind === 'alt' ? 'alt' : 'text', where: 'Every page', link: '/' }
-      : { tab, section: u.section, type: u.kind === 'alt' ? 'alt' : 'text', where, link: path_ + (u.anchor ? '#' + u.anchor : '') };
+      ? { tab: 'Shared', section: u.section, type: u.kind === 'alt' ? 'alt' : 'text', where: 'Every page', link: '/', paths: { th: '/', en: '/en/' } }
+      : { tab, section: u.section, type: u.kind === 'alt' ? 'alt' : 'text', where, link: path_ + (u.anchor ? '#' + u.anchor : ''), paths };
     const sides = [['th', p.th], ['en', p.en]].filter(([, f]) => f);
     const own = {};
     for (const [lang, f] of sides) {
@@ -117,7 +119,7 @@ export function extract(root = ROOT) {
       const key = `seo.${p.id}.${t}`;
       for (const [lang, f] of sides) {
         const w = parsed[f].seo[t];
-        if (w) put(key, lang, w, { kind: 'seo', tab: 'SEO', section: path_, type: t, where, link: path_, label: t === 'title' ? 'Title in search results' : 'Description in search results' });
+        if (w) put(key, lang, w, { kind: 'seo', tab: 'SEO', section: path_, type: t, where, link: path_, paths, label: t === 'title' ? 'Title in search results' : 'Description in search results' });
       }
     }
   }
