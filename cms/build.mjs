@@ -13,7 +13,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { extract, writeAll } from './extract.mjs';
 import { applyTo } from './units.mjs';
-import { fileOf, originalFiles, pictureOk, rewritePictures, sizesOf } from './pictures.mjs';
+import { fileOf, pictureOk, rewritePictures, sizesOf, valuesNamed } from './pictures.mjs';
 
 const ROOT = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 const norm = (s) => String(s ?? '').replace(/\r\n?/g, '\n').split('\n').map((l) => l.replace(/[ \t\f\v]+/g, ' ').trim()).join('\n').trim();
@@ -94,7 +94,8 @@ export function publish(root, inbox) {
   for (const [k, c] of Object.entries(now.content)) if (!accepted[k] && (after.content[k]?.th !== c.th || after.content[k]?.en !== c.en)) wrong.push(`${k} moved`);
   for (const [k, v] of pictures) if (after.facts[k] !== v) wrong.push(`${k} (picture)`);
   for (const [k, v] of Object.entries(now.facts)) if (!pictures.has(k) && after.facts[k] !== v) wrong.push(`${k} moved`);
-  for (const [k, v] of pictures) if (v !== fields.get(k).value && Object.values(after.html).some((h) => originalFiles(fields.get(k)).test(h))) wrong.push(`${k} still names its old files`);
+  // and every page that shows a replaced photograph names only its new files (no old picture left anywhere)
+  for (const [k, v] of pictures) if (Object.values(after.html).some((h) => [...valuesNamed(fields.get(k), h)].some((x) => x !== v))) wrong.push(`${k} still names its old files`);
   if (wrong.length) {
     for (const [f, src] of Object.entries(before)) writeFileSync(path.join(root, f), src);
     result.status = 'failed';

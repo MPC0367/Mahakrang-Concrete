@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { mkdirSync } from 'node:fs';
 import { publish } from './build.mjs';
 import { extract } from './extract.mjs';
-import { fileOf, originalFiles, sizesOf, withPicMarks } from './pictures.mjs';
+import { fileOf, originalFiles, rewritePictures, scanPictures, sizesOf, valuesNamed, withPicMarks } from './pictures.mjs';
 import { applyTo, render, unitsOf, wordsOf, wordsSpan } from './units.mjs';
 import { parse, walk } from './html.mjs';
 
@@ -41,17 +41,58 @@ test('every photograph is a picture with its sizes, and every <img> and <source>
   assert.ok(pics.length > 30, `${pics.length} photographs`);
   for (const f of pics) {
     assert.match(f.key, /^pic\.[a-z0-9-]{1,100}$/);
-    assert.ok(f.variants.length && f.variants.every((v) => v.w > 0 && v.h > 0), `${f.key}: sizes`);
+    assert.ok(f.variants.length, `${f.key}: no sizes`);
+    // a photograph offered for a new picture has every size measured (a new one not measured yet is the studio's)
+    if (f.editable) assert.ok(f.variants.every((v) => v.w > 0 && v.h > 0), `${f.key}: sizes`);
     assert.ok(f.editable || f.protectReason, `${f.key}: locked without a reason`);
   }
   for (const f of r.files) assert.equal(withPicMarks(r.html[f]), r.html[f], `${f}: a photograph not marked`);
+});
+test('every photograph replaced and put back gives every page back exactly, in its scripts and styles too', () => {
+  const fields = new Map(r.fields.map((f) => [f.key, f]));
+  let tried = 0;
+  for (const f of r.fields.filter((x) => x.type === 'picture' && x.editable && r.facts[x.key] === x.value)) {
+    const up = `content/media/${f.key.slice(4)}.${'d'.repeat(16)}`;
+    for (const file of r.files) {
+      const h = r.html[file];
+      if (!valuesNamed(f, h).size) continue;
+      const mid = rewritePictures(h, new Map([[f.key, up]]), fields);
+      assert.deepEqual([...valuesNamed(f, mid)], [up], `${f.key} on ${file}: an old file still named`);
+      const again = rewritePictures(mid, new Map([[f.key, up.replace(/d{16}$/, 'e'.repeat(16))]]), fields);
+      assert.equal(rewritePictures(again, new Map([[f.key, f.value]]), fields), h, `${f.key} on ${file} is not as it was`);
+      tried++;
+    }
+  }
+  assert.ok(tried > 100, `${tried} pages tried`);
+});
+test('a photograph’s name is never part of a longer one; two photographs of one name, or pages that disagree, are the studio’s', () => {
+  const meta = () => ({ tab: 'Home', where: '/', link: '/', paths: { th: '/' } });
+  const sized = (key, value, s = 'w640') => ({ key, value, variants: [{ s, ext: 'jpg', w: 640, h: 427 }, { s, ext: 'webp', w: 640, h: 427 }] });
+  const scan = (html, prev = new Map()) => scanPictures(os.tmpdir(), ['index.html'], { 'index.html': html }, meta, prev).fields;
+  // a longer file name, and a sentence's full stop
+  const page = '<img src="/media/test/photo-w640.jpg"><a href="/media/test/photo-w640.jpg.backup">x</a><p>media/test/photo-w640.webp.</p>';
+  const f = sized('pic.test-photo', 'media/test/photo');
+  const out = rewritePictures(page, new Map([['pic.test-photo', 'content/media/test-photo.' + 'a'.repeat(16)]]), new Map([[f.key, f]]));
+  assert.ok(out.includes('href="/media/test/photo-w640.jpg.backup"'), out);
+  assert.ok(out.includes('<p>content/media/test-photo.' + 'a'.repeat(16) + '-w640.jpg?f=webp.</p>'), out);
+  assert.equal(rewritePictures(out, new Map([[f.key, f.value]]), new Map([[f.key, f]])), page);
+  // a folder that starts with m_ is a folder, not a photograph's own one
+  const mw = sized('pic.m-work-photo', 'media/m_work/photo');
+  const mo = rewritePictures('<img src="/media/m_work/photo-w640.jpg">', new Map([[mw.key, 'content/media/m-work-photo.' + 'b'.repeat(16)]]), new Map([[mw.key, mw]]));
+  assert.equal(mo, '<img src="/content/media/m-work-photo.' + 'b'.repeat(16) + '-w640.jpg">');
+  // two photographs of one name; pages that show the original on one and a picture on another; sizes never measured
+  const prev = (k, v) => new Map([[k, { ...sized(k, v), tab: 'Home', where: '/', link: '/', paths: {} }]]);
+  assert.match(scan('<img src="/media/a-b/c-w640.jpg"><img src="/media/a/b-c-w640.jpg">', prev('pic.a-b-c', 'media/a-b/c'))[0].protectReason, /same name/);
+  assert.match(scan('<img src="/media/test/photo-w640.jpg"><img src="/content/media/test-photo.' + 'a'.repeat(16) + '-w640.jpg">', prev('pic.test-photo', 'media/test/photo'))[0].protectReason, /not all show the same picture/);
+  assert.match(scan('<img src="/media/new/photo-w640.jpg">')[0].protectReason, /not known yet/);
 });
 test('a photograph: replaced by a picture whose files are there, refused otherwise, and back to the original byte for byte', () => {
   const dir = mkdtempSync(path.join(os.tmpdir(), 'mhk-pic-'));
   try {
     for (const f of [...r.files, 'cms', 'content', 'js']) cpSync(path.join(ROOT, f), path.join(dir, f), { recursive: true });
-    const inStyle = (f) => r.files.some((x) => /<style[\s\S]*?<\/style>/.test(r.html[x]) && [...r.html[x].matchAll(/<style[\s\S]*?<\/style>/g)].some((m) => originalFiles(f).test(m[0])));
-    const pic = r.fields.find((f) => f.type === 'picture' && f.editable && f.variants.some((v) => v.ext === 'webp') && f.places > 4 && !inStyle(f));
+    // a photograph the pages show as the studio's original, in many places, with WebP files (and a <source> for them)
+    const pic = r.fields.find((f) => f.type === 'picture' && f.editable && r.facts[f.key] === f.value && f.variants.some((v) => v.ext === 'webp') && f.places > 4
+      && r.files.some((x) => [...r.html[x].matchAll(/<source\b[^>]*>/g)].some((m) => originalFiles(f).test(m[0]))));
     const value = `content/media/${pic.key.slice(4)}.${'c'.repeat(16)}`;
     const pub = (n, v, expect) => ({ schema: 'mahakrang.publish/1', nonce: n.repeat(32), by: 'Test', changes: [{ key: pic.key, value: v, expect: { value: expect } }] });
     let out = publish(dir, pub('c', value, pic.value));
@@ -68,6 +109,8 @@ test('a photograph: replaced by a picture whose files are there, refused otherwi
     assert.ok(mid.files.some((f) => [...mid.html[f].matchAll(/<source\b[^>]*>/g)].some((m) => m[0].includes(value) && /data-pic-type="image\/webp"/.test(m[0]) && /\stype="image\/jpeg"/.test(m[0]))), 'a WebP <source> says image/jpeg now');
     assert.deepEqual(mid.content, r.content, 'the texts moved');
     for (const [k, v] of Object.entries(r.facts)) if (k !== pic.key) assert.equal(mid.facts[k], v, `${k} moved`);
+    // the photograph stays offered while it shows the picture: every size known from the registry before
+    assert.ok(mid.fields.find((f) => f.key === pic.key).editable, 'a replaced photograph is locked');
     assert.equal(publish(dir, pub('e', pic.value, pic.value)).refused[0].reason, 'changed');
     out = publish(dir, pub('f', pic.value, value));
     assert.equal(out.status, 'built');
