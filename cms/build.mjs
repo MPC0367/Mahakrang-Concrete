@@ -13,6 +13,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { extract, writeAll } from './extract.mjs';
 import { applyTo } from './units.mjs';
+import { fileOf, originalFiles, pictureOk, rewritePictures, sizesOf } from './pictures.mjs';
 
 const ROOT = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 const norm = (s) => String(s ?? '').replace(/\r\n?/g, '\n').split('\n').map((l) => l.replace(/[ \t\f\v]+/g, ' ').trim()).join('\n').trim();
@@ -43,11 +44,23 @@ export function publish(root, inbox) {
 
   const now = extract(root);
   const fields = new Map(now.fields.map((f) => [f.key, f]));
-  const accepted = {};
+  const accepted = {}, pictures = new Map();
   for (const c of inbox.changes) {
     const f = fields.get(c?.key);
     if (!f) { result.refused.push({ key: String(c?.key ?? ''), reason: 'not_found' }); continue; }
-    if (accepted[f.key]) { result.refused.push({ key: f.key, reason: 'twice' }); continue; }
+    if (accepted[f.key] || pictures.has(f.key)) { result.refused.push({ key: f.key, reason: 'twice' }); continue; }
+    // a photograph (23 November 2026): its own original, or a picture SPINE put in content/media/ for it, every width
+    if (f.type === 'picture') {
+      const v = String(c.value ?? '').trim(), live = now.facts[f.key];
+      if (f.editable === false) { result.refused.push({ key: f.key, reason: 'locked' }); continue; }
+      const problems = !pictureOk(f, v) ? ['not a picture of this photograph']
+        : v === f.value ? [] : sizesOf(f).filter((x) => !existsSync(path.join(root, fileOf(v, x.s, 'jpg')))).map((x) => `${fileOf(v, x.s, 'jpg')} is not on the website`);
+      if (problems.length) { result.refused.push({ key: f.key, reason: 'invalid', problems }); continue; }
+      if (c.expect && c.expect.value != null && String(c.expect.value) !== live) { result.refused.push({ key: f.key, reason: 'changed', now: { value: live } }); continue; }
+      if (v === live) { result.refused.push({ key: f.key, reason: 'same' }); continue; }
+      pictures.set(f.key, v);
+      continue;
+    }
     const live = now.content[f.key];
     const problems = [];
     const words = {};
@@ -61,23 +74,27 @@ export function publish(root, inbox) {
     if (f.langs.every((lang) => words[lang] === live[lang])) { result.refused.push({ key: f.key, reason: 'same' }); continue; }
     accepted[f.key] = words;
   }
-  const keys = Object.keys(accepted);
+  const keys = [...Object.keys(accepted), ...pictures.keys()];
   if (!keys.length) { result.problems.push('none of the changes could be published'); return result; }
 
-  // rewrite the pages; search texts by the page's own keys
+  // rewrite the pages; search texts by the page's own keys; then the photographs' files wherever the pages name them
   const seoFor = new Map();
   for (const p of now.pages) for (const f of [p.th, p.en]) if (f) seoFor.set(f, { title: `seo.${p.id}.title`, description: `seo.${p.id}.description` });
   const before = {};
   for (const f of now.files) {
     const src = now.html[f];
-    const out = applyTo(src, (k, lang) => accepted[k]?.[lang], seoFor.get(f));
-    if (out.html !== src) { before[f] = src; writeFileSync(path.join(root, f), out.html); }
+    let out = applyTo(src, (k, lang) => accepted[k]?.[lang], seoFor.get(f)).html;
+    if (pictures.size) out = rewritePictures(out, pictures, fields);
+    if (out !== src) { before[f] = src; writeFileSync(path.join(root, f), out); }
   }
-  // read every page back: each accepted text must now read exactly as sent, and nothing else may have moved
+  // read every page back: each accepted text and photograph must now read exactly as sent, and nothing else may have moved
   const after = extract(root);
   const wrong = [];
   for (const [k, w] of Object.entries(accepted)) for (const [lang, v] of Object.entries(w)) if (after.content[k]?.[lang] !== v) wrong.push(`${k} (${lang})`);
   for (const [k, c] of Object.entries(now.content)) if (!accepted[k] && (after.content[k]?.th !== c.th || after.content[k]?.en !== c.en)) wrong.push(`${k} moved`);
+  for (const [k, v] of pictures) if (after.facts[k] !== v) wrong.push(`${k} (picture)`);
+  for (const [k, v] of Object.entries(now.facts)) if (!pictures.has(k) && after.facts[k] !== v) wrong.push(`${k} moved`);
+  for (const [k, v] of pictures) if (v !== fields.get(k).value && Object.values(after.html).some((h) => originalFiles(fields.get(k)).test(h))) wrong.push(`${k} still names its old files`);
   if (wrong.length) {
     for (const [f, src] of Object.entries(before)) writeFileSync(path.join(root, f), src);
     result.status = 'failed';

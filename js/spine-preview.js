@@ -54,11 +54,38 @@
     });
     delete applied[key];
   }
+  /* Pictures (23 November 2026): SPINE sends a draft picture as an image (a Blob) for a photograph; every <img> and
+     <source> marked data-pic="pic.<id>" shows it, here only. A photograph no longer sent gets its own files back. */
+  var pics = {};
+  function showPictures(sent) {
+    var want = {}, k;
+    for (k in sent) if (/^pic\.[a-z0-9-]{1,100}$/.test(k) && sent[k] instanceof Blob && /^image\/(jpeg|png|webp)$/.test(sent[k].type) && sent[k].size < 20e6) want[k] = sent[k];
+    for (k in pics) {
+      if (want[k] === pics[k].blob) continue;
+      pics[k].els.forEach(function (x) {
+        var el = x[0];
+        if ((el.tagName === 'SOURCE' ? el.getAttribute('srcset') : el.getAttribute('src')) !== pics[k].url) return;   // moved on meanwhile
+        ['src', 'srcset', 'sizes'].forEach(function (a, i) { if (x[i + 1] != null) el.setAttribute(a, x[i + 1]); });
+      });
+      URL.revokeObjectURL(pics[k].url); delete pics[k];
+    }
+    for (k in want) {
+      if (pics[k]) continue;
+      var url = URL.createObjectURL(want[k]), els = [], found = d.querySelectorAll('[data-pic="' + k + '"]');
+      for (var i = 0; i < found.length; i++) {
+        var el = found[i];
+        els.push([el, el.getAttribute('src'), el.getAttribute('srcset'), el.getAttribute('sizes')]);
+        if (el.tagName === 'SOURCE') el.setAttribute('srcset', url);
+        else { el.removeAttribute('srcset'); el.removeAttribute('sizes'); el.setAttribute('src', url); }
+      }
+      pics[k] = { blob: want[k], url: url, els: els };
+    }
+  }
   function focusOn(key) {
     var old = d.querySelectorAll('[data-spine-focus]');
     for (var i = 0; i < old.length; i++) old[i].removeAttribute('data-spine-focus');
     if (!key) return;
-    var el = d.querySelector('[data-cms="' + key + '"]') || d.querySelector('[data-cms-alt="' + key + '"]');
+    var el = d.querySelector('[data-cms="' + key + '"]') || d.querySelector('[data-cms-alt="' + key + '"]') || d.querySelector('img[data-pic="' + key + '"]');
     var shown = false;
     if (el) {
       el.setAttribute('data-spine-focus', '');
@@ -80,6 +107,7 @@
       var w = content[key] && content[key][lang];
       if (typeof w === 'string' && w !== applied[key]) show(key, w);
     }
+    if (m.pictures && typeof m.pictures === 'object') showPictures(m.pictures);
     focusOn(typeof m.focus === 'string' ? m.focus : null);
   });
   function ready() { parent.postMessage({ type: 'spine:ready' }, '*'); }

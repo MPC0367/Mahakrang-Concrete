@@ -14,6 +14,7 @@ import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SCHEMA, pairUp, pathOf, unitsOf } from './units.mjs';
+import { scanPictures, withPicMarks } from './pictures.mjs';
 
 const ROOT = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 const WRITE = process.argv.includes('--write');
@@ -130,7 +131,13 @@ export function extract(root = ROOT) {
     f.maxLen = f.type === 'title' ? 140 : f.type === 'description' ? 320 : limit(c.th, c.en);
     f.required = true;
   }
-  return { files, pages, html, marks, fields: [...fields.values()], content };
+  // the photographs (cms/pictures.mjs, 23 November 2026): a picture fact each, its value what the pages show now. The last
+  // registry keeps their sizes where the files are not checked out (the workflows leave media/ out)
+  const prevPics = new Map();
+  try { for (const f of JSON.parse(readFileSync(path.join(root, 'cms', 'registry.json'), 'utf8').replace(/^﻿/, '')).fields ?? []) if (f.type === 'picture') prevPics.set(f.key, f); } catch { /* the first time */ }
+  const pageMeta = (file) => { const p = pathOf(file.startsWith('en/') ? file.slice(3) : file); return { tab: tabOf(p), where: p === '/' ? 'Home page' : p, link: p, paths: { th: p, en: '/en' + p } }; };
+  const pics = scanPictures(root, files, html, pageMeta, prevPics);
+  return { files, pages, html, marks, fields: [...fields.values(), ...pics.fields], content, facts: pics.facts };
 }
 
 // SPINE's preview (js/spine-preview.js) loads only when the page is opened as ?spine-preview=1 inside SPINE
@@ -176,7 +183,7 @@ export const sha = (s) => createHash('sha256').update(s).digest('hex');
 export function writeAll(root, r, { publication = null } = {}) {
   let marked = 0;
   for (const f of r.files) {
-    const out = withLoader(insertMarks(r.html[f], r.marks[f]));
+    const out = withLoader(withPicMarks(insertMarks(r.html[f], r.marks[f])));
     if (out !== r.html[f]) { writeFileSync(path.join(root, f), out); marked += r.marks[f].length; }
   }
   mkdirSync(path.join(root, 'content'), { recursive: true });
@@ -188,10 +195,12 @@ export function writeAll(root, r, { publication = null } = {}) {
   const manPath = path.join(root, 'content', 'manifest.json');
   const man = existsSync(manPath) ? JSON.parse(readFileSync(manPath, 'utf8')) : { revision: 0, recent: [] };
   const prev = man.url ? JSON.parse(readFileSync(path.join(root, man.url), 'utf8')) : null;
-  const hash = sha(canonical(r.content));
+  // the photographs count too: a revision records which picture each one shows
+  const facts = r.facts ?? {};
+  const hash = sha(canonical(Object.keys(facts).length ? { content: r.content, facts } : r.content));
   if (prev && prev.contentHash === hash && !publication) return { marked, regChanged, revision: man.revision, newRevision: false };
   const revision = (man.revision || 0) + 1, at = new Date().toISOString();
-  const snap = { schema: SCHEMA, revision, publishedAt: at, contentHash: hash, publication, content: r.content, facts: {} };
+  const snap = { schema: SCHEMA, revision, publishedAt: at, contentHash: hash, publication, content: r.content, facts };
   writeFileSync(path.join(root, 'content', `r${revision}.json`), JSON.stringify(snap) + '\n');
   const recent = [...(man.recent ?? []), ...(publication ? [{ revision, nonce: publication.nonce, at, keys: publication.keys }] : [])].slice(-500);
   writeFileSync(manPath, JSON.stringify({ schema: SCHEMA, revision, url: `content/r${revision}.json`, publishedAt: at, contentHash: hash, recent }, null, 1) + '\n');

@@ -5,8 +5,10 @@ import { cpSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:f
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { mkdirSync } from 'node:fs';
 import { publish } from './build.mjs';
 import { extract } from './extract.mjs';
+import { fileOf, originalFiles, sizesOf, withPicMarks } from './pictures.mjs';
 import { applyTo, render, unitsOf, wordsOf, wordsSpan } from './units.mjs';
 import { parse, walk } from './html.mjs';
 
@@ -32,6 +34,49 @@ test('a key is used once per page, except the texts shared by every page', () =>
 test('the registry and the newest revision are the words on the pages', () => {
   assert.deepEqual(reg.fields.map((f) => f.key).sort(), r.fields.map((f) => f.key).sort());
   assert.deepEqual(snap.content, r.content);
+  assert.deepEqual(snap.facts ?? {}, r.facts);
+});
+test('every photograph is a picture with its sizes, and every <img> and <source> showing one is marked', () => {
+  const pics = r.fields.filter((f) => f.type === 'picture');
+  assert.ok(pics.length > 30, `${pics.length} photographs`);
+  for (const f of pics) {
+    assert.match(f.key, /^pic\.[a-z0-9-]{1,100}$/);
+    assert.ok(f.variants.length && f.variants.every((v) => v.w > 0 && v.h > 0), `${f.key}: sizes`);
+    assert.ok(f.editable || f.protectReason, `${f.key}: locked without a reason`);
+  }
+  for (const f of r.files) assert.equal(withPicMarks(r.html[f]), r.html[f], `${f}: a photograph not marked`);
+});
+test('a photograph: replaced by a picture whose files are there, refused otherwise, and back to the original byte for byte', () => {
+  const dir = mkdtempSync(path.join(os.tmpdir(), 'mhk-pic-'));
+  try {
+    for (const f of [...r.files, 'cms', 'content', 'js']) cpSync(path.join(ROOT, f), path.join(dir, f), { recursive: true });
+    const inStyle = (f) => r.files.some((x) => /<style[\s\S]*?<\/style>/.test(r.html[x]) && [...r.html[x].matchAll(/<style[\s\S]*?<\/style>/g)].some((m) => originalFiles(f).test(m[0])));
+    const pic = r.fields.find((f) => f.type === 'picture' && f.editable && f.variants.some((v) => v.ext === 'webp') && f.places > 4 && !inStyle(f));
+    const value = `content/media/${pic.key.slice(4)}.${'c'.repeat(16)}`;
+    const pub = (n, v, expect) => ({ schema: 'mahakrang.publish/1', nonce: n.repeat(32), by: 'Test', changes: [{ key: pic.key, value: v, expect: { value: expect } }] });
+    let out = publish(dir, pub('c', value, pic.value));
+    assert.equal(out.status, 'rejected');
+    assert.equal(out.refused[0].reason, 'invalid', 'its files are not there yet');
+    mkdirSync(path.join(dir, 'content', 'media'), { recursive: true });
+    for (const x of sizesOf(pic)) writeFileSync(path.join(dir, fileOf(value, x.s, 'jpg')), 'jpeg');
+    out = publish(dir, pub('d', value, pic.value));
+    assert.equal(out.status, 'built', JSON.stringify(out));
+    assert.deepEqual(out.published, [pic.key]);
+    const mid = extract(dir);
+    assert.equal(mid.facts[pic.key], value);
+    assert.ok(!mid.files.some((f) => originalFiles(pic).test(mid.html[f])), 'an old file still named');
+    assert.ok(mid.files.some((f) => [...mid.html[f].matchAll(/<source\b[^>]*>/g)].some((m) => m[0].includes(value) && /data-pic-type="image\/webp"/.test(m[0]) && /\stype="image\/jpeg"/.test(m[0]))), 'a WebP <source> says image/jpeg now');
+    assert.deepEqual(mid.content, r.content, 'the texts moved');
+    for (const [k, v] of Object.entries(r.facts)) if (k !== pic.key) assert.equal(mid.facts[k], v, `${k} moved`);
+    assert.equal(publish(dir, pub('e', pic.value, pic.value)).refused[0].reason, 'changed');
+    out = publish(dir, pub('f', pic.value, value));
+    assert.equal(out.status, 'built');
+    const back = extract(dir);
+    for (const f of r.files) assert.equal(back.html[f], r.html[f], `${f} is not as it was`);
+    const poster = r.fields.find((f) => f.type === 'picture' && !f.editable);
+    assert.equal(publish(dir, { ...pub('9', value, null), changes: [{ key: poster.key, value: poster.value }] }).refused[0].reason, 'locked');
+    assert.equal(publish(dir, { ...pub('8', value, null), changes: [{ key: pic.key, value: 'content/media/other.' + 'c'.repeat(16) }] }).refused[0].reason, 'invalid');
+  } finally { rmSync(dir, { recursive: true, force: true }); }
 });
 test('publishing every text unchanged changes no byte of any page', () => {
   const seo = new Map();
