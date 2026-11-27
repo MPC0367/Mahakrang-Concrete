@@ -19,12 +19,13 @@ import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 
 const EXT = 'jpe?g|webp|png|avif';
-// a file name ends here: not followed by more of a name (a dot only ends it when no extension follows, as in a sentence)
-const END = '(?![A-Za-z0-9_-]|\\.[A-Za-z0-9])';
+// a file name ends here: not followed by more of a name (a dot only ends it when no more name follows, as in a sentence)
+const END = '(?![A-Za-z0-9_-]|\\.[A-Za-z0-9_-])';
 // a family file as the pages name it; the character before it is not part of a longer name
 const FAMILY = new RegExp(`(?<![A-Za-z0-9_.-])(\\/?)media\\/(?:(m_[0-9a-f]{16})\\/|([a-z0-9][a-z0-9_-]{0,60})\\/([a-z0-9][a-z0-9-]{0,80}?)-)(w\\d{2,5})\\.(${EXT})${END}`, 'g');
-// an uploaded picture's file, with the format the mention had before (?f=webp; none: a JPEG)
-const FMT = '(?:\\?f=(jpeg|webp|png|avif))?';
+// an uploaded picture's file, with the format the mention had before, always written (?f=jpg, ?f=webp; a query the
+// mention already had follows it untouched); none: a JPEG
+const FMT = '(?:\\?f=(jpg|jpeg|webp|png|avif))?';
 const UPLOADED = new RegExp(`(?<![A-Za-z0-9_.-])(\\/?)content\\/media\\/([a-z0-9][a-z0-9-]{0,100})\\.([a-f0-9]{16})-(w\\d{2,5})\\.jpg${FMT}${END}`, 'g');
 const TAG = /<([a-zA-Z][a-zA-Z0-9-]*)\b(?:[^>"']|"[^"]*"|'[^']*')*>/g;
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\-]/g, '\\$&');
@@ -75,7 +76,7 @@ function dimsOf(root, file) {
   try {
     const at = path.join(root, file);
     if (existsSync(at)) return imageSize(readFileSync(at));
-    return imageSize(execFileSync('git', ['-C', root, 'show', `HEAD:${file}`], { maxBuffer: 64 * 1024 * 1024, stdio: ['ignore', 'pipe', 'ignore'] }));
+    return imageSize(execFileSync('git', ['-C', root, 'show', `HEAD:${file}`], { maxBuffer: 64 * 1024 * 1024, timeout: 30000, stdio: ['ignore', 'pipe', 'ignore'] }));
   } catch { return null; }
 }
 const attrOf = (tag, name) => { const m = new RegExp(`\\s${name}\\s*=\\s*("([^"]*)"|'([^']*)')`, 'i').exec(tag); return m ? (m[2] ?? m[3]) : null; };
@@ -197,12 +198,13 @@ export function rewritePictures(html, changes, fields) {
     const fam = originalFiles(f), up = uploadedFiles(f);
     const mine = (t) => { fam.lastIndex = 0; up.lastIndex = 0; const hit = fam.test(t) || up.test(t); fam.lastIndex = 0; up.lastIndex = 0; return hit; };
     // a mention's format, kept with the uploaded picture's JPEG (?f=webp) so that going back gives exactly it again
-    const keep = (ext) => { const e = ext.toLowerCase(); return e === 'jpg' ? '' : `?f=${e}`; };
+    // (always written, a JPEG's too: a query the mention had already, even ?f=…, then stays the page's own)
+    const keep = (ext) => `?f=${ext.toLowerCase()}`;
     if (value !== f.value) {
       // to the uploaded picture: every width becomes its JPEG; a <source> or <link> that declared another type says
       // image/jpeg, and keeps the type it had (data-pic-type)
       const toFrom = (m, slash, s, ext) => `${slash}${value}-${s}.jpg${keep(ext)}`;
-      const toUp = (m, slash, hex, s, fmt) => `${slash}${value}-${s}.jpg${fmt ? `?f=${fmt}` : ''}`;
+      const toUp = (m, slash, hex, s, fmt) => `${slash}${value}-${s}.jpg?f=${fmt || 'jpg'}`;
       out = out.replace(TAG, (tag, nm) => {
         if (!mine(tag)) return tag;
         let t = tag.replace(fam, toFrom).replace(up, toUp);
