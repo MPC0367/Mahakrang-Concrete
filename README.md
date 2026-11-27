@@ -75,6 +75,13 @@ the footer's phone line links it and, on the live site, "Cookie settings". Every
 Google's tag and collection hosts. Styles "the cookie question and the cookie policy" at the end of `assets/site.css`.
 Made here by hand, not in mahakrang-v2: add it there, or a rebuild drops it.
 
+Since 27 Nov 2026 (branch `ga-contacts-2026-11-27`; the owner: "conversion rate … viewer to buyer and requests") a tap on
+a phone number or the e-mail address, or "copy number", is sent to Google Analytics as `contact_handoff`
+`{ method: phone | email | copy_number, line: main | office }`, only while it is on (`onContact` in `js/consent.js`); it
+says a visitor reached for a way to get in touch, never that a call or an order happened. The question and the cookie
+policy say so, and the answer's version is 2, so everyone is asked once more. `contact_handoff` is a key event in the
+property, so Reports → Engagement → Key events shows the rate. Made here by hand, not in mahakrang-v2.
+
 Since 20 Nov 2026 (branch `home-art-2026-11-20`) the home page tells a story under the four cards, which stay first:
 six chapters (`.hm-ed` in `index.html` and `en/index.html`, styles "the home page story under the four cards" and the
 "motion" block in `assets/site.css`, a small inline script at the end of the block): 01 a manifesto on warm paper with

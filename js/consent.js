@@ -19,7 +19,8 @@
    the numbers here: CONSENT_DAYS, the cookie names, and the property's 2-month retention. */
 const ID = 'G-CJ6WM47SN9';
 const HOSTS = ['mahakrangconcrete.com', 'www.mahakrangconcrete.com'];
-const KEY = 'mk.cookies.v1', VERSION = 1, CONSENT_DAYS = 180, LAYER = 'mkgtag';
+/* VERSION 2 (27 Nov 2026): the question also names taps to call or e-mail, so every earlier answer is asked once more */
+const KEY = 'mk.cookies.v1', VERSION = 2, CONSENT_DAYS = 180, LAYER = 'mkgtag';
 
 const H = document.documentElement;
 const EN = (H.getAttribute('lang') || 'th').slice(0, 2) === 'en';
@@ -28,8 +29,8 @@ const HERE = HOSTS.indexOf(location.hostname) >= 0 || window.__mkGaTest === true
 const T = (th, en) => (EN ? en : th);
 const W = {
   askH: T('อนุญาตให้ใช้คุกกี้ของ Google Analytics หรือไม่', 'Cookies for Google Analytics?'),
-  askP: T('ถ้าคุณอนุญาต Google Analytics จะตั้งคุกกี้เพื่อให้เรานับจำนวนการเข้าชมและดูว่าหน้าไหนมีคนอ่าน ไม่ใช้เพื่อการโฆษณา และไม่ส่งสิ่งที่คุณพิมพ์',
-    'With your yes, Google Analytics sets cookies so we can count visits and see which pages are read. Never for advertising, and nothing you type is sent.'),
+  askP: T('ถ้าคุณอนุญาต Google Analytics จะตั้งคุกกี้เพื่อให้เรานับจำนวนการเข้าชม ดูว่าหน้าไหนมีคนอ่าน และดูว่ามีคนกดโทรหรือส่งอีเมลถึงเรากี่ครั้ง ไม่ใช้เพื่อการโฆษณา และไม่ส่งสิ่งที่คุณพิมพ์',
+    'With your yes, Google Analytics sets cookies so we can count visits, see which pages are read and how often people tap to call or e-mail us. Never for advertising, and nothing you type is sent.'),
   more: T('อ่านนโยบายคุกกี้', 'Read the cookie policy'),
   accept: T('ยอมรับ', 'Accept'), decline: T('ปฏิเสธ', 'Decline'), close: T('ปิด', 'Close'),
   settingsH: T('ตั้งค่าคุกกี้', 'Cookie settings'),
@@ -103,6 +104,26 @@ function stopGA() {
   window['ga-disable-' + ID] = true;
   if (gtag) gtag('consent', 'update', { analytics_storage: 'denied' });
   deleteCookies();
+}
+/* Getting in touch, for the rate of visitors who reach for a way to contact the company (27 Nov 2026, the owner:
+   "conversion rate … viewer to buyer and requests"): a tap on a phone number or the e-mail address, or "copy number",
+   is sent as contact_handoff { method: phone | email | copy_number, line: main | office } while Google Analytics is on.
+   It says a visitor reached for a way to get in touch, never that a call was made or an order placed, and nothing about
+   the visitor. The cookie policy (/cookies/, /en/cookies/) names it under what Google receives. */
+const lineOf = (s) => (String(s).replace(/\D/g, '').endsWith('632249426') ? 'office' : 'main');
+function contactOf(el) {
+  const a = el.closest('a[href]');
+  const h = a ? a.getAttribute('href') || '' : '';
+  if (/^tel:/i.test(h)) return { method: 'phone', line: lineOf(h) };
+  if (/^mailto:/i.test(h)) return { method: 'email' };
+  const b = el.closest('[data-copy]');
+  if (b && /^\+?[\d -]{9,}$/.test(b.dataset.copy || '')) return { method: 'copy_number', line: lineOf(b.dataset.copy) };
+  return null;
+}
+function onContact(e) {
+  if (!gtag || window['ga-disable-' + ID]) return;
+  const c = e.target instanceof Element ? contactOf(e.target) : null;
+  if (c) gtag('event', 'contact_handoff', c);
 }
 /* _ga, _ga_<stream> and the older _gid/_gat, set on the widest domain the browser allows: cleared on every one */
 function deleteCookies() {
@@ -180,6 +201,7 @@ function afterOpening(fn) {
     b.addEventListener('click', () => { show('settings', facts); opener = b; });
   });
   if (signal()) { deleteCookies(); return; }
+  document.addEventListener('click', onContact, true);
   const c = readChoice();
   if (c && !c.analytics) { deleteCookies(); return; }
   if (c && c.analytics) startGA(facts);
