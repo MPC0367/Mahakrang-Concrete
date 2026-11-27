@@ -14,8 +14,13 @@ Since 9 Nov 2026 the site is served from the domain's root, so every address sta
 `CNAME` file: without it GitHub Pages drops the custom domain.
 
 Content is managed in the v2 admin, which needs the Node server and is not part of this static site.
-Search engines may list it since 9 Nov 2026 (the owner's word): content pages carry `index, follow`, an absolute
-canonical and th/en hreflang, `robots.txt` names `sitemap.xml` (58 pages). Kept `noindex`: the redirect pages, 404s,
+**Since 27 Nov 2026 no page may be listed** (the owner: "make mahakrang's site no index first for now … the site
+itself is not finished yet so i want google to unindex it"): the 58 content pages carry `noindex, follow`. Keep
+`robots.txt` allowing everything (a blocked page's noindex is never read, so it would stay in Google), and keep
+`sitemap.xml` (its dates were set to 27 Nov so search engines come back and see the noindex). A rebuild from the
+source must keep the noindex until the owner says the site may be found again; then put `index, follow` back on those
+58 pages only. Before that, from 9 Nov 2026 (the owner's word): content pages carried `index, follow`, an absolute
+canonical and th/en hreflang, `robots.txt` names `sitemap.xml` (58 pages). Kept `noindex` throughout: the redirect pages, 404s,
 search results, the order-by-phone contact page and the three lab batch reports (sample test records). The IndexNow key
 file is the 32-character `.txt` at the root. Records marked "ข้อมูลตัวอย่าง" are still sample data.
 Since 10 Nov 2026 the site is no longer a review build (the owner's word): the "Structural review build" bar is off

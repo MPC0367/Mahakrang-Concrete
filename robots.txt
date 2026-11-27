@@ -1,3 +1,5 @@
+# 27 Nov 2026: every page carries noindex until the website is finished (the owner's word).
+# Crawling stays allowed so search engines can read the noindex and drop the pages.
 User-agent: *
 Allow: /
 
